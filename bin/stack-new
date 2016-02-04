@@ -145,6 +145,7 @@ cat << EOF > .gitignore
 /*.prof
 .DS_Store
 .*.sw?
+.stack-work
 EOF
 
 #
@@ -184,7 +185,7 @@ main :: IO ()
 main = hspec $ do
     describe "testing stuff" $ do
 
-        it "foo returns the the expected value" $ do
+        it "foo returns the expected value" $ do
             foo \`shouldBe\` ("foo" :: String)
 EOF
 

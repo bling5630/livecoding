@@ -131,7 +131,7 @@ map <leader>s :exe '!clear && stack test'<CR>
 map <leader>t "zyiw:exe 'tag '.@z<CR>
 "" tags - generate tags
 map <leader>T :exe '!clear && hasktags --ctags ./src'<CR>
-"" undo - return from tagreturn from tag
+"" undo - return from tag
 map <leader>z :exe 'pop'<CR>
 EOF
 

@@ -106,6 +106,20 @@ TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 EOF
 
+#
+# Generate the Dockerfile
+#
+cat << EOF > Dockerfile
+FROM alpine:latest
+
+ADD .stack-work/install/x86_64-linux/lts-5.1/7.10.3/bin /main
+
+RUN apk update \
+      && apk add gmp
+
+CMD /main/$PACKAGE_NAME-app
+EOF
+
 
 #
 # create a project specific .vimrc file
@@ -124,7 +138,7 @@ map <leader>i :exe '!clear && stack ghci'<CR>
 "" lint - lint current file
 map <leader>l "zyiw:exe '!clear && hlint -c=auto -s '.@%<CR>
 "" run - run program
-map <leader>r :exe '!clear && stack build && clear && stack exec hello-world-app'<CR>
+map <leader>r :exe '!clear && stack build && clear && stack exec $PACKAGE_NAME-app'<CR>
 "" spec - run specs
 map <leader>s :exe '!clear && stack test'<CR>
 "" tags - jump to tag
@@ -203,5 +217,3 @@ main = hspec $ do
         it "foo returns the expected value" $ do
             foo \`shouldBe\` ("foo" :: String)
 EOF
-
-stack init

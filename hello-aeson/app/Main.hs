@@ -2,8 +2,6 @@
 
 module Main where
 
--- import qualified Data.Text as T
--- import qualified Data.Text.IO as T
 -- import qualified Data.Text.Encoding as T
 -- import qualified Data.ByteString.Lazy as B
 -- import Data.Aeson
@@ -22,8 +20,36 @@ module Main where
 --     T.putStrLn $ T.decodeUtf8 $ A.encode (1 :: Integer)
 --
 
-import qualified Data.Aeson as A
-import Data.ByteString.Lazy as B
+import           Control.Monad
+import           Data.Aeson
+import qualified Data.ByteString.Lazy as B
+import           Data.Text.Encoding
+
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
+
+data Person = Person
+    { firstName  :: !T.Text
+    , lastName   :: !T.Text
+    , age        :: Integer
+    , likesPizza :: Bool
+    } deriving Show 
+
+instance FromJSON Person where
+    parseJSON (Object v) =
+        Person <$> v .: "firstName"
+               <*> v .: "lastName"
+               <*> v .: "age"
+               <*> v .: "likesPizza"
+    parseJSON _ = mzero
+
+getJSON :: IO B.ByteString
+getJSON = B.readFile "sample.json" 
 
 main = do
-    B.putStrLn $ A.encode(1 :: Integer)
+    d <- (decode <$> getJSON) :: IO (Maybe [Person])
+    case d of
+        Nothing -> Prelude.putStrLn "bang!"
+        Just (p:ps)  -> T.putStrLn $ lastName p
+
+-- http://blog.raynes.me/blog/2012/11/27/easy-json-parsing-in-haskell-with-aeson/

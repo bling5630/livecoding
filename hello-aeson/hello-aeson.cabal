@@ -30,6 +30,7 @@ executable hello-aeson-app
                        , text
                        , bytestring
                        , aeson
+                       , bytestring-show
 
 test-suite hello-aeson-test
   type:                exitcode-stdio-1.0

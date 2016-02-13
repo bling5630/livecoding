@@ -32,6 +32,10 @@ USER_EMAIL=$(git config user.email)
 #
 # initialize the project directory
 #
+if [[ -e $PACKAGE_NAME ]]; then
+  echo "ERROR, $PACKAGE_NAME already exists"
+  exit 1
+fi
 mkdir $PACKAGE_NAME
 cd $PACKAGE_NAME
 mkdir "src" "app" "test"
@@ -106,19 +110,6 @@ TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
 EOF
 
-#
-# Generate the Dockerfile
-#
-cat << EOF > Dockerfile
-FROM alpine:latest
-
-ADD .stack-work/install/x86_64-linux/lts-5.1/7.10.3/bin /main
-
-RUN apk update \
-      && apk add gmp
-
-CMD /main/$PACKAGE_NAME-app
-EOF
 
 
 #

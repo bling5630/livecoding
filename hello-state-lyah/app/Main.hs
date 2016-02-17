@@ -20,6 +20,8 @@ pop = do
 
 stackStuff :: State AppState AppValue
 stackStuff = do
+    state (\s -> (1, [42]))
+    modify (\s -> [10,11,12,13])
     push 3
     push 2
     push 1

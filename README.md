@@ -9,7 +9,8 @@ libraries that would be useful in backend server programming.  Some things
 I epxpect I'll spend time exploring:
 
   * json                        - aeson
-  * yaml                        -
+  * yaml                        - yaml
+  * xml                         - xml
   * web client                  - wreq
   * web server                  - wai, spock, yesod
   * command line parsing        - optparse-applicative
@@ -17,10 +18,14 @@ I epxpect I'll spend time exploring:
   * testing                     - hspec, quickcheck
   * date/time                   - time, tz
   * run external processes      -
+  * profiling/benchmarking
   * ...
+
 
 
 Packages to look into
 
+  * lens
   * ghcid
   * ekg
+  * shake   [http://shakebuild.com](http://shakebuild.com/)

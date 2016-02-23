@@ -37,4 +37,6 @@ Packages to look into
   * [lens-tutorial-part-1](http://blog.jakubarnold.cz/2014/07/14/lens-tutorial-introduction-part-1.html)
   * [lens-tutorial-part-2](http://blog.jakubarnold.cz/2014/08/06/lens-tutorial-stab-traversal-part-2.html)
   * [power parsing with haskell and parsec](http://blog.moertel.com/posts/2005-08-27-power-parsing-with-haskell-and-parsec.html)
+  * [What's in a parser combinator](http://remusao.github.io/whats-in-a-parser-combinator.html)
+  * [bnfc](http://bnfc.digitalgrammars.com/)
 

@@ -1,0 +1,44 @@
+name:                  serial-number-parser
+version:               0.0.1
+homepage:              https://github.com/mgreenly
+license:               ISC
+license-file:          LICENSE
+author:                Michael Greenly
+maintainer:            mgreenly@gmail.com
+build-type:            Simple
+cabal-version:         >=1.10
+
+library
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  exposed-modules:     SerialNumberParser
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+
+
+executable serial-number-parser-app
+  default-language:    Haskell2010
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+                       , serial-number-parser
+                       , parsec
+
+test-suite serial-number-parser-test
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                       , serial-number-parser
+                       , hspec
+                       , QuickCheck
+
+source-repository head
+  type:               git
+  location:           https://github.com/mgreenly/serial-number-parser

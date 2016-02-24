@@ -27,53 +27,40 @@ data ManfCode = ManfCode
     , manf    :: String
     } deriving Show
 
-serialString :: GenParser Char st SerialNumber 
-serialString = do
-    mc <- manfRecord
-    s  <- serialIdString
-    m  <- monthLetter
-    by <- buildYearDigit
-    my <- modelYearDigits
-    newline
-    return SerialNumber 
-        { manfCode = mc
-        , serialId = s
-        , month = m
-        , buildYear = by
-        , modelYear = my
-        }
+serialString :: GenParser Char st SerialNumber
+serialString = SerialNumber
+            <$> manfRecord
+            <*> serialIdString
+            <*> monthLetter
+            <*> buildYearDigit
+            <*> modelYearDigits
+            <*  newline
 
 manfRecord :: GenParser Char st ManfCode
-manfRecord = do
-    (c, d) <-  try longManfString
-           <|> shortManfString 
-           <?> "manf designator with optional country code"
-    return ManfCode { country = c, manf = d }
+manfRecord =  try longManfString
+          <|> shortManfString
+          <?> "manf designator with optional country code"
 
-longManfString :: GenParser Char st (Maybe String, String)
-longManfString = do
-    c <- count 2 letter
-    d <- count 3 letter
-    return (Just c, d)
+longManfString :: GenParser Char st ManfCode
+longManfString = ManfCode . Just <$> count 2 letter
+                                 <*> count 3 letter
 
-shortManfString :: GenParser Char st (Maybe String, String)
-shortManfString = do
-    d <- count 3 letter
-    return (Nothing, d)
+shortManfString :: GenParser Char st ManfCode
+shortManfString = ManfCode Nothing <$> count 3 letter
 
 serialIdString :: GenParser Char st String
-serialIdString = return =<< count 5 digit
+serialIdString = count 5 digit
 
 monthLetter :: GenParser Char st Char
-monthLetter = return =<< oneOf "abcdefghijklABCDEFGHIJKL"
+monthLetter = oneOf "abcdefghijklABCDEFGHIJKL"
 
 buildYearDigit :: GenParser Char st Char
-buildYearDigit = return =<< digit
+buildYearDigit = digit
 
 modelYearDigits :: GenParser Char st String
-modelYearDigits = return =<< count 2 digit
+modelYearDigits = count 2 digit
 
 parseSerial :: String -> Either ParseError SerialNumber
-parseSerial input = parse serialString "unknown" input
+parseSerial = parse serialString "unknown"
 
 main = print $ parseSerial "XYZ12345l616\n"

@@ -2,7 +2,6 @@
 
 
 
-
   # datecode format 'MyYY'
   #   M  - a letter [A-L] designating the month of production
   #   y  - the last digit of the year of manufacture

@@ -16,7 +16,7 @@ library
                        -threaded
                        "-with-rtsopts=-N"
   build-depends:       base                    >= 4.8
-
+                       , parsec
 
 executable serial-number-parser-app
   default-language:    Haskell2010
@@ -27,7 +27,6 @@ executable serial-number-parser-app
                        "-with-rtsopts=-N"
   build-depends:       base                    >= 4.8
                        , serial-number-parser
-                       , parsec
 
 test-suite serial-number-parser-test
   type:                exitcode-stdio-1.0
@@ -38,6 +37,7 @@ test-suite serial-number-parser-test
                        , serial-number-parser
                        , hspec
                        , QuickCheck
+                       , parsec
 
 source-repository head
   type:               git

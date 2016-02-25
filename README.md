@@ -15,10 +15,12 @@ I epxpect I'll spend time exploring:
   * web server                  - wai, spock, yesod
   * command line parsing        - optparse-applicative
   * sql database access         - postgresql-simple
-  * testing                     - hspec, quickcheck
   * date/time                   - time, tz
+  * parsing                     - parsec
   * run external processes      -
   * profiling/benchmarking
+  * testing                     - hspec, quickcheck
+  * haddoc
   * ...
 
 

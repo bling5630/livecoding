@@ -23,12 +23,11 @@ I epxpect I'll spend time exploring:
   * haddoc
   * ...
 
-
-
-Packages to look into
+Things to look into
 
   * lens
-  * lens
+  * pipes
+  * conduit
   * ghcid
   * ekg
   * shake   [http://shakebuild.com](http://shakebuild.com/)
@@ -41,4 +40,5 @@ Packages to look into
   * [power parsing with haskell and parsec](http://blog.moertel.com/posts/2005-08-27-power-parsing-with-haskell-and-parsec.html)
   * [What's in a parser combinator](http://remusao.github.io/whats-in-a-parser-combinator.html)
   * [bnfc](http://bnfc.digitalgrammars.com/)
+  * [generic programming](http://research.microsoft.com/en-us/um/people/simonpj/papers/hmap/)
 

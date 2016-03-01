@@ -41,4 +41,9 @@ Things to look into
   * [What's in a parser combinator](http://remusao.github.io/whats-in-a-parser-combinator.html)
   * [bnfc](http://bnfc.digitalgrammars.com/)
   * [generic programming](http://research.microsoft.com/en-us/um/people/simonpj/papers/hmap/)
+  * [Haskell/Elm SPA part 1](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
+  * [Haskell/Elm SPA part 2](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
+  * [Haskell/Elm SPA part 3](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
+  * [Haskell/Elm SPA part 4](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
+
 

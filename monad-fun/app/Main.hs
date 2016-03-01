@@ -3,142 +3,128 @@ module Main where
 import Data.Either
 
 
-
-
 -- 
--- XIdentity
+-- Identity
 --
-data XIdentity a = XIdentity a deriving (Eq, Show)
+data Identity a = Identity a deriving (Eq, Show)
 
-instance Functor XIdentity where
-    -- (a -> b) -> f a -> f b 
-    fmap f (XIdentity a) = XIdentity (f a)
+instance Functor Identity where
+    fmap f (Identity a) = Identity (f a)
 
-instance Applicative XIdentity where
-    pure a = XIdentity a
-    -- f (a -> b) -> f a -> f b
-    (<*>) (XIdentity f) (XIdentity v) = XIdentity (f v)
+instance Applicative Identity where
+    pure a = Identity a
+    (<*>) (Identity f) (Identity v) = Identity (f v)
 
-instance Monad XIdentity where
-    -- a -> m a
+instance Monad Identity where
     return = pure
-    -- m a -> (a -> m b) -> m b
-    (XIdentity a) >>= f = f a
-
+    (Identity a) >>= f = f a
 
 --
--- XMaybe
+-- Option (Maybe)
 --
-data XMaybe a = XJust a | XNothing deriving (Eq, Show)
+data Option a = Some a | None deriving (Eq, Show)
 
-instance Functor XMaybe where
-    -- (a -> b) -> f a -> f b 
-    fmap f XNothing = XNothing
-    fmap f (XJust a) = XJust $ f a
+instance Functor Option where
+    fmap f None = None
+    fmap f (Some a) = Some $ f a
 
-instance Applicative XMaybe where
-    -- a -> m a
-    pure  a = XJust a
-    -- f (a -> b) -> f a -> f b 
-    (<*>) _ XNothing = XNothing
-    (<*>) (XJust f) (XJust a) = XJust (f a)
+instance Applicative Option where
+    pure  a = Some a
+    (<*>) _ None = None
+    (<*>) (Some f) (Some a) = Some (f a)
 
-instance Monad XMaybe where
-    -- a -> m a
+instance Monad Option where
     return = pure
-    -- m a -> (a -> m b) -> m b
-    (>>=) XNothing _ = XNothing 
-    (>>=) (XJust a) f = f a
+    (>>=) None _ = None 
+    (>>=) (Some a) f = f a
 
 --
--- XEither
+-- Alternative (Either)
 --
-data XEither a b = XLeft a | XRight b deriving (Eq, Show)
+data Alternative a b = Failure a | Success b deriving (Eq, Show)
 
-instance Functor (XEither a) where
-    -- (a -> b) -> f a -> f b
-    fmap f (XLeft a) = XLeft a  
-    fmap f (XRight b) = XRight $ f b
+instance Functor (Alternative a) where
+    fmap f (Failure a) = Failure a  
+    fmap f (Success b) = Success $ f b
 
-instance Applicative (XEither a) where
-    -- a -> m a
-    pure a = XRight a
-    -- f (a -> b) -> f a -> f b
-    (<*>) _ (XLeft a) = XLeft a
-    (<*>) (XRight f) (XRight a) = XRight $ f a 
+instance Applicative (Alternative a) where
+    pure a = Success a
+    (<*>) _ (Failure a) = Failure a
+    (<*>) (Success f) (Success a) = Success $ f a 
 
-instance Monad (XEither a) where
-    -- a -> m a
+instance Monad (Alternative a) where
     return = pure
-    -- m a -> (a -> m b) -> m b
-    (>>=) (XLeft a) _ = XLeft a
-    (>>=) (XRight a) f = f a
+    (>>=) (Failure a) _ = Failure a
+    (>>=) (Success a) f = f a
 
 --
--- XList
+-- XList (List)
 --
-data XList a = XEmpty | XCons a (XList a) deriving (Eq, Show)
+data XList a = Nil | Cons a (XList a) deriving (Eq, Show)
+
+xappend :: XList a -> XList a -> XList a
+xappend Nil ys = ys
+xappend (Cons x xs) ys = x `Cons` (xs `xappend` ys)
+
+xconcat :: XList (XList a) -> XList a
+xconcat Nil           = Nil
+xconcat (Cons x Nil) = x
+xconcat (Cons x xs) = x `xappend` xconcat xs
 
 instance Functor XList where
-    -- (a -> b) -> f a -> f b
-    fmap _ XEmpty = XEmpty
-    fmap f (XCons a as) = XCons (f a) (fmap f as) 
+    fmap _ Nil = Nil
+    fmap f (Cons a as) = Cons (f a) (fmap f as) 
 
 instance Applicative XList where
-    -- a -> m a
-    pure a = XCons a XEmpty
-    -- f (a -> b) -> f a -> f b
-    (<*>) _ XEmpty = XEmpty
-    (<*>) (XCons f _) (XCons a as) = XCons (f a) (fmap f as)
+    pure a = Cons a Nil
+    (<*>) _ Nil = Nil
+    (<*>) (Cons f _) (Cons a as) = Cons (f a) (fmap f as)
 
 instance Monad XList where
-    -- a -> m a
     return = pure
-    -- m a -> (a -> m b) -> m b
-    (>>=) XEmpty _ = XEmpty
-    --(>>=) (XCons a as) f = XCons (f a) (fmap f as)
+    xs >>= f = xconcat (fmap f xs)  
 
+--
 -- XWriter
 -- XReader
 -- XState
 --
 
 
+
 main = do
-    print $ fmap (+1) $ XIdentity 7
-    print $ pure ((+1)) <*> XIdentity 3
-    print $ xidentity >>= \x -> return $ x + 1
-    --
-    print $ fmap (+1) (XNothing)
-    print $ fmap (+1) (XJust 1)
-    print $ pure ((+1)) <*> XNothing 
-    print $ pure ((+1)) <*> XJust 1
-    print $ xmaybe0 >>= \x -> return $ x + 1
-    print $ xmaybe1 >>= \x -> return $ x + 1
-    --
-    print $ fmap (+1) xeitherl 
-    print $ fmap (+1) eitherr 
-    print $ pure ((+1)) <*> xeitherl 
-    print $ pure ((+1)) <*> xeitherr 
-    print $ xeitherl >>= \x -> return $ x + 1 
-    print $ xeitherr >>= \x -> return $ x + 1 
-    --
-    print $ fmap (+1) XEmpty
-    print $ fmap (+1) xlist 
-    print $ pure (+1) <*> XEmpty
-    print $ pure (+1) <*> xlist
-
-    print $ [] >>= \x -> return $ x + 1
-    print $ [1,2,3] >>= \x -> return $ x + 1
-
-    print $ XEmpty >>= \x -> return $ x + 1
-
-  where xidentity = XIdentity 41
-        xmaybe0 = XNothing
-        xmaybe1 = XJust 41
-        eitherl = Left "error message"
-        eitherr = Right 41 :: Either String Int 
-        xeitherl = XLeft "xerror message" :: XEither String Int
-        xeitherr = XRight 41 :: XEither String Int
-        xlist = XCons 1 (XCons 2 (XCons 3 XEmpty))
+     print $ fmap (+1) $ Identity 7
+     print $ pure ((+1)) <*> Identity 3
+     print $ identity >>= \x -> return $ x + 1
+     --
+     print $ fmap (+1) (None)
+     print $ fmap (+1) (Some 1)
+     print $ pure ((+1)) <*> None 
+     print $ pure ((+1)) <*> Some 1
+     print $ none >>= \x -> return $ x + 1
+     print $ some >>= \x -> return $ x + 1
+     --
+     print $ fmap (+1) failure 
+     print $ pure ((+1)) <*> failure 
+     print $ pure ((+1)) <*> success 
+     print $ failure >>= \x -> return $ x + 1 
+     print $ success >>= \x -> return $ x + 1 
+     --
+     print $ fmap (+1) Nil
+     print $ fmap (+1) xlist 
+     print $ pure (+1) <*> Nil
+     print $ pure (+1) <*> xlist
+ 
+     print $ [] >>= \x -> return $ x + 1
+     print $ [1,2,3] >>= \x -> return $ x + 1
+ 
+     print $ Nil >>= \x -> return $ x + 1
+     print $ xlist >>= \x -> return $ x + 1
+ 
+   where identity = Identity 41
+         none = None
+         some = Some 41
+         failure = Failure "xerror message" :: Alternative String Int
+         success = Success 41 :: Alternative String Int
+         xlist = Cons 1 (Cons 2 (Cons 3 Nil))
 

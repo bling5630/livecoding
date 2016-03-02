@@ -1,8 +1,5 @@
 module Main where
 
-import Data.Either
-
-
 -- 
 -- Identity
 --
@@ -84,14 +81,6 @@ instance Monad XList where
     return = pure
     xs >>= f = xconcat (fmap f xs)  
 
---
--- XWriter
--- XReader
--- XState
---
-
-
-
 main = do
      print $ fmap (+1) $ Identity 7
      print $ pure ((+1)) <*> Identity 3
@@ -120,7 +109,6 @@ main = do
  
      print $ Nil >>= \x -> return $ x + 1
      print $ xlist >>= \x -> return $ x + 1
- 
    where identity = Identity 41
          none = None
          some = Some 41

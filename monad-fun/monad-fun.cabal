@@ -27,6 +27,7 @@ executable monad-fun-app
                        "-with-rtsopts=-N"
   build-depends:       base                    >= 4.8
                        , monad-fun
+                       , mtl
 
 test-suite monad-fun-test
   type:                exitcode-stdio-1.0

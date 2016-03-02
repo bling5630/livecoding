@@ -33,7 +33,7 @@ Things to look into
   * shake   [http://shakebuild.com](http://shakebuild.com/)
 
 
-## References
+## References & Links
 
   * [lens-tutorial-part-1](http://blog.jakubarnold.cz/2014/07/14/lens-tutorial-introduction-part-1.html)
   * [lens-tutorial-part-2](http://blog.jakubarnold.cz/2014/08/06/lens-tutorial-stab-traversal-part-2.html)
@@ -45,5 +45,7 @@ Things to look into
   * [Haskell/Elm SPA part 2](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
   * [Haskell/Elm SPA part 3](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
   * [Haskell/Elm SPA part 4](http://rundis.github.io/blog/2015/haskell_elm_spa_part1.html)
-
+  * [mutable algorithms in immutable languages part 1](https://tel.github.io/posts/mutable_algorithms_in_immutable_languges_part_1/)
+  * [mutable algorithms in immutable languages part 2](https://tel.github.io/posts/mutable_algorithms_in_immutable_languages_part_2/)
+  * [mutable algorithms in immutable languages part 3](https://tel.github.io/posts/mutable_algorithms_in_immutable_languages_part_3/)
 

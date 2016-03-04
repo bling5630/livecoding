@@ -81,38 +81,63 @@ instance Monad XList where
     return = pure
     xs >>= f = xconcat (fmap f xs)  
 
+--
+-- XWriter
+--
+data XWriter w a = XWriter { xrunWriter :: (a, w) } deriving (Eq, Show)
+
+instance Functor (XWriter w) where
+    fmap f (XWriter {xrunWriter=(a, w)}) = XWriter { xrunWriter=(f a, w) }
+
+instance (Monoid w) => Applicative (XWriter w) where
+    pure a = XWriter { xrunWriter=(a, mempty) }
+    (<*>) (XWriter {xrunWriter=(f, _)}) (XWriter {xrunWriter=(a, w)}) = XWriter { xrunWriter=(f a, w) }
+
+instance (Monoid w) => Monad (XWriter w) where
+    return = pure
+    (XWriter (x,v)) >>= f = let (XWriter (y, v')) = f x in XWriter (y, v `mappend` v')
+
+--
+-- Reader
+--
+
 main = do
-     print $ fmap (+1) $ Identity 7
-     print $ pure ((+1)) <*> Identity 3
-     print $ identity >>= \x -> return $ x + 1
-     --
-     print $ fmap (+1) (None)
-     print $ fmap (+1) (Some 1)
-     print $ pure ((+1)) <*> None 
-     print $ pure ((+1)) <*> Some 1
-     print $ none >>= \x -> return $ x + 1
-     print $ some >>= \x -> return $ x + 1
-     --
-     print $ fmap (+1) failure 
-     print $ pure ((+1)) <*> failure 
-     print $ pure ((+1)) <*> success 
-     print $ failure >>= \x -> return $ x + 1 
-     print $ success >>= \x -> return $ x + 1 
-     --
-     print $ fmap (+1) Nil
-     print $ fmap (+1) xlist 
-     print $ pure (+1) <*> Nil
-     print $ pure (+1) <*> xlist
- 
-     print $ [] >>= \x -> return $ x + 1
-     print $ [1,2,3] >>= \x -> return $ x + 1
- 
-     print $ Nil >>= \x -> return $ x + 1
-     print $ xlist >>= \x -> return $ x + 1
-   where identity = Identity 41
-         none = None
-         some = Some 41
-         failure = Failure "xerror message" :: Alternative String Int
-         success = Success 41 :: Alternative String Int
-         xlist = Cons 1 (Cons 2 (Cons 3 Nil))
+    print $ fmap (+1) $ Identity 7
+    print $ pure ((+1)) <*> Identity 3
+    print $ identity >>= \x -> return $ x + 1
+    --
+    print $ fmap (+1) (None)
+    print $ fmap (+1) (Some 1)
+    print $ pure ((+1)) <*> None
+    print $ pure ((+1)) <*> Some 1
+    print $ none >>= \x -> return $ x + 1
+    print $ some >>= \x -> return $ x + 1
+    --
+    print $ fmap (+1) failure
+    print $ pure ((+1)) <*> failure
+    print $ pure ((+1)) <*> success
+    print $ failure >>= \x -> return $ x + 1
+    print $ success >>= \x -> return $ x + 1
+    --
+    print $ fmap (+1) Nil
+    print $ fmap (+1) xlist
+    print $ pure (+1) <*> Nil
+    print $ pure (+1) <*> xlist
+  
+    print $ [] >>= \x -> return $ x + 1
+    print $ [1,2,3] >>= \x -> return $ x + 1
+  
+    print $ Nil >>= \x -> return $ x + 1
+    print $ xlist >>= \x -> return $ x + 1
+    putStrLn "--\n-- writer\n--"
+    print $ fmap (+1) writer
+    print $ pure (+1) <*> writer
+    print $ writer >>= \x -> return $ x + 1
+  where identity = Identity 41
+        none = None
+        some = Some 41
+        failure = Failure "xerror message" :: Alternative String Int
+        success = Success 41 :: Alternative String Int
+        xlist = Cons 1 (Cons 2 (Cons 3 Nil))
+        writer = (XWriter { xrunWriter = ( 0, []) } :: XWriter [Int] Int)
 

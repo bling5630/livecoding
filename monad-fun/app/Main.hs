@@ -9,7 +9,7 @@ instance Functor Identity where
     fmap f (Identity a) = Identity (f a)
 
 instance Applicative Identity where
-    pure a = Identity a
+    pure = Identity
     (<*>) (Identity f) (Identity v) = Identity (f v)
 
 instance Monad Identity where
@@ -26,7 +26,7 @@ instance Functor Option where
     fmap f (Some a) = Some $ f a
 
 instance Applicative Option where
-    pure  a = Some a
+    pure = Some
     (<*>) _ None = None
     (<*>) (Some f) (Some a) = Some (f a)
 
@@ -45,7 +45,7 @@ instance Functor (Alternative a) where
     fmap f (Success b) = Success $ f b
 
 instance Applicative (Alternative a) where
-    pure a = Success a
+    pure = Success
     (<*>) _ (Failure a) = Failure a
     (<*>) (Success f) (Success a) = Success $ f a 
 
@@ -87,11 +87,11 @@ instance Monad XList where
 data XWriter w a = XWriter { xrunWriter :: (a, w) } deriving (Eq, Show)
 
 instance Functor (XWriter w) where
-    fmap f (XWriter {xrunWriter=(a, w)}) = XWriter { xrunWriter=(f a, w) }
+    fmap f XWriter{xrunWriter=(a, w)} = XWriter { xrunWriter=(f a, w) }
 
 instance (Monoid w) => Applicative (XWriter w) where
     pure a = XWriter { xrunWriter=(a, mempty) }
-    (<*>) (XWriter {xrunWriter=(f, _)}) (XWriter {xrunWriter=(a, w)}) = XWriter { xrunWriter=(f a, w) }
+    (<*>) XWriter{xrunWriter=(f, _)} XWriter{xrunWriter=(a, w)} = XWriter { xrunWriter=(f a, w) }
 
 instance (Monoid w) => Monad (XWriter w) where
     return = pure
@@ -103,19 +103,19 @@ instance (Monoid w) => Monad (XWriter w) where
 
 main = do
     print $ fmap (+1) $ Identity 7
-    print $ pure ((+1)) <*> Identity 3
+    print $ pure (+1) <*> Identity 3
     print $ identity >>= \x -> return $ x + 1
     --
-    print $ fmap (+1) (None)
+    print $ fmap (+1) None
     print $ fmap (+1) (Some 1)
-    print $ pure ((+1)) <*> None
-    print $ pure ((+1)) <*> Some 1
+    print $ pure (+1) <*> None
+    print $ pure (+1) <*> Some 1
     print $ none >>= \x -> return $ x + 1
     print $ some >>= \x -> return $ x + 1
     --
     print $ fmap (+1) failure
-    print $ pure ((+1)) <*> failure
-    print $ pure ((+1)) <*> success
+    print $ pure (+1) <*> failure
+    print $ pure (+1) <*> success
     print $ failure >>= \x -> return $ x + 1
     print $ success >>= \x -> return $ x + 1
     --
@@ -139,5 +139,5 @@ main = do
         failure = Failure "xerror message" :: Alternative String Int
         success = Success 41 :: Alternative String Int
         xlist = Cons 1 (Cons 2 (Cons 3 Nil))
-        writer = (XWriter { xrunWriter = ( 0, []) } :: XWriter [Int] Int)
+        writer = XWriter{ xrunWriter = ( 0, []) } :: XWriter [Int] Int
 

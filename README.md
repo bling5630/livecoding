@@ -49,3 +49,4 @@ Things to look into
   * [mutable algorithms in immutable languages part 2](https://tel.github.io/posts/mutable_algorithms_in_immutable_languages_part_2/)
   * [mutable algorithms in immutable languages part 3](https://tel.github.io/posts/mutable_algorithms_in_immutable_languages_part_3/)
   * [lens over tea](https://artyom.me/lens-over-tea-1)
+  * [generics](http://www.stephendiehl.com/posts/generics.html)

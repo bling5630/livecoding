@@ -54,10 +54,10 @@ logOne = do
 
 main = do
     -- execWriter only returns the log
-    putStrLn . show $ execWriter $ f 1 
+    print $ execWriter $ f 1
     -- runWriter returns the (value, log) tuple
-    putStrLn . show $ runWriter $ f 1 
+    print $ runWriter $ f 1
     --
     -- example to demonstate 'pass' and 'listen' 
-    putStrLn . show $ execWriter $ logOne
+    print $ execWriter logOne
     

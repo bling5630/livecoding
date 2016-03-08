@@ -1,0 +1,45 @@
+name:                  transformer-fun
+version:               0.0.1
+homepage:              https://github.com/mgreenly
+license:               ISC
+license-file:          LICENSE
+author:                Michael Greenly
+maintainer:            mgreenly@gmail.com
+build-type:            Simple
+cabal-version:         >=1.10
+
+library
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  exposed-modules:     TransformerFun
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+
+
+executable transformer-fun-app
+  default-language:    Haskell2010
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+                       , transformer-fun
+                       , text
+                       , containers
+
+test-suite transformer-fun-test
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                       , transformer-fun
+                       , hspec
+                       , QuickCheck
+
+source-repository head
+  type:               git
+  location:           https://github.com/mgreenly/transformer-fun

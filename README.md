@@ -50,3 +50,5 @@ Things to look into
   * [mutable algorithms in immutable languages part 3](https://tel.github.io/posts/mutable_algorithms_in_immutable_languages_part_3/)
   * [lens over tea](https://artyom.me/lens-over-tea-1)
   * [generics](http://www.stephendiehl.com/posts/generics.html)
+  * [unit test io in haskell](http://willsewell.com/posts/2016-01-23-unit-test-io-in-haskell.html)
+  * [3 approaches to monadic api design](https://blog.pusher.com/3-approaches-to-monadic-api-design-in-haskell/)

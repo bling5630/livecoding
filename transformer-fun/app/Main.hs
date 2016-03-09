@@ -35,6 +35,15 @@ lift x = ExceptT (fmap Right x)
 throwE :: Monad m => e -> ExceptT e m a
 throwE x = liftEither (Left x)  
 
+-- why does the e become c in the type signature?  I assume it's because
+-- the type of the error in the either can change in the handler but
+-- I should experiment with this and prove it
+--
+-- also
+--
+-- why do you have to explicitly say right success in this but
+-- not the previous verison?
+--
 catchE :: Monad m => ExceptT e m a -> (e -> ExceptT c m a) -> ExceptT c m a
 catchE throwing handler = ExceptT $ do
     x <- runExceptT throwing

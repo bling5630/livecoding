@@ -61,3 +61,4 @@ Things to look into
   * [unit test io in haskell](http://willsewell.com/posts/2016-01-23-unit-test-io-in-haskell.html)
   * [3 approaches to monadic api design](https://blog.pusher.com/3-approaches-to-monadic-api-design-in-haskell/)
   * [stop treading water: learn to learn](https://yow.eventer.com/yow-2014-1222/stop-treading-water-learning-to-learn-by-edward-kmett-1750)
+  * [a newcomer's run in with lazy io](https://ianthehenry.com/2016/3/9/lazy-io/)

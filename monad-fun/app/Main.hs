@@ -1,61 +1,61 @@
 module Main where
 
 -- 
--- Identity
+-- XIdentity
 --
-data Identity a = Identity a deriving (Eq, Show)
+data XIdentity a = XIdentity a deriving (Eq, Show)
 
-instance Functor Identity where
-    fmap f (Identity a) = Identity (f a)
+instance Functor XIdentity where
+    fmap f (XIdentity a) = XIdentity (f a)
 
-instance Applicative Identity where
-    pure = Identity
-    (<*>) (Identity f) (Identity v) = Identity (f v)
+instance Applicative XIdentity where
+    pure = XIdentity
+    (<*>) (XIdentity f) (XIdentity v) = XIdentity (f v)
 
-instance Monad Identity where
+instance Monad XIdentity where
     return = pure
-    (Identity a) >>= f = f a
+    (XIdentity a) >>= f = f a
 
 --
--- Option (Maybe)
+-- XMaybe
 --
-data Option a = Some a | None deriving (Eq, Show)
+data XMaybe a = XJust a | XNothing deriving (Eq, Show)
 
-instance Functor Option where
-    fmap f None = None
-    fmap f (Some a) = Some $ f a
+instance Functor XMaybe where
+    fmap f XNothing = XNothing
+    fmap f (XJust a) = XJust $ f a
 
-instance Applicative Option where
-    pure = Some
-    (<*>) _ None = None
-    (<*>) (Some f) (Some a) = Some (f a)
+instance Applicative XMaybe where
+    pure = XJust
+    (<*>) _ XNothing = XNothing
+    (<*>) (XJust f) (XJust a) = XJust (f a)
 
-instance Monad Option where
+instance Monad XMaybe where
     return = pure
-    (>>=) None _ = None 
-    (>>=) (Some a) f = f a
+    (>>=) XNothing _ = XNothing 
+    (>>=) (XJust a) f = f a
 
 --
--- Alternative (Either)
+-- XEither
 --
-data Alternative a b = Failure a | Success b deriving (Eq, Show)
+data XEither a b = XLeft a | XRight b deriving (Eq, Show)
 
-instance Functor (Alternative a) where
-    fmap f (Failure a) = Failure a  
-    fmap f (Success b) = Success $ f b
+instance Functor (XEither a) where
+    fmap f (XLeft a) = XLeft a  
+    fmap f (XRight b) = XRight $ f b
 
-instance Applicative (Alternative a) where
-    pure = Success
-    (<*>) _ (Failure a) = Failure a
-    (<*>) (Success f) (Success a) = Success $ f a 
+instance Applicative (XEither a) where
+    pure = XRight
+    (<*>) _ (XLeft a) = XLeft a
+    (<*>) (XRight f) (XRight a) = XRight $ f a 
 
-instance Monad (Alternative a) where
+instance Monad (XEither a) where
     return = pure
-    (>>=) (Failure a) _ = Failure a
-    (>>=) (Success a) f = f a
+    (>>=) (XLeft a) _ = XLeft a
+    (>>=) (XRight a) f = f a
 
 --
--- XList (List)
+-- XList
 --
 data XList a = Nil | Cons a (XList a) deriving (Eq, Show)
 
@@ -100,42 +100,9 @@ instance (Monoid w) => Monad (XWriter w) where
 --
 -- Reader
 --
---newtype ReaderT r m a = ReaderT { runReaderT :: r -> m a }
-
--- asks :: MonadReader r m  => (r -> a)-> m a
--- asks = reader
-
--- asks :: MonadReader r m  => (r -> a)-> m a
-
---instance Monad (XReader e) where  
---    return x = \_ -> x  
---    h >>= f = \w -> f (h w) w  
-
---instance Monad (XReader e) where
---    return = pure
---    h >>= f = \w -> f (h w) w  
-
 data XReader e a = XReader { runXReader :: e -> a }
 
--- (a -> b) -> f a -> f b
--- (a -> b) -> (XReader e) a -> (XReader e) b
--- (a -> b) -> ((e ->) a) -> ((e ->) b)
--- 
-
--- instance Applicative Identity where
---     pure = Identity
---     (<*>) (Identity f) (Identity v) = Identity (f v)
-
-
--- asks f = XReader f
--- 
---foo :: XReader [Int] Int 
---foo = (asks length) >>= \len ->
---    return $ len + 42
---foo :: XReader [Int] Int
-
 instance Functor (XReader e) where
-    -- (a -> b) -> f a -> f b
     fmap f (XReader g) = XReader (f . g)
 
 instance Applicative (XReader e) where
@@ -146,9 +113,61 @@ instance Monad (XReader e) where
     return = pure
     (XReader f) >>= g = XReader (\e -> runXReader (g (f e)) e) 
 
+
+main = do
+    putStrLn "\nXIdentity..."
+    print $ fmap (+1) $ XIdentity 7
+    print $ pure (+1) <*> XIdentity 3
+    print $ identity >>= \x -> return $ x + 1
+
+    putStrLn "\nXMaybe..."
+    print $ fmap (+1) XNothing
+    print $ fmap (+1) (XJust 1)
+    print $ pure (+1) <*> XNothing
+    print $ pure (+1) <*> XJust 1
+    print $ none >>= \x -> return $ x + 1
+    print $ some >>= \x -> return $ x + 1
+
+    putStrLn "\nXEither..."
+    print $ fmap (+1) failure
+    print $ pure (+1) <*> failure
+    print $ pure (+1) <*> success
+    print $ failure >>= \x -> return $ x + 1
+    print $ success >>= \x -> return $ x + 1
+
+    putStrLn "\nXLIST..."
+    print $ fmap (+1) Nil
+    print $ fmap (+1) xlist
+    print $ pure (+1) <*> Nil
+    print $ pure (+1) <*> xlist
+    print $ [] >>= \x -> return $ x + 1
+    print $ [1,2,3] >>= \x -> return $ x + 1
+    print $ Nil >>= \x -> return $ x + 1
+    print $ xlist >>= \x -> return $ x + 1
+
+    putStrLn "\nXWRITER..."
+    print $ fmap (+1) writer
+    print $ pure (+1) <*> writer
+    print $ writer >>= \x -> return $ x + 1
+
+    putStrLn "\nXREADER..."
+    print $ (runXReader (fmap (+42) foo)) [1,2,3]
+    print $ (runXReader (pure (+42) <*> foo)) [1,2,3] 
+    print $ runXReader (XReader length) [1,2,3] 
+    print $ runXReader foo [1,2,3] 
+    print $ runXReader bar 1
+    print $ runXReader baz [1,2,3]
+  where identity = XIdentity 41
+        none = XNothing
+        some = XJust 41
+        failure = XLeft "xerror message" :: XEither String Int
+        success = XRight 41 :: XEither String Int
+        xlist = Cons 1 (Cons 2 (Cons 3 Nil))
+        writer = XWriter{ xrunWriter = ( 0, []) } :: XWriter [Int] Int
+
+
 foo :: XReader [a] Int
 foo = XReader (length)
-
 
 bar :: XReader Integer Integer
 bar = do
@@ -160,53 +179,3 @@ baz :: XReader [Int] Int
 baz = do
   g <- XReader length 
   pure (g + 42)
-
-main = do
-    print $ (runXReader (XReader (length))) [1,2,3] 
-    print $ (runXReader foo) [1,2,3] 
-    print $ runXReader foo [1,2,3]
-    print $ (runXReader (fmap (+42) foo)) [1,2,3]
-    print $ (runXReader (pure (+42) <*> foo)) [1,2,3] 
-    print $ runXReader bar 1
-    print $ runXReader baz [1,2,3]
-    return ()
-
---     print $ fmap (+1) $ Identity 7
---     print $ pure (+1) <*> Identity 3
---     print $ identity >>= \x -> return $ x + 1
---     --
---     print $ fmap (+1) None
---     print $ fmap (+1) (Some 1)
---     print $ pure (+1) <*> None
---     print $ pure (+1) <*> Some 1
---     print $ none >>= \x -> return $ x + 1
---     print $ some >>= \x -> return $ x + 1
---     --
---     print $ fmap (+1) failure
---     print $ pure (+1) <*> failure
---     print $ pure (+1) <*> success
---     print $ failure >>= \x -> return $ x + 1
---     print $ success >>= \x -> return $ x + 1
---     --
---     print $ fmap (+1) Nil
---     print $ fmap (+1) xlist
---     print $ pure (+1) <*> Nil
---     print $ pure (+1) <*> xlist
---   
---     print $ [] >>= \x -> return $ x + 1
---     print $ [1,2,3] >>= \x -> return $ x + 1
---   
---     print $ Nil >>= \x -> return $ x + 1
---     print $ xlist >>= \x -> return $ x + 1
---     putStrLn "--\n-- writer\n--"
---     print $ fmap (+1) writer
---     print $ pure (+1) <*> writer
---     print $ writer >>= \x -> return $ x + 1
---   where identity = Identity 41
---         none = None
---         some = Some 41
---         failure = Failure "xerror message" :: Alternative String Int
---         success = Success 41 :: Alternative String Int
---         xlist = Cons 1 (Cons 2 (Cons 3 Nil))
---         writer = XWriter{ xrunWriter = ( 0, []) } :: XWriter [Int] Int
-

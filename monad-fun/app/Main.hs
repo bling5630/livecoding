@@ -113,57 +113,88 @@ instance Monad (XReader e) where
     return = pure
     (XReader f) >>= g = XReader (\e -> runXReader (g (f e)) e) 
 
+--
+-- State
+--
+data XState s a = XState { runXState :: s -> (a, s) }
+
+instance Functor (XState s) where
+    --fmap f (XState m) = XState (\s -> let (a, _) = m s in (f a, s))
+    fmap f (XState m) = XState (\s -> (f (fst (m s)), s))
+
 
 main = do
-    putStrLn "\nXIdentity..."
-    print $ fmap (+1) $ XIdentity 7
-    print $ pure (+1) <*> XIdentity 3
-    print $ identity >>= \x -> return $ x + 1
+    print $ (runXState (fmap id qux)) 42
+    print $ (runXState (fmap (+3) qux)) 42
+    print $ (runXState qux) 42 
+    return ()
+  where
+    qux = XState (\x -> (0, x))
 
-    putStrLn "\nXMaybe..."
-    print $ fmap (+1) XNothing
-    print $ fmap (+1) (XJust 1)
-    print $ pure (+1) <*> XNothing
-    print $ pure (+1) <*> XJust 1
-    print $ none >>= \x -> return $ x + 1
-    print $ some >>= \x -> return $ x + 1
 
-    putStrLn "\nXEither..."
-    print $ fmap (+1) failure
-    print $ pure (+1) <*> failure
-    print $ pure (+1) <*> success
-    print $ failure >>= \x -> return $ x + 1
-    print $ success >>= \x -> return $ x + 1
+-- tick :: XState Int Int                                                                                                                              
+-- tick = do 
+--     n <- get
+--     put (n+1)
+--     return n
+--
+--
+--tick = get >>= (\n -> 
+--         put (n+1) >>= (\_ ->
+--            return n)
+--         
+--    print $ (execXState tick) 4
 
-    putStrLn "\nXLIST..."
-    print $ fmap (+1) Nil
-    print $ fmap (+1) xlist
-    print $ pure (+1) <*> Nil
-    print $ pure (+1) <*> xlist
-    print $ [] >>= \x -> return $ x + 1
-    print $ [1,2,3] >>= \x -> return $ x + 1
-    print $ Nil >>= \x -> return $ x + 1
-    print $ xlist >>= \x -> return $ x + 1
-
-    putStrLn "\nXWRITER..."
-    print $ fmap (+1) writer
-    print $ pure (+1) <*> writer
-    print $ writer >>= \x -> return $ x + 1
-
-    putStrLn "\nXREADER..."
-    print $ (runXReader (fmap (+42) foo)) [1,2,3]
-    print $ (runXReader (pure (+42) <*> foo)) [1,2,3] 
-    print $ runXReader (XReader length) [1,2,3] 
-    print $ runXReader foo [1,2,3] 
-    print $ runXReader bar 1
-    print $ runXReader baz [1,2,3]
-  where identity = XIdentity 41
-        none = XNothing
-        some = XJust 41
-        failure = XLeft "xerror message" :: XEither String Int
-        success = XRight 41 :: XEither String Int
-        xlist = Cons 1 (Cons 2 (Cons 3 Nil))
-        writer = XWriter{ xrunWriter = ( 0, []) } :: XWriter [Int] Int
+-- main = do
+--     putStrLn "\nXIdentity..."
+--     print $ fmap (+1) $ XIdentity 7
+--     print $ pure (+1) <*> XIdentity 3
+--     print $ identity >>= \x -> return $ x + 1
+-- 
+--     putStrLn "\nXMaybe..."
+--     print $ fmap (+1) XNothing
+--     print $ fmap (+1) (XJust 1)
+--     print $ pure (+1) <*> XNothing
+--     print $ pure (+1) <*> XJust 1
+--     print $ none >>= \x -> return $ x + 1
+--     print $ some >>= \x -> return $ x + 1
+-- 
+--     putStrLn "\nXEither..."
+--     print $ fmap (+1) failure
+--     print $ pure (+1) <*> failure
+--     print $ pure (+1) <*> success
+--     print $ failure >>= \x -> return $ x + 1
+--     print $ success >>= \x -> return $ x + 1
+-- 
+--     putStrLn "\nXLIST..."
+--     print $ fmap (+1) Nil
+--     print $ fmap (+1) xlist
+--     print $ pure (+1) <*> Nil
+--     print $ pure (+1) <*> xlist
+--     print $ [] >>= \x -> return $ x + 1
+--     print $ [1,2,3] >>= \x -> return $ x + 1
+--     print $ Nil >>= \x -> return $ x + 1
+--     print $ xlist >>= \x -> return $ x + 1
+-- 
+--     putStrLn "\nXWRITER..."
+--     print $ fmap (+1) writer
+--     print $ pure (+1) <*> writer
+--     print $ writer >>= \x -> return $ x + 1
+-- 
+--     putStrLn "\nXREADER..."
+--     print $ (runXReader (fmap (+42) foo)) [1,2,3]
+--     print $ (runXReader (pure (+42) <*> foo)) [1,2,3] 
+--     print $ runXReader (XReader length) [1,2,3] 
+--     print $ runXReader foo [1,2,3] 
+--     print $ runXReader bar 1
+--     print $ runXReader baz [1,2,3]
+--   where identity = XIdentity 41
+--         none = XNothing
+--         some = XJust 41
+--         failure = XLeft "xerror message" :: XEither String Int
+--         success = XRight 41 :: XEither String Int
+--         xlist = Cons 1 (Cons 2 (Cons 3 Nil))
+--         writer = XWriter{ xrunWriter = ( 0, []) } :: XWriter [Int] Int
 
 
 foo :: XReader [a] Int

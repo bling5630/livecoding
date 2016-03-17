@@ -62,3 +62,14 @@ Things to look into
   * [3 approaches to monadic api design](https://blog.pusher.com/3-approaches-to-monadic-api-design-in-haskell/)
   * [stop treading water: learn to learn](https://yow.eventer.com/yow-2014-1222/stop-treading-water-learning-to-learn-by-edward-kmett-1750)
   * [a newcomer's run in with lazy io](https://ianthehenry.com/2016/3/9/lazy-io/)
+  * [a history of haskell: being lazy with class](https://www.youtube.com/watch?v=3bjXGrycMhQ)
+
+### monad transformers
+
+  * [gentle introduction to monad transformers](https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md)
+  * [haskell wikibook: monad transformers](https://en.wikibooks.org/wiki/Haskell/Monad_transformers)
+  * [haskell.org: monad transoformer tutorial](https://wiki.haskell.org/Monad_Transformers_Tutorial)
+  * [monad transformers explained](https://wiki.haskell.org/Monad_Transformers_Explained)
+  * [building monad transformers](http://blog.jakubarnold.cz/2014/07/22/building-monad-transformers-part-1.html)
+  * [grok haskell monad transformers](http://blog.sigfpe.com/2006/05/grok-haskell-monad-transformers.html)
+  * [simplest non trivial monad transformer](http://stackoverflow.com/questions/32579133/simplest-non-trivial-monad-transformer-example-for-dummies-iomaybe)

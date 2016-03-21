@@ -73,3 +73,9 @@ Things to look into
   * [building monad transformers](http://blog.jakubarnold.cz/2014/07/22/building-monad-transformers-part-1.html)
   * [grok haskell monad transformers](http://blog.sigfpe.com/2006/05/grok-haskell-monad-transformers.html)
   * [simplest non trivial monad transformer](http://stackoverflow.com/questions/32579133/simplest-non-trivial-monad-transformer-example-for-dummies-iomaybe)
+
+### not exactly haskell
+
+  * [LambdaPi](https://www.andres-loeh.de/LambdaPi/)
+  * [learning dependent types](http://blog.codersbase.com/posts/2013-12-03-learning-dependent-types.html)
+  * [build a roguelike](http://www.roguebasin.com/index.php?title=How_to_Write_a_Roguelike_in_15_Steps)

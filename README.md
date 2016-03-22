@@ -85,3 +85,7 @@ Things to look into
   * [python: complete rogue like](http://www.roguebasin.com/index.php?title=Complete_Roguelike_Tutorial,_using_python%2Blibtcod)
   * [Roguelike dev](http://www.roguebasin.com/index.php?title=Roguelike_Dev_FAQ)
   * [nethack guide book](http://www.nethack.org/v343/Guidebook.html)
+  * [unicode: box drawing characters](https://en.wikipedia.org/wiki/Box-drawing_character)
+  * [unicode: block element characters](https://en.wikipedia.org/wiki/Block_Elements)
+  * [unicode: mathematical operators](https://en.wikipedia.org/wiki/Mathematical_Operators)
+  * [unicode: gemetric shapes](https://en.wikipedia.org/wiki/Geometric_Shapes)

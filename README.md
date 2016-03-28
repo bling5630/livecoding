@@ -63,6 +63,7 @@ Things to look into
   * [stop treading water: learn to learn](https://yow.eventer.com/yow-2014-1222/stop-treading-water-learning-to-learn-by-edward-kmett-1750)
   * [a newcomer's run in with lazy io](https://ianthehenry.com/2016/3/9/lazy-io/)
   * [a history of haskell: being lazy with class](https://www.youtube.com/watch?v=3bjXGrycMhQ)
+  * [papers](https://www.reddit.com/r/haskell/comments/4bpd6v/papers_for_an_intermediate_haskell_programmer/)
 
 ### monad transformers
 

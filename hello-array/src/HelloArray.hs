@@ -1,4 +1,4 @@
-module RogueLike
+module HelloArray
     ( foo
     ) where
 

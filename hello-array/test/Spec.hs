@@ -2,7 +2,7 @@ import Test.Hspec
 import Test.QuickCheck
 import Control.Exception (evaluate)
 
-import RogueLike
+import HelloArray
 
 main :: IO ()
 main = hspec $ do

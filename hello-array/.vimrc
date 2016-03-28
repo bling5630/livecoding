@@ -11,7 +11,7 @@ map <leader>i :exe '!clear && stack ghci'<CR>
 "" lint - lint current file
 map <leader>l "zyiw:exe '!clear && hlint -c=auto -s '.@%<CR>
 "" run - run program
-map <leader>r :exe '!clear && stack build && clear && stack exec rogue-like-app'<CR>
+map <leader>r :exe '!clear && stack build && clear && stack exec hello-array-app'<CR>
 "" spec - run specs
 map <leader>s :exe '!clear && stack test'<CR>
 "" tags - jump to tag

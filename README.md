@@ -64,6 +64,9 @@ Things to look into
   * [a newcomer's run in with lazy io](https://ianthehenry.com/2016/3/9/lazy-io/)
   * [a history of haskell: being lazy with class](https://www.youtube.com/watch?v=3bjXGrycMhQ)
   * [papers](https://www.reddit.com/r/haskell/comments/4bpd6v/papers_for_an_intermediate_haskell_programmer/)
+  * [mutable objects](https://en.wikibooks.org/wiki/Haskell/Mutable_objects)
+  * [imperative quicksort](http://stackoverflow.com/questions/5268156/how-do-you-do-an-in-place-quicksort-in-haskell)
+  * [mutable state in haskell](http://blog.jakubarnold.cz/2014/07/20/mutable-state-in-haskell.html)
 
 ### monad transformers
 
@@ -74,6 +77,9 @@ Things to look into
   * [building monad transformers](http://blog.jakubarnold.cz/2014/07/22/building-monad-transformers-part-1.html)
   * [grok haskell monad transformers](http://blog.sigfpe.com/2006/05/grok-haskell-monad-transformers.html)
   * [simplest non trivial monad transformer](http://stackoverflow.com/questions/32579133/simplest-non-trivial-monad-transformer-example-for-dummies-iomaybe)
+  * [documenation.layers.overview](http://hackage.haskell.org/package/layers-0.1/docs/Documentation-Layers-Overview.html)
+  * [stackoverflow: avoid lifting](http://stackoverflow.com/questions/9054731/avoiding-lift-with-monad-transformers)
+  * [readert design pattern](https://www.schoolofhaskell.com/tutorial-preview/2896/z9jwaCGLzb)
 
 ### not exactly haskell
 
@@ -90,3 +96,8 @@ Things to look into
   * [unicode: block element characters](https://en.wikipedia.org/wiki/Block_Elements)
   * [unicode: mathematical operators](https://en.wikipedia.org/wiki/Mathematical_Operators)
   * [unicode: gemetric shapes](https://en.wikipedia.org/wiki/Geometric_Shapes)
+
+
+
+
+Stacking multiple monad transformers

@@ -22,6 +22,8 @@ None of this is very well organized.  I'll try to fix it in the future.
 
 I save all the haskell videos I come across in this [playlist](https://www.youtube.com/playlist?list=PLfHYba8zC7hRzd6A5MUr0L-B4uM8jLm7w).
 
+They're not in any paticular order and I'm not suggesting they're all worth watching.
+
 
 ### Blogs
 

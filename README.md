@@ -1,17 +1,14 @@
 # Live Coding Haskell
 
-Content from [live coding](https://www.livecoding.tv/mgreenly/) sessions.
-
-Checkout out the readme on [livecoding.tv/mgreenly](https://www.livecoding.tv/mgreenly).   *scrolldown*
-
-When ever I do a small example/tutorial it gets saved here.
+Content from my [livecoding](https://www.livecoding.tv/mgreenly/) sessions.
 
 ## Current Project
 
-I'm currently working on a text based [roguelike](git@github.com:mgreenly/roguelike.git).
+Recently, I've been working on a text based [roguelike](git@github.com:mgreenly/roguelike.git) which is in it's own repository.
 
+## Haskell Resources
 
-## Misc Resources
+None of this is very well organized.  I'll try to fix it in the future.
 
 ### Books
 
@@ -20,6 +17,10 @@ I'm currently working on a text based [roguelike](git@github.com:mgreenly/roguel
   1. [Parallel and Concurrent Programming in Haskell](http://chimera.labs.oreilly.com/books/1230000000929)
   1. [What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/)
   1. [Haskell Programming from first principles](http://haskellbook.com/)
+
+### Videos
+
+I save all the haskell videos I come across in this [playlist](https://www.youtube.com/playlist?list=PLfHYba8zC7hRzd6A5MUr0L-B4uM8jLm7w).
 
 
 ### Blogs

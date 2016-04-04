@@ -2,43 +2,24 @@
 
 Content from [live coding](https://www.livecoding.tv/mgreenly/) sessions.
 
+Checkout out the readme on [livecoding.tv/mgreenly](https://www.livecoding.tv/mgreenly).   *scrolldown*
+
+When ever I do a small example/tutorial it gets saved here.
+
 ## Current Project
 
-My current goal is just to get familiar with common Haskell techniques and
-libraries that would be useful in backend server programming.  Some things
-I epxpect I'll spend time exploring:
+I'm currently working on a text based [roguelike](git@github.com:mgreenly/roguelike.git).
 
-  * json                        - aeson
-  * yaml                        - yaml
-  * xml                         - xml
-  * web client                  - wreq
-  * web server                  - wai, spock, yesod
-  * command line parsing        - optparse-applicative
-  * sql database access         - postgresql-simple
-  * date/time                   - time, tz
-  * parsing                     - parsec
-  * run external processes      -
-  * profiling/benchmarking
-  * testing                     - hspec, quickcheck
-  * haddoc
-  * ...
 
-Things to look into
-
-  * lens
-  * pipes
-  * conduit
-  * ghcid
-  * ekg
-  * shake   [http://shakebuild.com](http://shakebuild.com/)
-
-## Resources
+## Misc Resources
 
 ### Books
-  
-  * [Learn You a Haskell, for Great Good!](http://learnyouahaskell.com/)
-  * [Real World Haskell](http://book.realworldhaskell.org/)
-  * [Parallel and Concurrent Programming in Haskell](http://chimera.labs.oreilly.com/books/1230000000929)
+
+  1. [Learn You a Haskell, for Great Good](http://learnyouahaskell.com/)
+  1. [Real World Haskell](http://book.realworldhaskell.org/)
+  1. [Parallel and Concurrent Programming in Haskell](http://chimera.labs.oreilly.com/books/1230000000929)
+  1. [What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/)
+  1. [Haskell Programming from first principles](http://haskellbook.com/)
 
 
 ### Blogs

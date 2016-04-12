@@ -51,6 +51,8 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * [mutable objects](https://en.wikibooks.org/wiki/Haskell/Mutable_objects)
   * [imperative quicksort](http://stackoverflow.com/questions/5268156/how-do-you-do-an-in-place-quicksort-in-haskell)
   * [mutable state in haskell](http://blog.jakubarnold.cz/2014/07/20/mutable-state-in-haskell.html)
+  * [worst practices should be hard](http://www.haskellforall.com/2016/04/worst-practices-should-be-hard.html)
+  * [ghcid release](http://neilmitchell.blogspot.fr/2016/04/ghcid-06-released.html)
 
 ### monad transformers
 

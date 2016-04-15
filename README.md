@@ -4,7 +4,7 @@ Content from my [livecoding](https://www.livecoding.tv/mgreenly/) sessions.
 
 ## Current Project
 
-Recently, I've been working on a text based [roguelike](git@github.com:mgreenly/roguelike.git) which is in it's own repository.
+Recently, I've been working on this text based [roguelike](https://github.com/mgreenly/roguelike).
 
 ## Haskell Resources
 

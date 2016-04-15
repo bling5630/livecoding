@@ -71,19 +71,3 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
 
   * [LambdaPi](https://www.andres-loeh.de/LambdaPi/)
   * [learning dependent types](http://blog.codersbase.com/posts/2013-12-03-learning-dependent-types.html)
-
-### Rogue Like Stuff
-  * [build a roguelike](http://www.roguebasin.com/index.php?title=How_to_Write_a_Roguelike_in_15_Steps)
-  * [ncurses programming howto](http://www.faqs.org/docs/Linux-HOWTO/NCURSES-Programming-HOWTO.html)
-  * [python: complete rogue like](http://www.roguebasin.com/index.php?title=Complete_Roguelike_Tutorial,_using_python%2Blibtcod)
-  * [Roguelike dev](http://www.roguebasin.com/index.php?title=Roguelike_Dev_FAQ)
-  * [nethack guide book](http://www.nethack.org/v343/Guidebook.html)
-  * [unicode: box drawing characters](https://en.wikipedia.org/wiki/Box-drawing_character)
-  * [unicode: block element characters](https://en.wikipedia.org/wiki/Block_Elements)
-  * [unicode: mathematical operators](https://en.wikipedia.org/wiki/Mathematical_Operators)
-  * [unicode: gemetric shapes](https://en.wikipedia.org/wiki/Geometric_Shapes)
-
-
-
-
-Stacking multiple monad transformers

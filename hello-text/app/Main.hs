@@ -1,32 +1,52 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
-import System.IO (hFlush, stdout)
+import Prelude as P hiding
+    ( putStrLn
+    , getLine
+    , length
+    , reverse
+    , null
+    )
 
-import qualified Data.Text as T
-import qualified Data.Char as C
+import Data.Text
+    ( length
+    , reverse
+    , null
+    , toUpper
+    , toLower
+    )
 
---
--- functions with side effects must return IO types.
--- is it because I used do?
--- not possible to include
---
-getTextLine :: IO T.Text
-getTextLine = do
-    getLine >>= \x -> (return (T.pack x))
+import Data.Text.IO
+    ( putStrLn
+    , getLine
+    )
+
+import TextShow
+    ( showb
+    , toText
+    )
+
+import System.IO
+    ( hFlush
+    , stdout
+    )
+
+import Data.Monoid
+    ((<>)
+    )
 
 
-main :: IO ()
+printT a = (putStrLn . toText . showb) a
+
+
 main = do
-    putStr "enter text: "
-    line <- getTextLine
-    print line
-    print (T.length line)
-    print (T.reverse line)
-    print (T.null line)
-    print (T.toUpper line)
-    print (T.toLower line)
-    print (T.justifyLeft 20 '.' line)
-    print (T.justifyRight 20 '.' line)
-    print (T.center 20 '.' line)
-    print (T.any C.isDigit line)
-    print (T.all C.isDigit line)
+    putStrLn "λΛEnter text:"
+    hFlush stdout
+    line <- getLine
+    printT $ length line
+    putStrLn $ reverse line
+    printT $ null line
+    printT $ toUpper line
+    printT $ toLower line

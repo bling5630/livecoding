@@ -28,6 +28,7 @@ executable hello-text-app
   build-depends:       base                    >= 4.8
                        , hello-text
                        , text
+                       , text-show
 
 test-suite hello-text-test
   type:                exitcode-stdio-1.0

@@ -53,7 +53,7 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * [mutable state in haskell](http://blog.jakubarnold.cz/2014/07/20/mutable-state-in-haskell.html)
   * [worst practices should be hard](http://www.haskellforall.com/2016/04/worst-practices-should-be-hard.html)
   * [ghcid release](http://neilmitchell.blogspot.fr/2016/04/ghcid-06-released.html)
-
+  * [package: doctest](https://hackage.haskell.org/package/doctest)
 ### monad transformers
 
   * [gentle introduction to monad transformers](https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md)
@@ -71,3 +71,15 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
 
   * [LambdaPi](https://www.andres-loeh.de/LambdaPi/)
   * [learning dependent types](http://blog.codersbase.com/posts/2013-12-03-learning-dependent-types.html)
+  * [blog.functorial.com](http://blog.functorial.com/index.html)
+
+
+### TODO
+
+  * map
+  * set
+  * compare fold/map/etc... to ruby
+  * sequence
+  * vector
+  * foldable
+  * traversable

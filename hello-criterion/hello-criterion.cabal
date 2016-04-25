@@ -1,0 +1,44 @@
+name:                  hello-criterion
+version:               0.0.1
+homepage:              https://github.com/mgreenly
+license:               ISC
+license-file:          LICENSE
+author:                Michael Greenly
+maintainer:            mgreenly@gmail.com
+build-type:            Simple
+cabal-version:         >=1.10
+
+library
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  exposed-modules:     HelloCriterion
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+
+
+executable hello-criterion-app
+  default-language:    Haskell2010
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+                       , hello-criterion
+                       , criterion
+
+test-suite hello-criterion-test
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                       , hello-criterion
+                       , hspec
+                       , QuickCheck
+
+source-repository head
+  type:               git
+  location:           https://github.com/mgreenly/hello-criterion

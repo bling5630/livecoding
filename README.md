@@ -25,7 +25,7 @@ I save all the haskell videos I come across in this [playlist](https://www.youtu
 They're not in any paticular order and I'm not suggesting they're all worth watching.
 
 
-### Blogs
+### Blog Posts
 
   * [lens-tutorial-part-1](http://blog.jakubarnold.cz/2014/07/14/lens-tutorial-introduction-part-1.html)
   * [lens-tutorial-part-2](http://blog.jakubarnold.cz/2014/08/06/lens-tutorial-stab-traversal-part-2.html)
@@ -54,6 +54,8 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * [worst practices should be hard](http://www.haskellforall.com/2016/04/worst-practices-should-be-hard.html)
   * [ghcid release](http://neilmitchell.blogspot.fr/2016/04/ghcid-06-released.html)
   * [package: doctest](https://hackage.haskell.org/package/doctest)
+  * [parsing large files](https://hbtvl.wordpress.com/2015/12/14/efficient-parsing-of-large-text-files-part-4-and-conclusion/)
+
 ### monad transformers
 
   * [gentle introduction to monad transformers](https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md)
@@ -83,3 +85,10 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * vector
   * foldable
   * traversable
+
+### Installing Threadscope
+
+      sudo apt-get install libgtk2.0-dev libpango1.0-dev libglib2.0-dev libcairo2-dev
+      stack install gtk2hs-buildtools
+      stack install gtk
+      stack install threadscope

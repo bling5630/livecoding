@@ -42,7 +42,7 @@ printT a = (putStrLn . toText . showb) a
 
 
 main = do
-    putStrLn "λΛEnter text:"
+    putStrLn "Enter text:"
     hFlush stdout
     line <- getLine
     printT $ length line

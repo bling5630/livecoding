@@ -4,17 +4,6 @@ import Data.List
 import Data.List.Split
 import Data.Array
 
---
---
---        . . . . . . . . .
---        . . . . . . . . .
---        . . * * * * . . .
---        . . * * * * . . .
---        . . * * * * . . .
---        . . . . . . . . .
---        . . . . . . . . .
---
---
 
 mapRows = 10
 mapCols = 10

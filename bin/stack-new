@@ -116,6 +116,9 @@ EOF
 # create a project specific .vimrc file
 #
 cat << EOF > .vimrc
+"" build project with profiling
+map <leader>p :exe '!clear && stack build --executable-profiling --library-profiling --ghc-options="-rtsopts"'<CR>
+map <leader>P :exe '!clear && stack exec $PACKAGE_NAME-app -- +RTS -sstderr'<CR>
 "" build - build project
 map <leader>b :exe '!clear && stack build'<CR>
 "" clean - clean build artifacts

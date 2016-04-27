@@ -55,6 +55,8 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * [ghcid release](http://neilmitchell.blogspot.fr/2016/04/ghcid-06-released.html)
   * [package: doctest](https://hackage.haskell.org/package/doctest)
   * [parsing large files](https://hbtvl.wordpress.com/2015/12/14/efficient-parsing-of-large-text-files-part-4-and-conclusion/)
+  * [foldr, foldl, foldl'](https://wiki.haskell.org/Foldr_Foldl_Foldl')
+  * [wrangling state in haskell](https://www.reddit.com/r/haskell/comments/4go5dr/wrangling_state_in_haskell/)
 
 ### monad transformers
 
@@ -74,6 +76,7 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * [LambdaPi](https://www.andres-loeh.de/LambdaPi/)
   * [learning dependent types](http://blog.codersbase.com/posts/2013-12-03-learning-dependent-types.html)
   * [blog.functorial.com](http://blog.functorial.com/index.html)
+  * [xmpp livecoding](http://blog.livecoding.tv/2015/11/21/how-to-chat-onal-xmpp-client/)
 
 
 ### TODO
@@ -92,3 +95,4 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
       stack install gtk2hs-buildtools
       stack install gtk
       stack install threadscope
+

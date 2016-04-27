@@ -2,7 +2,8 @@
 # For more information, see: http://docs.haskellstack.org/en/stable/yaml_configuration/
 
 # Specifies the GHC version and set of packages available (e.g., lts-3.5, nightly-2015-09-21, ghc-7.10.2)
-resolver: lts-5.12
+#resolver: lts-5.12
+resolver: ghc-8.0.0.20160421
 
 # Local packages, usually specified by relative directory name
 packages:
@@ -33,3 +34,14 @@ extra-package-dbs: []
 
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
+compiler-check: match-exact
+
+setup-info:
+  ghc:
+    linux64:
+      8.0.0.20160421:
+        url: https://downloads.haskell.org/~ghc/8.0.1-rc4/ghc-8.0.0.20160421-x86_64-unknown-linux.tar.xz
+    macosx:
+      8.0.0.20160421:
+        url: https://downloads.haskell.org/~ghc/8.0.1-rc4/ghc-8.0.0.20160421-x86_64-apple-darwin.tar.xz
+

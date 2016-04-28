@@ -24,6 +24,14 @@ I save all the haskell videos I come across in this [playlist](https://www.youtu
 
 They're not in any paticular order and I'm not suggesting they're all worth watching.
 
+### Other Resources
+
+  1. [guide to extensions](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/guide-to-ghc-extensions)
+  1. [hackage search](https://hackage.haskell.org/packages/search)
+  1. [hoogle search](https://www.haskell.org/hoogle/)
+  1. [hayoo search](http://hayoo.fh-wedel.de/)
+  1. [stackage search](https://www.stackage.org/lts)
+  1. [status haskell.org](https://status.haskell.org/)
 
 ### Blog Posts
 

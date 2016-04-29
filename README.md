@@ -1,6 +1,6 @@
 # Live Coding Haskell
 
-Content from my [livecoding](https://www.livecoding.tv/mgreenly/) sessions.
+Content from my [livecoding](https://www.livecoding.tv/mgreenly/video) sessions.
 
 ## Current Project
 
@@ -8,7 +8,9 @@ Recently, I've been working on this text based [roguelike](https://github.com/mg
 
 ## Haskell Resources
 
-None of this is very well organized.  I'll try to fix it in the future.
+### Installing Haskell
+
+If you're new to haskell install it with [Stack](http://docs.haskellstack.org/).
 
 ### Books
 
@@ -20,11 +22,9 @@ None of this is very well organized.  I'll try to fix it in the future.
 
 ### Videos
 
-I save all the haskell videos I come across in this [playlist](https://www.youtube.com/playlist?list=PLfHYba8zC7hRzd6A5MUr0L-B4uM8jLm7w).
+  * [youtube playlist](https://www.youtube.com/playlist?list=PLfHYba8zC7hRzd6A5MUr0L-B4uM8jLm7w).
 
-They're not in any paticular order and I'm not suggesting they're all worth watching.
-
-### Other Resources
+### Libraries and Search
 
   1. [guide to extensions](https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/guide-to-ghc-extensions)
   1. [hackage search](https://hackage.haskell.org/packages/search)
@@ -33,7 +33,11 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   1. [stackage search](https://www.stackage.org/lts)
   1. [status haskell.org](https://status.haskell.org/)
 
+
+
 ### Blog Posts
+
+  Misc blog posts that I wanted to keep a link to.  I'm not necessarily suggesting they're worth reading.
 
   * [lens-tutorial-part-1](http://blog.jakubarnold.cz/2014/07/14/lens-tutorial-introduction-part-1.html)
   * [lens-tutorial-part-2](http://blog.jakubarnold.cz/2014/08/06/lens-tutorial-stab-traversal-part-2.html)
@@ -86,16 +90,6 @@ They're not in any paticular order and I'm not suggesting they're all worth watc
   * [blog.functorial.com](http://blog.functorial.com/index.html)
   * [xmpp livecoding](http://blog.livecoding.tv/2015/11/21/how-to-chat-onal-xmpp-client/)
 
-
-### TODO
-
-  * map
-  * set
-  * compare fold/map/etc... to ruby
-  * sequence
-  * vector
-  * foldable
-  * traversable
 
 ### Installing Threadscope
 

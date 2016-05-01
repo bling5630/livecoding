@@ -44,7 +44,7 @@ stack install threadscope
 
 ### Blog Posts
 
-  Misc blog posts that I wanted to keep a link to.  I'm not necessarily suggesting they're worth reading.  This section is really just for me.
+  Blog posts that I want to keep a links to.
 
   * [24 days of hackage](https://ocharles.org.uk/blog/posts/2012-12-17-24-days-of-hackage-optparse-applicative.html)
   * [thoughtbot](https://robots.thoughtbot.com/applicative-options-parsing-in-haskell)

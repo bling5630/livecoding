@@ -1,6 +1,6 @@
 # Live Coding Haskell
 
-My [livecoding.tv](https://www.livecoding.tv/mgreenly) page.
+This is a collection of small projects related to my [livecoding.tv](https://www.livecoding.tv/mgreenly) page.
 
 ## Haskell Resources
 

@@ -46,6 +46,8 @@ stack install threadscope
 
   Blog posts that I want to keep a links to.
 
+  * [essential haskell](http://www.stephendiehl.com/posts/essential_haskell.html)
+  * [tutorials](https://wiki.haskell.org/Category:Tutorials)
   * [24 days of hackage](https://ocharles.org.uk/blog/posts/2012-12-17-24-days-of-hackage-optparse-applicative.html)
   * [thoughtbot](https://robots.thoughtbot.com/applicative-options-parsing-in-haskell)
   * [github](https://github.com/pcapriotti/optparse-applicative)

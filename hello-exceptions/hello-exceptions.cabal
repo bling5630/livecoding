@@ -1,0 +1,43 @@
+name:                  hello-exceptions
+version:               0.0.1
+homepage:              https://github.com/mgreenly
+license:               ISC
+license-file:          LICENSE
+author:                Michael Greenly
+maintainer:            mgreenly@gmail.com
+build-type:            Simple
+cabal-version:         >=1.10
+
+library
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  exposed-modules:     HelloExceptions
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+
+
+executable hello-exceptions-app
+  default-language:    Haskell2010
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+                       , hello-exceptions
+
+test-suite hello-exceptions-test
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                       , hello-exceptions
+                       , hspec
+                       , QuickCheck
+
+source-repository head
+  type:               git
+  location:           https://github.com/mgreenly/hello-exceptions

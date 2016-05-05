@@ -175,6 +175,11 @@ stack install threadscope
   * [none binary tree](http://stackoverflow.com/questions/22000095/haskell-non-binary-tree)
   * [text](https://github.com/mgreenly/experiments/blob/master/haskell/old/tour/sample024/src/Main.hs)
 
+### Error Handling
+
+  * [simplified error handling](http://www.haskellforall.com/2012/07/errors-10-simplified-error-handling.html)
+  * [catching exceptions in haskell](http://drunkcoding.tumblr.com/post/692076953/catching-exceptions-in-haskell)
+
 ### Monad Transformers
 
   * [gentle introduction to monad transformers](https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md)

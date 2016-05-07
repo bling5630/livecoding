@@ -1,3 +1,4 @@
+{-# LANGUAGE ScopedTypeVariables #-}
 module Main where
 
 
@@ -6,49 +7,55 @@ import System.IO
 import System.IO.Error
 import Control.Exception
 
-
--- safeGetEnv :: String -> IO (Either IOException String)
--- safeGetEnv name = try $ getEnv "HOMExxxx"
---main = do
---    r <- safeGetEnv "HOME"
---    case r of
---        Left e        -> putStrLn (show (isDoesNotExistError e))
---        Right home    -> putStrLn home
-
--- openFileThrowingExceptions :: FilePath -> IOMode -> IO (Either IOException Handle)
--- openFileThrowingExceptions filePath ioMode = try $ openFile filePath ioMode
-
 main = do
-    r <- try $ openFile "LICENSE" ReadMode :: IO (Either IOException Handle)
-    case r of
-        Left e  -> case ioeGetErrorType e of
-                     DoesNotExistError    -> print "foo"
-                     AlreadyExistsError   -> print "bar"
-        Right h -> print "baz"
 
---     case r of
---         Left e       -> if isDoesNotExistError e then print "foo" else print "bar"
---         Right handle -> print "baz"
+    --
+    -- CATCH
+    --
+    home <- catch (getEnv "HOME")                                        -- computation to run
+            (\(e :: IOException) -> return "some error message")         -- error handler
+    print home
 
--- import Control.Exception
--- import System.IO
---
--- main :: IO ()
--- main = do
---     mmyFile <- (do
---                     handle <- openFile "myfile.txt" ReadMode
---                     return $ Just handle)
---         `catch` (\(e :: ArithException) -> do
---             putStrLn $ "no permissions to open that file" ++ show e
---             return Nothing)
---         `catch` (\(e :: ArrayException) -> do
---             putStrLn $ "file not found: " ++ show e
---             return Nothing)
---         `catch` (\(e :: SomeException) -> do
---             putStrLn $ "the unexpected happened: " ++ show e
---             r
---eturn Nothing)
---     case mmyFile of
---       Nothing -> return ()
---       Just myFile -> putStrLn "success":
---
+
+    --
+    -- CATCHJUST
+    --
+    -- The value of the Just from the predicate function is the argument e
+    -- in the handler... so in the example below in the `then Just e` code
+    -- has the effect of just handing the exception `e` to the the handler
+    -- function
+    --
+    home' <- catchJust (\e -> if isDoesNotExistError e then Just e else Nothing)   -- predicate
+                       (getEnv "HOMExxxx")                                         -- the computation to run
+                       (\e -> return (show e))                                     -- the handler
+    print home'
+
+
+    --
+    -- TRY
+    --
+    home <- try $ getEnv "HOME"
+    case home of
+        Left  exception -> putStrLn $ show (exception :: IOException)
+        Right home      -> putStrLn home
+
+
+    --
+    -- TRYJUST
+    --
+    home <- tryJust (\e -> if isDoesNotExistError e then Just e else Nothing)  -- predicate to filter exceptions
+                    (getEnv "HOME")                                            -- computation to run
+    case home of
+        Left  exception -> putStrLn $ show exception
+        Right home      -> putStrLn home
+
+
+    --
+    -- BRACKET
+    --
+    bracket
+        (openFile "LICENSE" ReadMode)                -- computation to run first
+        (hClose)                                     -- computation to run last
+        (\fileHandle -> do                           -- computation to run in between
+            size <- hFileSize fileHandle
+            print size)

@@ -27,6 +27,8 @@ executable hello-errors-app
                        "-with-rtsopts=-N"
   build-depends:       base                    >= 4.8
                        , hello-errors
+                       , mtl
+                       , errors
 
 test-suite hello-errors-test
   type:                exitcode-stdio-1.0

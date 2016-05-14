@@ -46,6 +46,9 @@ stack install threadscope
 
   Blog posts that I want to keep a links to.
 
+  * [BASIC](http://hackage.haskell.org/package/BASIC)
+  * [ad hoc datatypes](https://jaspervdj.be/posts/2016-05-11-ad-hoc-datatypes.html)
+  * [servant tutorial](http://haskell-servant.readthedocs.io/en/stable/)
   * [essential haskell](http://www.stephendiehl.com/posts/essential_haskell.html)
   * [tutorials](https://wiki.haskell.org/Category:Tutorials)
   * [24 days of hackage](https://ocharles.org.uk/blog/posts/2012-12-17-24-days-of-hackage-optparse-applicative.html)
@@ -174,6 +177,7 @@ stack install threadscope
   * [tree structure in haskell](https://www.youtube.com/watch?v=3PggSt_rpUE)
   * [none binary tree](http://stackoverflow.com/questions/22000095/haskell-non-binary-tree)
   * [text](https://github.com/mgreenly/experiments/blob/master/haskell/old/tour/sample024/src/Main.hs)
+  * [rts heap options](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/prof-heap.html#rts-options-heap-prof)
 
 ### Error Handling
 
@@ -228,6 +232,6 @@ cabal build
   * [learning dependent types](http://blog.codersbase.com/posts/2013-12-03-learning-dependent-types.html)
   * [blog.functorial.com](http://blog.functorial.com/index.html)
   * [xmpp livecoding](http://blog.livecoding.tv/2015/11/21/how-to-chat-onal-xmpp-client/)
-
+  * [beginners guide to big o notation](https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/)
 
 

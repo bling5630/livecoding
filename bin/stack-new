@@ -105,7 +105,7 @@ source-repository head
   type:               git
   location:           https://github.com/$USER/$PACKAGE_NAME
 
-executable hello
+executable             $PACKAGE_NAME
   default-language:    Haskell2010
   hs-source-dirs:      src
   main-is:             Main.hs
@@ -159,10 +159,10 @@ EOF
 cat << EOF > .vimrc
 "" build project with profiling
 map <leader>p :exe '!clear && stack build --executable-profiling --library-profiling --ghc-options="-rtsopts"'<CR>
-map <leader>P :exe '!clear && stack exec $PACKAGE_NAME-app -- +RTS -sstderr'<CR>
+map <leader>P :exe '!clear && stack exec $PACKAGE_NAME -- +RTS -sstderr'<CR>
 "" build for threadscope with eventlog
 map <leader>e :exe '!clear && stack build --ghc-options="-eventlog -rtsopts"'<CR>
-map <leader>E :exe '!clear && stack exec $PACKAGE_NAME-app -- +RTS -N2 -l'<CR>
+map <leader>E :exe '!clear && stack exec $PACKAGE_NAME -- +RTS -N2 -l'<CR>
 "" build - build project
 map <leader>b :exe '!clear && stack build'<CR>
 "" clean - clean build artifacts
@@ -170,7 +170,7 @@ map <leader>c :exe '!clear && stack clean'<CR>
 "" interactive - load modules in repl
 map <leader>i :exe '!clear && stack ghci'<CR>
 "" run - run program
-map <leader>r :exe '!clear && stack build && clear && stack exec $PACKAGE_NAME-app'<CR>
+map <leader>r :exe '!clear && stack build && clear && stack exec $PACKAGE_NAME'<CR>
 "" spec - run specs
 map <leader>s :exe '!clear && stack test'<CR>
 "" spec - run specs

@@ -1,0 +1,143 @@
+{-# START_FILE {{name}}.cabal #-}
+name:                  {{name}}
+version:               0.0.1
+homepage:              https://github.com/{{github-user}}
+license:               ISC
+license-file:          LICENSE
+author:                {{author-name}}
+maintainer:            {{author-email}}
+build-type:            Simple
+cabal-version:         >=1.10
+
+source-repository head
+  type:               git
+  location:           https://github.com/{{github-user}}/{{name}}
+
+executable             {{name}}
+  default-language:    Haskell2010
+  hs-source-dirs:      src
+  main-is:             Main.hs
+  other-modules:       Foo
+  ghc-options:         -O2
+                       -threaded
+                       "-with-rtsopts=-N"
+  build-depends:       base                    >= 4.8
+
+test-suite {{name}}Test
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+                       , src
+  main-is:             Test.hs
+  build-depends:       base
+                       , hspec
+                       , QuickCheck
+
+
+{-# START_FILE .gitignore #-}
+/.cabal-sandbox
+/client_session_key.aes
+/dist
+/tags
+/TAGS
+/*.hp
+/*.prof
+.DS_Store
+.*.sw?
+.stack-work
+
+{-# START_FILE .vimrc #-}
+"" build project with profiling
+map <leader>p :exe '!clear && stack build --executable-profiling --library-profiling --ghc-options="-rtsopts"'<CR>
+map <leader>P :exe '!clear && stack exec {{name}} -- +RTS -sstderr'<CR>
+"" build for threadscope with eventlog
+map <leader>e :exe '!clear && stack build --ghc-options="-eventlog -rtsopts"'<CR>
+map <leader>E :exe '!clear && stack exec {{name}} -- +RTS -N2 -l'<CR>
+"" build - build project
+map <leader>b :exe '!clear && stack build --pedantic'<CR>
+"" clean - clean build artifacts
+map <leader>c :exe '!clear && stack clean'<CR>
+"" interactive - load modules in repl
+map <leader>i :exe '!clear && stack ghci'<CR>
+"" run - run program
+map <leader>r :exe '!clear && stack build && clear && stack exec {{name}}'<CR>
+"" spec - run specs
+map <leader>s :exe '!clear && stack test'<CR>
+"" spec - run specs
+
+
+" HASKTAGS
+"   - jump to tag
+noremap <leader>t "zyiw:exe 'tag '.@z<CR>
+"   - generate tags
+noremap <leader>T :exe '!clear && hasktags --ctags ./src ./app'<CR>
+"   - return from tag
+noremap <leader>z :exe 'pop'<CR>
+
+
+"
+" HDEVTOOLS
+"   - show type under cursor
+noremap <F5> :HdevtoolsType<CR>
+"   - clear type info
+
+
+" HOOGLE
+"   - search hoogle 
+noremap <F6> :Hoogle<CR>
+"   - clear search 
+noremap <S-F6> :HoogleClose<CR>
+
+
+"
+" HLINT
+"   - lint current file
+map <F7> "zyiw:exe '!clear && stack exec hlint -- -c=auto -s '.@%<CR>
+
+{-# START_FILE LICENSE #-}
+Copyright (c) {{copyright-year}} {{author-name}}
+
+Permission to use, copy, modify, and/or distribute this software for any purpose
+with or without fee is hereby granted, provided that the above copyright notice
+and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+THIS SOFTWARE.
+
+{-# START_FILE Setup.hs #-}
+import Distribution.Simple
+main = defaultMain
+
+{-# START_FILE src/Main.hs #-}
+module Main where
+
+import Foo (foo)
+
+main :: IO ()
+main = putStrLn foo
+
+{-# START_FILE src/Foo.hs #-}
+module Foo
+    ( foo
+    ) where
+
+foo :: String
+foo = "foo"
+{-# START_FILE test/Test.hs #-}
+import Test.Hspec
+import Test.QuickCheck
+import Control.Exception (evaluate)
+
+import Foo
+
+main :: IO ()
+main = hspec $ do
+    describe "testing stuff" $ do
+
+        it "foo returns the expected value" $ do
+            foo `shouldBe` ("foo" :: String)

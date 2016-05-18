@@ -42,10 +42,12 @@ stack install gtk
 stack install threadscope
 ```
 
-### Blog Posts
+### Links and Blog Posts
 
   Blog posts that I want to keep a links to.
 
+  * [you could have invented free monads](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html)
+  * [pointfree.info](http://pointfree.info/)
   * [BASIC](http://hackage.haskell.org/package/BASIC)
   * [ad hoc datatypes](https://jaspervdj.be/posts/2016-05-11-ad-hoc-datatypes.html)
   * [servant tutorial](http://haskell-servant.readthedocs.io/en/stable/)

@@ -1,7 +1,7 @@
 FROM alpine:latest
 
-ADD .stack-work/install/x86_64-linux/lts-5.1/7.10.3/bin /main
+#RUN apk update       && apk add gmp
 
-RUN apk update       && apk add gmp
+ADD .stack-work/install/x86_64-linux/lts-6.0/7.10.3/bin /usr/local/bin
 
-CMD /main/hello-aeson-app
+CMD hello-aeson-app

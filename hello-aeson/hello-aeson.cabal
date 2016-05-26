@@ -24,7 +24,11 @@ executable hello-aeson-app
   main-is:             Main.hs
   ghc-options:         -O2
                        -threaded
-                       "-with-rtsopts=-N"
+                       -with-rtsopts=-N
+                       -static
+                       -optc-static
+                       -optl-static
+                       -optl-pthread
   build-depends:       base                    >= 4.8
                        , hello-aeson
                        , text

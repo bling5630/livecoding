@@ -16,6 +16,16 @@ if [[ -e ./build.sh ]];then
   exit
 fi
 
+if [[ -e ./run.sh ]];then
+  echo "run.sh already exists.  Cowardly refusing to run."
+  exit
+fi
+
+if [[ ! -e ./stack.yaml ]];then
+  echo "stack.yaml does not exist.  Cowardly refusing to run."
+  exit
+fi
+
 #
 # This image provides stack running on debian linux.  It's used to
 # build the applicaton before copying it into a base image.  This

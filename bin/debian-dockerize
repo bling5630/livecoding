@@ -59,19 +59,16 @@ EXE_NAME=`grep -e '^executable' $CABAL_FILE | tr -s ' ' | cut -d' ' -f2`
 # specific library dependencies you're application requires
 #
 cat << EOF > Dockerfile
+
 FROM debian:latest
 
-RUN DEBIAN_FRONTEND=noninteractive               \\
-    apt-get -q -y update                         \\
-    && apt-get                                   \\
-      -o Dpkg::Options::="--force-confdef"       \\
-      -o Dpkg::Options::="--force-confold"       \\
-      -q -y install                              \\
-      libgmp10                                   \\
-    && apt-get clean                             \\
-    && rm -rf /var/lib/apt/lists/*
-
 ADD $REL_STACK_BINDIR /usr/local/bin
+
+RUN adduser --disabled-password --gecos "" haskell
+
+USER haskell
+
+WORKDIR /home/haskell
 
 CMD $EXE_NAME
 EOF

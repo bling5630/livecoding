@@ -33,6 +33,11 @@ If you're new to haskell install it with [Stack](http://docs.haskellstack.org/).
 
 ## Misc Stuff
 
+### Package Versioning Policy
+
+  * [package versioning policy](https://wiki.haskell.org/Package_versioning_policy)
+  * [ekemmet - how I use it comment](https://www.reddit.com/r/haskell/comments/31e3jj/lets_update_our_versioning_policy_to_bind_closer/cq121x9)
+
 ### Installing Threadscope on Debian
 
 ```

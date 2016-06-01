@@ -51,6 +51,11 @@ stack install threadscope
 
   Blog posts that I want to keep a links to.
 
+  * [Alexandr Kurlin - Pragmatic Haskell #1](https://begriffs.com/posts/2016-05-14-pragmatic-haskell-1.html)
+  * [Alexandr Kurlin - Pragmatic Haskell #2](https://begriffs.com/posts/2016-06-01-pragmatic-haskell-2.html)
+  * [Bartosz Milewski Lectures](https://www.youtube.com/watch?v=N6sOMGYsvFA&list=PLbgaMIhjbmEm_51-HWv9BQUXcmHYtl4sw)
+  * [csv encoding decoding](https://www.stackbuilders.com/tutorials/haskell/csv-encoding-decoding/)
+  * [Enterprise Haskell Pattern Lensed Reader](http://michaelxavier.net/posts/2016-04-03-Enterprise-Haskell-Pattern-Lensed-Reader.html)
   * [you could have invented free monads](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html)
   * [pointfree.info](http://pointfree.info/)
   * [BASIC](http://hackage.haskell.org/package/BASIC)

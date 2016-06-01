@@ -1,0 +1,4 @@
+.stack.debian
+.stack-work/dist
+.stack.alpine
+.stack-work/dist

@@ -18,7 +18,27 @@ If you're new to haskell install it with [Stack](http://docs.haskellstack.org/).
 
 ### Videos
 
-  * [youtube playlist](https://www.youtube.com/playlist?list=PLfHYba8zC7hRzd6A5MUr0L-B4uM8jLm7w).
+  * [haskell is easy](http://haskelliseasy.readthedocs.io/en/latest/)
+  * [Alexandr Kurlin - Pragmatic Haskell #1](https://begriffs.com/posts/2016-05-14-pragmatic-haskell-1.html)
+  * [Alexandr Kurlin - Pragmatic Haskell #2](https://begriffs.com/posts/2016-06-01-pragmatic-haskell-2.html)
+  * [Bartosz Milewski Lectures](https://www.youtube.com/watch?v=N6sOMGYsvFA&list=PLbgaMIhjbmEm_51-HWv9BQUXcmHYtl4sw)
+  * [a history of haskell: being lazy with class](https://www.youtube.com/watch?v=3bjXGrycMhQ)
+  * [spock intro video](https://www.youtube.com/watch?v=kNqsOBrCbLo)
+  * [Hole Driven Development](https://www.youtube.com/watch?v=IRGKkiGG5CY)
+  * [Wranging Monad Transformer Stacks](https://www.youtube.com/watch?v=8t8fjkISjus)
+  * [Type Classes vs. The World](https://www.youtube.com/watch?v=hIZxTQP1ifo)
+  * [Succinct Data Structures](https://www.youtube.com/watch?v=uA0Z7_4J7u8)
+  * [Types and Testing in Haskell](https://www.youtube.com/watch?v=8_gjqN-VqeM)
+  * [Lenses, Folds, and Traversals](https://www.youtube.com/watch?v=cefnmjtAolY&hd)
+  * [Lenses: A Functional Imperative 1/5](https://www.youtube.com/watch?v=efv0SQNde5Q)
+  * [Lenses: A Functional Imperative 2/5](https://www.youtube.com/watch?v=XVmhK8WbRLY)
+  * [Lenses: A Functional Imperative 3/5](https://www.youtube.com/watch?v=QjatJWIJBTM)
+  * [Lenses: A Functional Imperative 4/5](https://www.youtube.com/watch?v=CXH1V4xS2W0) * [Lenses: A Functional Imperative 5/5](https://www.youtube.com/watch?v=YiFcvqRM6AA)
+  * [Haskell Implementors Workshop 2015](https://www.youtube.com/playlist?list=PLnqUlCo055hVfNkQHP7z43r10yNo-mc7B)
+  * [unreasonable effectiveness of lens for bussiness apps](https://www.youtube.com/watch?v=T88TDS7L5DY)
+  * [Typesafe SQL in Haskell](https://www.youtube.com/watch?v=A0oVn-GXOok)
+  * [tree structure in haskell](https://www.youtube.com/watch?v=3PggSt_rpUE)
+  * [unsorted playlist of haskell videos](https://www.youtube.com/playlist?list=PLfHYba8zC7hRzd6A5MUr0L-B4uM8jLm7w).
 
 ### Libraries and Search
 
@@ -51,10 +71,6 @@ stack install threadscope
 
   Blog posts that I want to keep a links to.
 
-  * [haskell is easy](http://haskelliseasy.readthedocs.io/en/latest/)
-  * [Alexandr Kurlin - Pragmatic Haskell #1](https://begriffs.com/posts/2016-05-14-pragmatic-haskell-1.html)
-  * [Alexandr Kurlin - Pragmatic Haskell #2](https://begriffs.com/posts/2016-06-01-pragmatic-haskell-2.html)
-  * [Bartosz Milewski Lectures](https://www.youtube.com/watch?v=N6sOMGYsvFA&list=PLbgaMIhjbmEm_51-HWv9BQUXcmHYtl4sw)
   * [csv encoding decoding](https://www.stackbuilders.com/tutorials/haskell/csv-encoding-decoding/)
   * [Enterprise Haskell Pattern Lensed Reader](http://michaelxavier.net/posts/2016-04-03-Enterprise-Haskell-Pattern-Lensed-Reader.html)
   * [you could have invented free monads](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html)
@@ -91,7 +107,6 @@ stack install threadscope
   * [3 approaches to monadic api design](https://blog.pusher.com/3-approaches-to-monadic-api-design-in-haskell/)
   * [stop treading water: learn to learn](https://yow.eventer.com/yow-2014-1222/stop-treading-water-learning-to-learn-by-edward-kmett-1750)
   * [a newcomer's run in with lazy io](https://ianthehenry.com/2016/3/9/lazy-io/)
-  * [a history of haskell: being lazy with class](https://www.youtube.com/watch?v=3bjXGrycMhQ)
   * [papers](https://www.reddit.com/r/haskell/comments/4bpd6v/papers_for_an_intermediate_haskell_programmer/)
   * [mutable objects](https://en.wikibooks.org/wiki/Haskell/Mutable_objects)
   * [imperative quicksort](http://stackoverflow.com/questions/5268156/how-do-you-do-an-in-place-quicksort-in-haskell)
@@ -108,7 +123,6 @@ stack install threadscope
   * [alphine-linux-ghc-bootstrap](https://github.com/mitchty/alpine-linux-ghc-bootstrap/tree/master)
   * [learnhaskell](https://github.com/bitemyapp/learnhaskell)
   * [bytemyapp](http://bitemyapp.com/)
-  * [spock intro video](https://www.youtube.com/watch?v=kNqsOBrCbLo)
   * [monad challenge](http://mightybyte.github.io/monad-challenges/)
   * [hackage dependency monitor](http://packdeps.haskellers.com/)
   * [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia)
@@ -119,18 +133,7 @@ stack install threadscope
   * [a haskell time library tutorail](http://two-wrongs.com/haskell-time-library-tutorial)
   * [why-cabal-tool-doesnt-use-setup-lhs-setup-hs](http://stackoverflow.com/questions/13876047/why-cabal-tool-doesnt-use-setup-lhs-setup-hs)
   * [Applicataves in Math vs Code](http://begriffs.com/posts/2015-08-30-applicative-functors.html)
-  * [Hole Driven Development](https://www.youtube.com/watch?v=IRGKkiGG5CY)
   * [In Depth Guide To Stack](https://www.fpcomplete.com/blog/2015/08/new-in-depth-guide-stack)
-  * [Wranging Monad Transformer Stacks](https://www.youtube.com/watch?v=8t8fjkISjus)
-  * [Type Classes vs. The World](https://www.youtube.com/watch?v=hIZxTQP1ifo)
-  * [Succinct Data Structures](https://www.youtube.com/watch?v=uA0Z7_4J7u8)
-  * [Types and Testing in Haskell](https://www.youtube.com/watch?v=8_gjqN-VqeM)
-  * [Lenses, Folds, and Traversals](https://www.youtube.com/watch?v=cefnmjtAolY&hd)
-  * [Lenses: A Functional Imperative 1/5](https://www.youtube.com/watch?v=efv0SQNde5Q)
-  * [Lenses: A Functional Imperative 2/5](https://www.youtube.com/watch?v=XVmhK8WbRLY)
-  * [Lenses: A Functional Imperative 3/5](https://www.youtube.com/watch?v=QjatJWIJBTM)
-  * [Lenses: A Functional Imperative 4/5](https://www.youtube.com/watch?v=CXH1V4xS2W0) * [Lenses: A Functional Imperative 5/5](https://www.youtube.com/watch?v=YiFcvqRM6AA)
-  * [Haskell Implementors Workshop 2015](https://www.youtube.com/playlist?list=PLnqUlCo055hVfNkQHP7z43r10yNo-mc7B)
   * [Write Your Self a Scheme in 48 Hours](https://en.wikibooks.org/wiki/Write_Yourself_a_Scheme_in_48_Hours)
   * [Cabal - The Simple Guide](http://katychuang.com/cabal-guide/)
   * [WikiBooks - Haskell](https://en.wikibooks.org/wiki/Haskell)
@@ -139,7 +142,6 @@ stack install threadscope
   * [HaskellR](http://tweag.github.io/HaskellR/)
   * [Practical Recursion Schemes](https://medium.com/@jaredtobin/practical-recursion-schemes-c10648ec1c29)
   * [Fixing GADTs](http://www.timphilipwilliams.com/posts/2013-01-16-fixing-gadts.html)
-  * [unreasonable effectiveness of lens for bussiness apps](https://www.youtube.com/watch?v=T88TDS7L5DY)
   * [monads are not metaphors](http://www.codecommit.com/blog/ruby/monads-are-not-metaphors)
   * [static linking](https://www.reddit.com/r/haskell/comments/3kjpwe/how_to_easily_create_portable_binaries_for_linux/)
   * [haskell builder](https://github.com/dkubb/haskell-builder)
@@ -151,7 +153,6 @@ stack install threadscope
   * [neco-ghc](https://github.com/eagletmt/neco-ghc)
   * [Category Theory for Programmers](http://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
   * [Mustache Library](https://hackage.haskell.org/package/mustache)
-  * [Typesafe SQL in Haskell](https://www.youtube.com/watch?v=A0oVn-GXOok)
   * [8 ways to report errors](http://www.randomhacks.net/2007/03/10/haskell-8-ways-to-report-errors/)
   * [creating repl](https://hackage.haskell.org/package/readline-1.0.3.0/docs/System-Console-Readline.html)
   * [finger trees](http://scienceblogs.com/goodmath/2009/05/27/finally-finger-trees/)
@@ -187,7 +188,6 @@ stack install threadscope
   * [template haskell](http://www.parsonsmatt.org/programming/2015/11/15/template_haskell.html)
   * [neural networks functional programming](http://colah.github.io/posts/2015-09-NN-Types-FP/)
   * [maps folds and beyond (trees)](http://shuklan.com/haskell/lec06.html#/)
-  * [tree structure in haskell](https://www.youtube.com/watch?v=3PggSt_rpUE)
   * [none binary tree](http://stackoverflow.com/questions/22000095/haskell-non-binary-tree)
   * [text](https://github.com/mgreenly/experiments/blob/master/haskell/old/tour/sample024/src/Main.hs)
   * [rts heap options](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/prof-heap.html#rts-options-heap-prof)
@@ -247,4 +247,6 @@ cabal build
   * [xmpp livecoding](http://blog.livecoding.tv/2015/11/21/how-to-chat-onal-xmpp-client/)
   * [beginners guide to big o notation](https://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/)
 
+### Not at all Haskell
 
+  * [livestreaming nginx plus bimovin](https://www.nginx.com/blog/scalable-live-video-streaming-nginx-plus-bitmovin/)

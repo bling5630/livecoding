@@ -1,4 +1,4 @@
-module Main where
+
 
 --
 -- generate a bill of material for a radio flayer wagon that can
@@ -49,7 +49,7 @@ data UofM
     deriving (Show)
 
 class (Show a) => Bom a where
-    bom :: Double -> a -> Tree BomItem
+    bom :: UofM -> Double -> a -> Tree BomItem
 
 
 data Item = Item
@@ -59,8 +59,11 @@ data Item = Item
     }
 
 item uOfM' qty' pn' =
-    Node BomItem{uOfM=(_uOfM item'), qty=((uomRatio uOfM' (_uOfM item')) * qty'), pn=pn', cost=((_cost item') * qty'), desc=(_desc item')} []
+    Node BomItem{uOfM=(_uOfM item'), qty=(uomMul uOfM' (_uOfM item') qty'), pn=pn', cost=((_cost item') * qty'), desc=(_desc item')} []
   where item' = items ! pn'
+
+
+uomMul src dst qty = (uomRatio src dst) * qty
 
 
 uomRatio Each  Each  = 1.0
@@ -90,69 +93,70 @@ data Wagon = Wagon PrimaryColor SecondaryColor deriving (Show)
 -- depend on both, one or none of those parameters
 --
 instance Bom Wagon where
-    bom qty' wagon@(Wagon prmColor sndColor) = Node (BomItem{uOfM=Each, qty=qty', pn="configured-wagon", cost=0, desc=(show wagon) })
-        [ bom qty' (WagonBed prmColor)
-        , bom qty' (FrontBolsterKit sndColor)
-        , bom qty' (Decal sndColor)
-        , bom qty' (RearBolsterKit sndColor)
-        , bom qty' (Handle sndColor)
-        , item Each (qty' * 4) "1006"
-        , item Each (qty' * 1) "1007"
-        , bom qty' (HandleBall sndColor)
-        , bom qty' (SteeringColumn sndColor)
-        , item Each (qty' * 1) "1010"
-        ]
+    bom Each qty' wagon@(Wagon prmColor sndColor) =
+        Node (BomItem{uOfM=Each, qty=qty', pn="configured-wagon", cost=0, desc=(show wagon) })
+            [ bom  Each  (qty' * 1) (WagonBed prmColor)
+            , bom  Each  (qty' * 1) (FrontBolsterKit sndColor)
+            , bom  Halfs (qty' * 1) (Decal sndColor)
+            , bom  Each  (qty' * 1) (RearBolsterKit sndColor)
+            , bom  Each  (qty' * 1) (Handle sndColor)
+            , item Each  (qty' * 4) "1006"
+            , item Each  (qty' * 1) "1007"
+            , bom  Each  (qty' * 1) (HandleBall sndColor)
+            , bom  Each  (qty' * 1) (SteeringColumn sndColor)
+            , item Each  (qty' * 1) "1010"
+            ]
 
 --
 -- examples of selecting a standard part based on a parameter
 --
 data WagonBed = WagonBed PrimaryColor deriving (Show)
 instance Bom WagonBed where
-    bom qty' (WagonBed Red)  = item Each 1 "1001R"
-    bom qty' (WagonBed Blue) = item Each 1 "1001B"
+    bom uom qty' (WagonBed Red)  = item Each qty' "1001R"
+    bom uom qty' (WagonBed Blue) = item Each qty' "1001B"
 
 data FrontBolsterKit = FrontBolsterKit SecondaryColor deriving (Show)
 instance Bom FrontBolsterKit where
-    bom qty' (FrontBolsterKit Black) = item Each 1 "1002B"
-    bom qty' (FrontBolsterKit White) = item Each 1 "1002W"
+    bom uom qty' (FrontBolsterKit Black) = item Each qty' "1002B"
+    bom uom qty' (FrontBolsterKit White) = item Each qty' "1002W"
 
 
 data Decal = Decal SecondaryColor deriving (Show)
 instance Bom Decal where
-    bom qty' (Decal Black) = item Each 1 "1003B"
-    bom qty' (Decal White) = item Each 1 "1003W"
+    bom uom qty' (Decal Black) = item uom qty' "1003B"
+    bom uom qty' (Decal White) = item uom qty' "1003W"
 
 
 data RearBolsterKit = RearBolsterKit SecondaryColor deriving (Show)
 instance Bom RearBolsterKit where
-    bom qty' (RearBolsterKit Black) = item Each 1 "1004B"
-    bom qty' (RearBolsterKit White) = item Each 1 "1004W"
+    bom uom qty' (RearBolsterKit Black) = item Each qty' "1004B"
+    bom uom qty' (RearBolsterKit White) = item Each qty' "1004W"
 
 
 data Handle = Handle SecondaryColor deriving (Show)
 instance Bom Handle where
-    bom qty' (Handle Black) = item Each 1 "1005B"
-    bom qty' (Handle White) = item Each 1 "1005W"
+    bom uom qty' (Handle Black) = item Each qty' "1005B"
+    bom uom qty' (Handle White) = item Each qty' "1005W"
 
 
 data HandleBall = HandleBall SecondaryColor deriving (Show)
 instance Bom HandleBall where
-    bom qty' (HandleBall Black) = item Each 1 "1009B"
-    bom qty' (HandleBall White) = item Each 1 "1009W"
+    bom uom qty' (HandleBall Black) = item Each qty' "1009B"
+    bom uom qty' (HandleBall White) = item Each qty' "1009W"
 
 
 data SteeringColumn = SteeringColumn SecondaryColor deriving (Show)
 instance Bom SteeringColumn where
-    bom qty' (SteeringColumn Black) = item Each 1 "1008B"
-    bom qty' (SteeringColumn White) = item Each 1 "1008W"
+    bom uom qty' (SteeringColumn Black) = item Each qty' "1008B"
+    bom uom qty' (SteeringColumn White) = item Each qty' "1008W"
 
 --
 -- A map of unconfigured items allows you to define them all in the same place
 --
 items :: Map String Item
 items = fromList
-    [ ("1001R", Item Each  2500 "wagon bed - red")
-    , ("1001B", Item Each  2500 "wagon bed - blue")
+    [ ("1001R", Item Halfs 2500 "wagon bed - red")
+    , ("1001B", Item Halfs 2500 "wagon bed - blue")
     , ("1002B", Item Each  1677 "front bolster kit - black")
     , ("1002W", Item Each  1677 "front bolster kit - white")
     , ("1003B", Item Each  1289 "decal - black")
@@ -170,13 +174,13 @@ items = fromList
     , ("1010",  Item Each   979 "hardware bag")
     ]
 
-renderBom uom qty x = putStrLn $ drawTree $ fmap show (bom qty x)
+renderBom uom qty x = putStrLn $ drawTree $ fmap show (bom uom qty x)
 
 main :: IO ()
 main = do
     renderBom Each 1 (Wagon Blue White)
     putStrLn "--------------------"
-    renderBom Each 1 (Wagon Red Black)
+    renderBom Each 2 (Wagon Red Black)
 
 --
 -- Example output:
@@ -227,4 +231,4 @@ main = do
 --   `- BomItem {pn = "1010", uOfM = Each, qty = 1, cost = 979, desc = "hardware bag"}
 
 
-
+-- so I always want to express a quantity as a (uofm quantity)

@@ -35,14 +35,21 @@ data BomItem = BomItem
     , desc :: String
     } deriving (Show)
 
-type Quantity = Integer
+type Quantity = Double
 
-type Amount = Integer
+type Amount = Double
 
 type PartNumber = String
 
+data UofM
+    = Each
+    | Halfs
+    | Sqft
+    | Ft
+    deriving (Show)
+
 class (Show a) => Bom a where
-    bom :: Integer -> a -> Tree BomItem
+    bom :: Double -> a -> Tree BomItem
 
 
 data Item = Item
@@ -51,15 +58,15 @@ data Item = Item
     , _desc :: String
     }
 
-item qty' pn' =
-    Node BomItem{uOfM=(_uOfM item'), qty=qty', pn=pn', cost=((_cost item') * qty'), desc=(_desc item')} []
+item uOfM' qty' pn' =
+    Node BomItem{uOfM=(_uOfM item'), qty=((uomRatio uOfM' (_uOfM item')) * qty'), pn=pn', cost=((_cost item') * qty'), desc=(_desc item')} []
   where item' = items ! pn'
 
-data UofM
-    = Each
-    | Sqft
-    | Ft
-    deriving (Show)
+
+uomRatio Each  Each  = 1.0
+uomRatio Each  Halfs = 2.0
+uomRatio Halfs Each  = 0.5
+uomRatio _ _ = error "undefined uom conversion ratio"
 
 --
 -- The stuff below this point defines the product and it's bom.
@@ -89,11 +96,11 @@ instance Bom Wagon where
         , bom qty' (Decal sndColor)
         , bom qty' (RearBolsterKit sndColor)
         , bom qty' (Handle sndColor)
-        , item (qty' * 4) "1006"
-        , item (qty' * 1) "1007"
+        , item Each (qty' * 4) "1006"
+        , item Each (qty' * 1) "1007"
         , bom qty' (HandleBall sndColor)
         , bom qty' (SteeringColumn sndColor)
-        , item (qty' * 1) "1010"
+        , item Each (qty' * 1) "1010"
         ]
 
 --
@@ -101,75 +108,75 @@ instance Bom Wagon where
 --
 data WagonBed = WagonBed PrimaryColor deriving (Show)
 instance Bom WagonBed where
-    bom qty' (WagonBed Red) = item 1 "1001R"
-    bom qty' (WagonBed Blue) = item 1 "1001B"
+    bom qty' (WagonBed Red)  = item Each 1 "1001R"
+    bom qty' (WagonBed Blue) = item Each 1 "1001B"
 
 data FrontBolsterKit = FrontBolsterKit SecondaryColor deriving (Show)
 instance Bom FrontBolsterKit where
-    bom qty' (FrontBolsterKit Black) = item 1 "1002B"
-    bom qty' (FrontBolsterKit White) = item 1 "1002W"
+    bom qty' (FrontBolsterKit Black) = item Each 1 "1002B"
+    bom qty' (FrontBolsterKit White) = item Each 1 "1002W"
 
 
 data Decal = Decal SecondaryColor deriving (Show)
 instance Bom Decal where
-    bom qty' (Decal Black) = item 1 "1003B"
-    bom qty' (Decal White) = item 1 "1003W"
+    bom qty' (Decal Black) = item Each 1 "1003B"
+    bom qty' (Decal White) = item Each 1 "1003W"
 
 
 data RearBolsterKit = RearBolsterKit SecondaryColor deriving (Show)
 instance Bom RearBolsterKit where
-    bom qty' (RearBolsterKit Black) = item 1 "1004B"
-    bom qty' (RearBolsterKit White) = item 1 "1004W"
+    bom qty' (RearBolsterKit Black) = item Each 1 "1004B"
+    bom qty' (RearBolsterKit White) = item Each 1 "1004W"
 
 
 data Handle = Handle SecondaryColor deriving (Show)
 instance Bom Handle where
-    bom qty' (Handle Black) = item 1 "1005B"
-    bom qty' (Handle White) = item 1 "1005W"
+    bom qty' (Handle Black) = item Each 1 "1005B"
+    bom qty' (Handle White) = item Each 1 "1005W"
 
 
 data HandleBall = HandleBall SecondaryColor deriving (Show)
 instance Bom HandleBall where
-    bom qty' (HandleBall Black) = item 1 "1009B"
-    bom qty' (HandleBall White) = item 1 "1009W"
+    bom qty' (HandleBall Black) = item Each 1 "1009B"
+    bom qty' (HandleBall White) = item Each 1 "1009W"
 
 
 data SteeringColumn = SteeringColumn SecondaryColor deriving (Show)
 instance Bom SteeringColumn where
-    bom qty' (SteeringColumn Black) = item 1 "1008B"
-    bom qty' (SteeringColumn White) = item 1 "1008W"
+    bom qty' (SteeringColumn Black) = item Each 1 "1008B"
+    bom qty' (SteeringColumn White) = item Each 1 "1008W"
 
 --
 -- A map of unconfigured items allows you to define them all in the same place
 --
 items :: Map String Item
 items = fromList
-    [ ("1001R", Item Each 2500 "wagon bed - red")
-    , ("1001B", Item Each 2500 "wagon bed - blue")
-    , ("1002B", Item Each 1677 "front bolster kit - black")
-    , ("1002W", Item Each 1677 "front bolster kit - white")
-    , ("1003B", Item Each 1289 "decal - black")
-    , ("1003W", Item Each 1289 "decal- white")
-    , ("1004B", Item Each  822 "rear bolster kit - black")
-    , ("1004W", Item Each  822 "rear bolster kit - white")
-    , ("1005W", Item Each 1289 "handle - white")
-    , ("1005B", Item Each 1289 "handle - black")
-    , ("1006",  Item Each 1324 "wheel kit")
-    , ("1007",  Item Each  324 "steering limiter")
-    , ("1008W", Item Each  668 "steering column - white")
-    , ("1008B", Item Each  668 "steering column - black")
-    , ("1009B", Item Each  142 "handle ball - black")
-    , ("1009W", Item Each  142 "handle ball - white")
-    , ("1010",  Item Each  979 "hardware bag")
+    [ ("1001R", Item Each  2500 "wagon bed - red")
+    , ("1001B", Item Each  2500 "wagon bed - blue")
+    , ("1002B", Item Each  1677 "front bolster kit - black")
+    , ("1002W", Item Each  1677 "front bolster kit - white")
+    , ("1003B", Item Each  1289 "decal - black")
+    , ("1003W", Item Each  1289 "decal- white")
+    , ("1004B", Item Each   822 "rear bolster kit - black")
+    , ("1004W", Item Each   822 "rear bolster kit - white")
+    , ("1005W", Item Each  1289 "handle - white")
+    , ("1005B", Item Each  1289 "handle - black")
+    , ("1006",  Item Halfs 1324 "wheel kit")
+    , ("1007",  Item Each   324 "steering limiter")
+    , ("1008W", Item Each   668 "steering column - white")
+    , ("1008B", Item Each   668 "steering column - black")
+    , ("1009B", Item Each   142 "handle ball - black")
+    , ("1009W", Item Each   142 "handle ball - white")
+    , ("1010",  Item Each   979 "hardware bag")
     ]
 
-renderBom qty x = putStrLn $ drawTree $ fmap show (bom qty x)
+renderBom uom qty x = putStrLn $ drawTree $ fmap show (bom qty x)
 
 main :: IO ()
 main = do
-    renderBom 1 (Wagon Blue White)
+    renderBom Each 1 (Wagon Blue White)
     putStrLn "--------------------"
-    renderBom 1 (Wagon Red Black)
+    renderBom Each 1 (Wagon Red Black)
 
 --
 -- Example output:

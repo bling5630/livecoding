@@ -1,27 +1,16 @@
-
-
 --
--- generate a bill of material for a radio flayer wagon that can
--- be red or blue.  Also allow the secondary color to be selected
--- from white or black.
+-- This program generates a bill of material for a configurable
+-- radio flyer wagon.  The wagon can have a primary color of
+-- red or blue and a secondary color of white or black.  The items
+-- in the bill of material are defined with a unit of measure that
+-- can differ (as long as they're convertable) from the parts list
+--
+-- The parts lists was inspired by this info
 --
 -- parts and info derived from here
 --    http://www.radioflyer.com/shop/wagons.html?pid=4&cid=12
 --    http://www.instructables.com/id/Refinish-your-old-Radio-Flyer-wagon/
 --
---
--- example parts lists:
---
---    pn-1001 wagon bed         - 50.00 x 1   Red   / Blue
---    pn-1002 front bolster kit - 16.77 x 1   Black / White
---    pn-1003 decal             - 12.89 x 1   Black / White
---    pn-1004 rear bolster kit  -  8.22 x 1   Black / White
---    pn-1005 handle            - 13.99 x 1   Black / White
---    pn-1006 WheelKit          - 13.24 x 4   NONE
---    pn-1007 Steering Limiter  -  3.24 x 1   NONE
---    pn-1008 Steering Column   -  6.68 x 1   Black / White
---    pn-1009 Handle ball       -  1.42 x 1   Black / White
---    pn-1010 Hardware Bag      -  9.79 x 1   NONE
 
 import Data.Tree
 import Data.Map (Map(..),fromList, (!))
@@ -44,8 +33,6 @@ type PartNumber = String
 data UofM
     = Each
     | Halfs
-    | Sqft
-    | Ft
     deriving (Show)
 
 class (Show a) => Bom a where

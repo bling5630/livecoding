@@ -52,7 +52,7 @@ data Item = Item
     }
 
 item qty' pn' =
-    Node BomItem{uOfM=(_uOfM item'), qty=qty', pn=pn', cost=(_cost item'), desc=(_desc item')} []
+    Node BomItem{uOfM=(_uOfM item'), qty=qty', pn=pn', cost=((_cost item') * qty'), desc=(_desc item')} []
   where item' = items ! pn'
 
 

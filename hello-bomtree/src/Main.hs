@@ -55,13 +55,11 @@ item qty' pn' =
     Node BomItem{uOfM=(_uOfM item'), qty=qty', pn=pn', cost=((_cost item') * qty'), desc=(_desc item')} []
   where item' = items ! pn'
 
-
 data UofM
     = Each
     | Sqft
     | Ft
     deriving (Show)
-
 
 data PrimaryColor
     = Red
@@ -73,9 +71,11 @@ data SecondaryColor
     | White
     deriving (Show)
 
-
 data Wagon = Wagon PrimaryColor SecondaryColor deriving (Show)
 
+--
+-- all the configured items, starting with the entire wagon
+--
 instance Bom Wagon where
     bom qty' wagon@(Wagon prmColor sndColor) = Node (BomItem{uOfM=Each, qty=qty', pn="configured-wagon", cost=0, desc=(show wagon) })
         [ bom qty' (WagonBed prmColor)
@@ -94,8 +94,6 @@ data WagonBed = WagonBed PrimaryColor deriving (Show)
 instance Bom WagonBed where
     bom qty' thisItem@(WagonBed Red)  = Node (BomItem{uOfM=Each, qty=qty', pn="1001R",  cost=(qty' * 1677), desc="wagon bed - red" }) []
     bom qty' thisItem@(WagonBed Blue) = Node (BomItem{uOfM=Each, qty=qty', pn="1001B",  cost=(qty' * 1677), desc="wagon bed - blue" }) []
-
-
 
 data FrontBolsterKit = FrontBolsterKit SecondaryColor deriving (Show)
 instance Bom FrontBolsterKit where
@@ -132,6 +130,9 @@ instance Bom SteeringColumn where
     bom qty' (SteeringColumn White)  = Node (BomItem{uOfM=Each, qty=qty', pn="1009W",  cost=(qty' * 668), desc="steerign column - white" }) []
 
 
+--
+-- A map of unconfigured items allows you to define them all in the same place
+--
 items :: Map String Item
 items = fromList
     [ ("1006", Item Each 1324 "wheel kit")

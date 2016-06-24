@@ -76,8 +76,8 @@ data Wagon = Wagon PrimaryColor SecondaryColor deriving (Show)
 
 --
 -- This is an example of a configured BOM.  To create a Wagon you need to
--- know botht he primary and secondary color.  Then the child items may
--- depend on both, one or none of those parameters
+-- know both the primary and secondary color.  Then the child items may
+-- depend on one or both of those values
 --
 instance Bom Wagon where
     bom Each qty' wagon@(Wagon prmColor sndColor) =
@@ -169,53 +169,3 @@ main = do
     putStrLn "--------------------"
     renderBom Each 2 (Wagon Red Black)
 
---
--- Example output:
---
---   BomItem {pn = "configured-wagon", uOfM = Each, qty = 1, cost = 0, desc = "Wagon Blue White"}
---   |
---   +- BomItem {pn = "1001B", uOfM = Each, qty = 1, cost = 1677, desc = "wagon bed - blue"}
---   |
---   +- BomItem {pn = "1002W", uOfM = Each, qty = 1, cost = 1677, desc = "front bolster kit - white"}
---   |
---   +- BomItem {pn = "1003W", uOfM = Each, qty = 1, cost = 1289, desc = "decal - white"}
---   |
---   +- BomItem {pn = "1004W", uOfM = Each, qty = 1, cost = 822, desc = "rear bolster kit - white"}
---   |
---   +- BomItem {pn = "1005W", uOfM = Each, qty = 1, cost = 1289, desc = "handle - white"}
---   |
---   +- BomItem {pn = "1006", uOfM = Each, qty = 4, cost = 1324, desc = "wheel kit"}
---   |
---   +- BomItem {pn = "1007", uOfM = Each, qty = 1, cost = 324, desc = "steering limiter"}
---   |
---   +- BomItem {pn = "1009W", uOfM = Each, qty = 1, cost = 142, desc = "handle ball - white"}
---   |
---   +- BomItem {pn = "1009W", uOfM = Each, qty = 1, cost = 668, desc = "steerign column - white"}
---   |
---   `- BomItem {pn = "1010", uOfM = Each, qty = 1, cost = 979, desc = "hardware bag"}
---
---   --------------------
---   BomItem {pn = "configured-wagon", uOfM = Each, qty = 1, cost = 0, desc = "Wagon Red Black"}
---   |
---   +- BomItem {pn = "1001R", uOfM = Each, qty = 1, cost = 1677, desc = "wagon bed - red"}
---   |
---   +- BomItem {pn = "1002B", uOfM = Each, qty = 1, cost = 1677, desc = "front bolster kit - black"}
---   |
---   +- BomItem {pn = "1003B", uOfM = Each, qty = 1, cost = 1289, desc = "decal - black"}
---   |
---   +- BomItem {pn = "1004B", uOfM = Each, qty = 1, cost = 822, desc = "rear bolster kit - black"}
---   |
---   +- BomItem {pn = "1005B", uOfM = Each, qty = 1, cost = 1289, desc = "handle - black"}
---   |
---   +- BomItem {pn = "1006", uOfM = Each, qty = 4, cost = 1324, desc = "wheel kit"}
---   |
---   +- BomItem {pn = "1007", uOfM = Each, qty = 1, cost = 324, desc = "steering limiter"}
---   |
---   +- BomItem {pn = "1009B", uOfM = Each, qty = 1, cost = 142, desc = "handle ball - black"}
---   |
---   +- BomItem {pn = "1008B", uOfM = Each, qty = 1, cost = 668, desc = "steering column - black"}
---   |
---   `- BomItem {pn = "1010", uOfM = Each, qty = 1, cost = 979, desc = "hardware bag"}
-
-
--- so I always want to express a quantity as a (uofm quantity)

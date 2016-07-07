@@ -71,6 +71,7 @@ stack install threadscope
 
   Blog posts that I want to keep a links to.
 
+  * [FRP explanation using reactive banana](https://wiki.haskell.org/FRP_explanation_using_reactive-banana)
   * [haskell is easy](http://haskelliseasy.readthedocs.io/en/latest/)
   * [csv encoding decoding](https://www.stackbuilders.com/tutorials/haskell/csv-encoding-decoding/)
   * [Enterprise Haskell Pattern Lensed Reader](http://michaelxavier.net/posts/2016-04-03-Enterprise-Haskell-Pattern-Lensed-Reader.html)

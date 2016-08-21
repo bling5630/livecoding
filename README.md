@@ -71,6 +71,7 @@ stack install threadscope
 
   Blog posts that I want to keep a links to.
 
+  * [Purescript ](http://blog.functorial.com/posts/2015-12-06-Counterexamples.html)
   * [FRP explanation using reactive banana](https://wiki.haskell.org/FRP_explanation_using_reactive-banana)
   * [haskell is easy](http://haskelliseasy.readthedocs.io/en/latest/)
   * [csv encoding decoding](https://www.stackbuilders.com/tutorials/haskell/csv-encoding-decoding/)

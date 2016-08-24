@@ -1,0 +1,146 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE FlexibleContexts #-}
+
+-- http://unbui.lt/#!/post/haskell-parsec-basics
+
+module Main where
+
+import Foo (foo)
+import Data.Tree
+import qualified Text.Parsec as Parsec
+import           Text.Parsec              ((<?>))
+import           Control.Applicative
+import           Control.Monad.Identity   (Identity)
+
+
+-- import Text.ParserCombinators.Parsec
+-- import Text.ParserCombinators.Parsec.Token
+
+data Handle
+    = BlueHandle
+    | GreenHandle
+    | RedHandle
+    | WhiteHandle
+
+data Wheel
+    = Wheel3Inch
+    | Wheel4Inch
+    | Wheel5Inch
+
+data PizzaCutter = PizzaCutter Handle Wheel
+
+class Part a where
+    bom :: a -> Tree String
+
+instance Part Handle where
+    bom BlueHandle  = Node "pn-for-blue-handle"  []
+    bom RedHandle   = Node "pn-for-red-handle"   []
+    bom GreenHandle = Node "pn-for-green-handle" []
+    bom WhiteHandle = Node "pn-for-white-handle" []
+
+
+instance Part Wheel where
+    bom Wheel3Inch = Node "pn-for-3-inch-wheel" []
+    bom Wheel4Inch = Node "pn-for-5-inch-wheel" []
+    bom Wheel5Inch = Node "pn-for-5-inch-wheel" []
+
+instance Part PizzaCutter where
+    bom (PizzaCutter handle wheel) = Node "configured-pizza-cutter" [bom handle, bom wheel]
+
+
+defaultPizzaCutter = PizzaCutter WhiteHandle Wheel3Inch
+
+--orderFile = endBy line eol
+
+-- main :: IO ()
+--     putStrLn $ drawTree $ bom defaultPizzaCutter
+
+--line = sepBy cell (char ',')
+--
+--cell = many (noneOf ",\n")
+--
+--eol =   try (string "\n\r")
+--    <|> try (string "\r\n")
+--    <|> string "\n"
+--    <|> string "\r"
+--    <?> fail "couldn't find EOL"
+
+-- data OrderLine = OrderLine
+--     { line :: Integer
+--     , item :: Integer
+--     , desc :: Integer
+--     } deriving (Eq, Show)
+--
+-- -- orderLine = do
+-- --     char '1'
+-- --     return $ OrderLine {line=1, item=2, desc=3}
+-- --
+-- --
+-- --
+-- -- parseOrder :: String -> Either ParseError [[String]]
+-- -- parseOrder input = parse orderLine "(unknown)" input
+-- --
+-- -- contents = "1.2.3"
+--
+-- orderLine = do
+--     char '1'
+--     return ['1']
+--
+-- parseOrder input = parse orderLine "unknown" input
+
+--parseH :: String -> Either Parsec.ParseError Char
+parseH source = parse (Parsec.char 'H') source
+
+parseHello source = parse (Parsec.string "Hello") source
+
+
+parse rule text = Parsec.parse rule "(source)" text
+
+main = do
+    --print $ parseH "H"
+    --print $ parseH "Not Hello"
+    --print $ parseHello "Hello"
+    print $ parse (Parsec.char 'H') "Hello"
+    print $ parse (Parsec.string "Hello") "Hello"
+    print $ parse (Parsec.oneOf "abcde") "c"
+    print $ parse (Parsec.many (Parsec.char 'h')) "hhhhello"
+
+
+-- pizza cutter
+-- color, handle, blue
+-- color, accent, white
+-- wheel upgrade, 4"
+-- wheel upgrade, 5"
+
+
+
+-- PizzaCutter
+-- Color Blue
+-- Size 3"
+
+
+-- char
+-- string
+-- oneOf
+-- noneOf
+-- many
+-- many1
+-- count
+-- manyTill
+-- endBy
+-- sepBy
+-- choice <|>
+-- try
+-- <?>
+-- <$>
+-- <*
+-- *>
+-- <$
+
+
+    --let result = parse (Parsec.char 'X') "Hello"
+    --let result = parseH "Hello"
+    --case result of
+    --    Right v -> putStrLn [v]
+    --    Left  e -> putStrLn $ show e
+

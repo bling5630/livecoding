@@ -16,6 +16,8 @@ If you're new to haskell install it with [Stack](http://docs.haskellstack.org/).
   1. [Parallel and Concurrent Programming in Haskell](http://chimera.labs.oreilly.com/books/1230000000929)
   1. [What I Wish I Knew When Learning Haskell](http://dev.stephendiehl.com/hask/)
 
+I also recomend the [History of Haskell](http://research.microsoft.com/en-us/um/people/simonpj/papers/history-of-haskell/).  I think being aware of the design goals and history can be very useful and it's a very easy read.
+
 ### Videos
 
   * [Alexandr Kurlin - Pragmatic Haskell #1](https://begriffs.com/posts/2016-05-14-pragmatic-haskell-1.html)

@@ -4,7 +4,6 @@ There are a few ways to install Haskell depending on your goals but keep in mind
 
   1. Stack
   2. Binary Packages
-    * Debian
   3. Source
 
 ## Stack
@@ -15,12 +14,18 @@ Currently, in most situations [Stack](https://docs.haskellstack.org/en/stable/RE
 
 [Precompiled Packages] There are precompiled binary packages available for most operating systems.  These often lag behind the current relese available from source.  This installation method is most appropriate if you're trying to following along with a tutorial or book that pre-dates Stack and don't want to learn stack or you're an experienced user who prefers Cabal sandboxes to Stack.  It's also worth mentioning that once the new [nix style build](http://ezyang.com/nix-local-build.html) system matures this may become a much more attractive choice.
 
+    * [Ubuntu](# Ubuntu)
+    * [Debian](# Debian)
+
 ### Debian
 
-```console
-echo 'deb http://ftp.debian.org/debian/ jessie-backports main' | sudo tee /etc/apt/sources.list.d/backports.list
-sudo apt-get update && apt-get -t jessie-backports install ghc cabal-install
-cabal update && echo export PATH='$HOME/.cabal/bin:$PATH' >> $HOME/.bashrc
+```
+echo 'deb http://ftp.debian.org/debian/ jessie-backports main' \
+| sudo tee /etc/apt/sources.list.d/backports.list
+sudo apt-get update 
+apt-get -t jessie-backports install ghc cabal-install
+cabal update 
+echo export PATH='$HOME/.cabal/bin:$PATH' >> $HOME/.bashrc
 ```
 
 ## From Source

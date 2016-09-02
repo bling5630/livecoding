@@ -20,10 +20,9 @@ There are precompiled binary packages available for most operating systems.  The
 
 Building from source is appropriate when there's no precompiled packages available for your operating system or the versions available are out of date.
 
-  * [Debian Jessie](#source-debian-jessie)
-
-
 ## Instructions
+
+Operating system specific installation instructions
 
   * [Windows](https://github.com/mgreenly/livecoding/blob/master/install-haskell/guides/WINDOWS.md)
   * [OSX](https://github.com/mgreenly/livecoding/blob/master/install-haskell/guides/OSX.md)

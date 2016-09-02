@@ -26,7 +26,7 @@ Building from source is appropriate when there's no precompiled packages availab
 Add backports to your apt sources if you haven't already:
 
 ```
-echo 'deb http://ftp.debian.org/debian/ jessie-backports main' | sudo tee /etc/apt/sources.list.d/backports.list
+echo 'deb http://ftp.debian.org/debian/ jessie-backports main' | sudo tee /etc/apt/sources.list.d/bp.list
 sudo apt-get update
 ```
 

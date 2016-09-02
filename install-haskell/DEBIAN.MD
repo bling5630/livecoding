@@ -56,8 +56,8 @@ In order to remove some of the repetition I define soem variables
 ```
 export GHC_VER=8.0.1
 export CAB_VER=1.24.0.0
-export GHC_DIR="$ROOT_DIR/.ghc"
-export CAB_DIR="$ROOT_DIR/.cabal"
+export GHC_DIR="$HOME/.ghc"
+export CAB_DIR="$HOME/.cabal"
 export TMP_DIR="/tmp/ghc-install"
 export GHC_FILE=ghc-$GHC_VER-x86_64-deb8-linux.tar.xz
 export GHC_URL=http://downloads.haskell.org/~ghc/$GHC_VER/$GHC_FILE

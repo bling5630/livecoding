@@ -40,7 +40,7 @@ Install both GHC and Cabal:
 sudo apt-get update && apt-get -t jessie-backports install ghc cabal-install
 ```
 
-Make sure to include $HOME/.cabal/bin on your $PATH:
+Make sure to include `$HOME/.cabal/bin` on your `$PATH`:
 
 ```
 cabal update && echo export PATH='$HOME/.cabal/bin:$PATH' >> $HOME/.bashrc

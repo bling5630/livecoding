@@ -1,0 +1,17 @@
+sudo apt-get install ghc cabal-install
+
+mgreenly@mgd01:livecoding$ ghc --version 
+The Glorious Glasgow Haskell Compilation System, version 7.6.3
+mgreenly@mgd01:livecoding$ cabal --version
+cabal-install version 1.20.0.3
+using version 1.20.0.2 of the Cabal library 
+
+
+
+echo 'deb http://ftp.debian.org/debian/ jessie-backports main non-free contrib' | sudo tee /etc/apt/sources.list.d/backports.list
+
+
+echo 'deb http://ftp.debian.org/debian/ jessie-backports main' | sudo tee /etc/apt/sources.list.d/backports.list
+sudo apt-get update && apt-get -t jessie-backports install ghc cabal-install
+cabal update && echo export PATH='$HOME/.cabal/bin:$PATH' >> $HOME/.bashrc
+

@@ -1,34 +1,13 @@
 {-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 import BasicPrelude
+import Control.Applicative
 import Control.Monad.Loops
-import Control.Monad.State
+
+import Data.Monoid
 
 import System.IO (hFlush, stdout)
-
-data AppState = AppState { balance :: Integer } deriving (Eq, Show)
-
-newtype App a =
-    App { unApp :: StateT AppState IO a
-        } deriving
-            ( Functor
-            , Applicative
-            , Monad
-            , MonadIO
-            , MonadState AppState
-            )
-
-execApp :: AppState -> App a -> IO AppState
-execApp state app = (execStateT . unApp) app state
-
-prog :: App Integer
-prog = do
-    deposit <- liftIO $ untilJust $ promptNumber "Enter amount to deposit"
-    state <- get
-    put $ AppState{balance=(balance state) + deposit}
-    return $ balance state
 
 promptLine msg = do
     putStr $ msg <> ": "
@@ -40,8 +19,21 @@ promptNumber msg = do
     line <- promptLine msg
     return $ readMay line
 
+
+
+xuntil action mytest balance = do
+    newBalance <- action balance
+    if mytest newBalance
+        then return (newBalance)
+        else xuntil action mytest newBalance
+
+
 main = do
-    startingBalance <- untilJust $ promptNumber "Enter an opening balance"
-    let state = AppState startingBalance
-    result <- execApp state prog
-    print $ balance result
+    startingBalance <- untilJust $ promptNumber "Enter opening balance"
+    endingBalance <- xuntil foo (\x -> x > 100) startingBalance
+    putStrLn $ "Ending balance " ++ (show endingBalance)
+    where
+        foo init = do
+            putStrLn $ "initial balance = " ++ (show init)
+            deposit <- untilJust $ promptNumber "Enter amount to deposit"
+            return $ init + deposit

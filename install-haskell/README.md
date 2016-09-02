@@ -23,18 +23,25 @@ Building from source is appropriate when there's no precompiled packages availab
 
 ### Debian Jessie
 
-The packaged versions include GHC 7.
+The main Debian Jessie repository includes GHC 7.6.3 and cabal-install 1.20.  These are rather out of date.
 
-Add backports to your apt sources if you haven't already:
+The backports repository includes GHC 7.10.3 and cabal-install 1.22 which are much more current.
+
+Include the backports repository in you apt source list if you haven't already:
 
 ```
 echo 'deb http://ftp.debian.org/debian/ jessie-backports main' | sudo tee /etc/apt/sources.list.d/bp.list
 sudo apt-get update
 ```
 
-Then install GHC and Cabal:
+Install both GHC and Cabal:
 
 ```
 sudo apt-get update && apt-get -t jessie-backports install ghc cabal-install
+```
+
+Make sure to include $HOME/.cabal/bin on your $PATH:
+
+```
 cabal update && echo export PATH='$HOME/.cabal/bin:$PATH' >> $HOME/.bashrc
 ```

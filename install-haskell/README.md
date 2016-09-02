@@ -3,7 +3,7 @@
 There are a few ways to install Haskell depending on your goals.
 
   1. [Stack](#stack)
-  2. [Binary Packages](#binaries)
+  2. [Binaries](#binaries)
   3. [Source](#source)
 
 ### Stack

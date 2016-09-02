@@ -74,7 +74,7 @@ mkdir $TMP_DIR
 First install GHC
 
 ```
-# download ghc
+# download the file
 curl -L $GHC_URL > $TMP_DIR/$GHC_FILE
 # extract the tar file
 cd $TMP_DIR && tar -xvf $GHC_FILE
@@ -92,9 +92,10 @@ You can check that it's installed
 ghc --version
 ```
 
-Install Cabal (the library)
+Install The Cabal Library
 
 ```
+# download the file
 curl -L $CAB_LIB_URL > $TMP_DIR/Cabal-$CAB_VER.tar.gz
 # extract the tar file if necessary
 cd $TMP_DIR && tar -xvf Cabal-$CAB_VER.tar.gz
@@ -107,9 +108,10 @@ cd $TMP_DIR/Cabal-$CAB_VER && ./Setup build
 cd $TMP_DIR/Cabal-$CAB_VER && ./Setup install 
 ```
 
-INSTALL THE CABAL APPLICATION 
+Install The Cabal Application
 
 ```
+# download the file
 curl -L $CAB_APP_URL > $TMP_DIR/cabal-install-$CAB_VER.tar.gz
 # extract the tar file if necessary
 cd $TMP_DIR && tar -xvf cabal-install-$CAB_VER.tar.gz
@@ -123,5 +125,4 @@ cabal update
 
 ADD TO PATH
 
-echo export PATH="$CAB_DIR/bin:$GHC_DIR/bin:\$PATH' >> $HOME/.bashrc
- 
+echo export PATH="$CAB_DIR/bin:$GHC_DIR/bin:\$PATH" >> $HOME/.bashrc

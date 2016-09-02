@@ -14,8 +14,8 @@ Currently, in most situations [Stack](https://docs.haskellstack.org/en/stable/RE
 
 [Precompiled Packages] There are precompiled binary packages available for most operating systems.  These often lag behind the current relese available from source.  This installation method is most appropriate if you're trying to following along with a tutorial or book that pre-dates Stack and don't want to learn stack or you're an experienced user who prefers Cabal sandboxes to Stack.  It's also worth mentioning that once the new [nix style build](http://ezyang.com/nix-local-build.html) system matures this may become a much more attractive choice.
 
-[Ubuntu](#ubuntu)
-[Debian](#debian)
+  * [Ubuntu](#ubuntu)
+  * [Debian](#debian)
 
 ### Debian
 

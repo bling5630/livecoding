@@ -23,15 +23,14 @@ Building from source is appropriate when there's no precompiled packages availab
   * [Debian Jessie](#source-debian-jessie)
 
 
-## OS Specific Instructions
+## Installation Instructions
 
-  * [Windows](#)
-  * [OSX](#)
-  * [Arch](#)
-  * [Debian](https://github.com/mgreenly/livecoding/blob/master/install-haskell/DEBIAN.MD)
-  * [Fedora](#)
-  * [FreeBSD](#)
-  * [NixOS](#)
-  * [Ubuntu](#)
-
+  * [Windows](https://github.com/mgreenly/livecoding/blob/master/install-haskell/WINDOWS.md)
+  * [OSX](https://github.com/mgreenly/livecoding/blob/master/install-haskell/OSX.md)
+  * [Arch](https://github.com/mgreenly/livecoding/blob/master/install-haskell/ARCH.md)
+  * [Debian](https://github.com/mgreenly/livecoding/blob/master/install-haskell/DEBIAN.md)
+  * [Fedora](https://github.com/mgreenly/livecoding/blob/master/install-haskell/FEDORA.md)
+  * [FreeBSD](https://github.com/mgreenly/livecoding/blob/master/install-haskell/FREEBSD.md)
+  * [NixOS](https://github.com/mgreenly/livecoding/blob/master/install-haskell/NIXOS.md)
+  * [Ubuntu](https://github.com/mgreenly/livecoding/blob/master/install-haskell/UBUNTU.md)
 

@@ -123,6 +123,6 @@ export PATH=$CAB_DIR/bin:$PATH
 cabal update
 ```
 
-ADD TO PATH
+Add GHC And Cabal To Your Path
 
 echo export PATH="$CAB_DIR/bin:$GHC_DIR/bin:\$PATH" >> $HOME/.bashrc

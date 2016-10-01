@@ -133,5 +133,5 @@ find pkg-debian -not -path "$LOCAL_INSTALL_ROOT/bin*" -type f -exec md5sum {} \;
 
 dpkg -b pkg-debian $DEB_FILE
 
-reprepro -b ~/Projects/repos/ remove jessie $PACKAGE_NAME
-reprepro -b /home/mgreenly/Projects/repos includedeb jessie $DEB_FILE
+#reprepro -b ~/Projects/repos/ remove jessie $PACKAGE_NAME
+#reprepro -b /home/mgreenly/Projects/repos includedeb jessie $DEB_FILE

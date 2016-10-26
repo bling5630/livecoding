@@ -1,0 +1,47 @@
+name:                  bomgen
+version:               0.0.1
+synopsis:              Auto generated synopsis for bomgen package
+homepage:              https://github.com/mgreenly
+license:               ISC
+license-file:          LICENSE
+author:                Michael Greenly
+maintainer:            mgreenly@gmail.com
+build-type:            Simple
+cabal-version:         >=1.10
+
+source-repository head
+  type:               git
+  location:           https://github.com/mgreenly/bomgen
+
+executable             bomgen
+  default-language:    Haskell2010
+  default-extensions:  NoImplicitPrelude
+                       , OverloadedStrings
+                       , TupleSections
+                       , BangPatterns
+                       , NamedFieldPuns
+                       , RecordWildCards
+  hs-source-dirs:      src
+  main-is:             Main.hs
+  other-modules:       BomGen.Data.Bom
+                       BomGen.Pretty.Bom
+  ghc-options:         -O2
+                       -threaded
+                       -with-rtsopts=-N
+                       -Wall
+                       -fno-warn-orphans
+  build-depends:       base                    >= 4.8
+                       , basic-prelude
+                       , containers
+                       , wl-pprint-text
+                       , text
+
+test-suite bomgen-test
+  type:                exitcode-stdio-1.0
+  default-language:    Haskell2010
+  hs-source-dirs:      test
+                       , src
+  main-is:             Test.hs
+  build-depends:       base
+                       , hspec
+                       , QuickCheck

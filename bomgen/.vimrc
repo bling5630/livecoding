@@ -11,7 +11,7 @@ map <leader>c :exe '!clear && stack clean'<CR>
 "" interactive - load modules in repl
 map <leader>i :exe '!clear && stack ghci'<CR>
 "" run - run program
-map <leader>r :exe '!clear && stack build && clear && stack exec bomgen'<CR>
+map <leader>r :exe '!clear && stack build && clear && bash run.sh'<CR>
 "" spec - run specs
 map <leader>s :exe '!clear && stack test'<CR>
 "" spec - run specs

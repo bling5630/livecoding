@@ -1,0 +1,10 @@
+pn,uom,desc
+1000,Each,a simple foo
+2001,Each,red bar
+2002,Each,green bar
+2003,Each,blue bar
+3001,Each,red baz
+3002,Each,green baz
+3003,Each,blue baz
+4000,Each,qux
+5000,Each,foo

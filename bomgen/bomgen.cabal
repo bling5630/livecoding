@@ -24,7 +24,12 @@ executable             bomgen
   hs-source-dirs:      src
   main-is:             Main.hs
   other-modules:       BomGen.Data.Bom
+                       BomGen.Data.ProductDescription
+                       BomGen.Data.Part
+                       BomGen.Map.PartMap
+                       BomGen.Csv.Part
                        BomGen.Pretty.Bom
+                       BomGen.Config
   ghc-options:         -O2
                        -threaded
                        -with-rtsopts=-N
@@ -32,9 +37,12 @@ executable             bomgen
                        -fno-warn-orphans
   build-depends:       base                    >= 4.8
                        , basic-prelude
+                       , bytestring
+                       , cassava
                        , containers
-                       , wl-pprint-text
                        , text
+                       , vector
+                       , wl-pprint-text
 
 test-suite bomgen-test
   type:                exitcode-stdio-1.0

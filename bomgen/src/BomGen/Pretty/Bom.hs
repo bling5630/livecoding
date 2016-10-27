@@ -6,15 +6,16 @@ import Text.PrettyPrint.Leijen.Text (Pretty(..), comma, (<>), (<+>), (<$$>), ind
 import Data.Text.Lazy               (fromStrict)
 
 import BomGen.Data.Bom
+import BomGen.Data.Part
 
 instance Pretty Item where
     pretty (SkippedItem desc) = "Skipped Item:" <+> pretty desc
     pretty NullItem = empty
     pretty Item{..} =
-        "pn=" <> pretty pn <> comma <+>
-        "desc=" <> pretty desc <> comma <+>
-        "uom=" <> pretty uom <$$>
-        indent 4 (vsep (fmap pretty operations))
+        "pn=" <> pretty itemPn <> comma <+>
+        "desc=" <> pretty itemDesc <> comma <+>
+        "uom=" <> pretty itemUoM <$$>
+        indent 4 (vsep (fmap pretty itemOperations))
 
 
 instance Pretty Operation where
@@ -24,8 +25,8 @@ instance Pretty Operation where
 
 
 instance Pretty UnitOfMeasure where
-    pretty Each  = "Each"
-    pretty Pairs = "Pairs"
+    pretty Each = "Each"
+    pretty Pair = "Pairs"
 
 instance Pretty Text where
     pretty pn = pretty (fromStrict pn)

@@ -1,56 +1,90 @@
 module Main where
 
-import BasicPrelude hiding          ((<>))
+import BasicPrelude          hiding (lookup)
+import System.Exit                  (exitFailure, exitSuccess)
 import Text.PrettyPrint.Leijen.Text (pretty)
 
+import Data.Map                     (lookup)
+
+import BomGen.Config
 import BomGen.Data.Bom
+import BomGen.Data.Part
+import BomGen.Data.ProductDescription
 import BomGen.Pretty.Bom ()
+import BomGen.Csv.Part
+import BomGen.Map.PartMap
 
-data Color = Red | Blue | Green
 
-data ProductDescription = ProductDescription
-    {  barOption :: Color
-    ,  bazOption :: Maybe Color
-    }
+app :: Config -> PartMap -> ProductDescription -> IO ()
+app config partMap prodDesc = do
+    let bom = mkFoo partMap prodDesc
+    case config of
+        Config{forceErrors=Just _}  -> do
+            -- if any errors exist in bom
+            -- only print the errors and
+            -- exit
+            putStrLn "errors"
+            exitFailure
+        Config{forceErrors=Nothing} -> do
+            putStrLn $ tshow (pretty bom)
+            exitSuccess
+
 
 
 main :: IO ()
 main = do
-    let bom = mkFoo fooDesc
-    putStrLn $ tshow (pretty bom)
+    config <- loadConfig
+
+    partMap1 <- loadPartMap "data/parts.csv"
+    partMap2 <- loadPartMap "data/parts.csv"
+    partMap3 <- loadPartMap "data/parts.csv"
+
+    case partitionEithers [partMap1, partMap2, partMap3] of
+        ([], (m1:_m2:_m3:_)) -> do
+            app config m1 fooDesc
+            exitSuccess
+        (errors, _)    -> do
+            putStrLn "BANG!"
+            mapM_ print errors
+            exitFailure
   where
     fooDesc = ProductDescription
-        { barOption = Red
-        , bazOption = Just Blue
+        { barOption = Green
+        , bazOption = Just Red
         }
 
-mkFoo :: ProductDescription -> Bom
-mkFoo desc =
-    Item { pn="1000",uom=Each, desc="item foo", operations = fooOps}
+
+
+mkFoo :: PartMap -> ProductDescription -> Bom
+mkFoo pm desc =
+    case (lookup "1000" pm) of
+        Nothing -> SkippedItem ""
+        Just p  -> Item { itemPn="1000",itemUoM=Each, itemDesc=pfDesc p, itemOperations = fooOps}
   where
     barItem = mkBar (barOption desc)
     bazItem = mkBaz (bazOption desc)
-    quxItem = Item { pn="4000",uom=Each, desc="qux item", operations=[]}
- item    fooOps = [ Operation { opNum=10, materials = [barItem] }
+    quxItem = Item { itemPn="4000",itemUoM=Each, itemDesc="qux item", itemOperations=[]}
+    fooOps = [ Operation { opNum=10, materials = [barItem] }
              , Operation { opNum=20, materials = [barItem] ++ [bazItem] }
              , Operation { opNum=30, materials = [barItem, quxItem]}
              ]
 
+
 mkBaz :: Maybe Color -> Bom
 mkBaz color =
     case color of
-        Just Red   -> Item { pn="3001",uom=Each, desc="red   baz", operations=[]}
-        Just Green -> Item { pn="3002",uom=Each, desc="green baz", operations=[]}
-        Just Blue  -> Item { pn="3003",uom=Each, desc="Blue  baz", operations=[]}
+        Just Red   -> Item { itemPn="3001",itemUoM=Each, itemDesc="red   baz", itemOperations=[]}
+        Just Green -> Item { itemPn="3002",itemUoM=Each, itemDesc="green baz", itemOperations=[]}
+        Just Blue  -> Item { itemPn="3003",itemUoM=Each, itemDesc="Blue  baz", itemOperations=[]}
         _          -> NullItem
 
 
 mkBar :: Color -> Bom
 mkBar color =
     case color of
-        Red   -> Item { pn="2001",uom=Each, desc="red bar",   operations=barOps}
-        Green -> Item { pn="2002",uom=Each, desc="green bar", operations=barOps}
-        Blue  -> Item { pn="2002",uom=Each, desc="blue bar",  operations=barOps}
+        Red   -> Item { itemPn="2001", itemUoM=Each, itemDesc="red bar",   itemOperations=barOps}
+        Green -> Item { itemPn="2002", itemUoM=Each, itemDesc="green bar", itemOperations=barOps}
+        Blue  -> Item { itemPn="2002", itemUoM=Each, itemDesc="blue bar",  itemOperations=barOps}
   where
-    quxItem = Item { pn="4000",uom=Each, desc= "qux item", operations=[]}
+    quxItem = Item { itemPn="4000", itemUoM=Each, itemDesc= "qux item", itemOperations=[]}
     barOps  = [ Operation { opNum=10, materials = [ quxItem ] } ]

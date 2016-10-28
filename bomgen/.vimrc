@@ -21,7 +21,7 @@ map <leader>s :exe '!clear && stack test'<CR>
 "   - jump to tag
 noremap <leader>t "zyiw:exe 'tag '.@z<CR>
 "   - generate tags
-noremap <leader>T :exe '!clear && hasktags --ctags ./src ./app'<CR>
+noremap <leader>T :exe '!clear && stack exec hasktags -- --ctags ./src'<CR>
 "   - return from tag
 noremap <leader>z :exe 'pop'<CR>
 

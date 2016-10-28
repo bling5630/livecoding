@@ -26,6 +26,7 @@ executable             bomgen
   other-modules:       BomGen.Data.Bom
                        BomGen.Data.ProductDescription
                        BomGen.Data.Part
+                       BomGen.Loader
                        BomGen.Map.PartMap
                        BomGen.Csv.Part
                        BomGen.Pretty.Bom
@@ -40,6 +41,7 @@ executable             bomgen
                        , bytestring
                        , cassava
                        , containers
+                       , mtl
                        , text
                        , vector
                        , wl-pprint-text

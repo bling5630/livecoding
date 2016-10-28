@@ -12,5 +12,5 @@ data Config = Config
 
 loadConfig :: IO Config
 loadConfig = Config <$> lookupEnv "BOMGEN_FORMAT"
-                <*> lookupEnv "BOMGEN_ERROR"
-                <*> lookupEnv "BOMGEN_DATAPATH"
+                    <*> lookupEnv "BOMGEN_ERROR"
+                    <*> lookupEnv "BOMGEN_DATAPATH"

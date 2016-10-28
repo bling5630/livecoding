@@ -5,10 +5,16 @@ import Data.Csv                     (FromNamedRecord, parseNamedRecord, decodeBy
 import Data.ByteString.Lazy         (readFile)
 import qualified Data.Map.Lazy as Map
 import Data.Vector                  (Vector, toList)
+import Data.Maybe
+
+import Control.Monad.Reader         (ask)
+import Control.Monad.Except         (throwError)
 
 import BomGen.Data.Bom
 import BomGen.Data.Part
 import BomGen.Csv.Part
+import BomGen.Config
+import BomGen.Loader
 
 
 mkPartMapRow :: CsvPart -> (PartNumber, PartFields)
@@ -23,12 +29,13 @@ mkPartMap rows = Map.fromList $ toList (fmap mkPartMapRow rows)
 type PartMap = Map PartNumber PartFields
 
 
-loadPartMap :: FilePath -> IO (Either Text PartMap)
-loadPartMap filePath =
-    catch go (\e -> return (Left (tshow (e :: IOError))))
-  where go = do
-          contents <- readFile filePath
-          case decodeByName contents of
-              Left err           -> return $ Left (tshow err)
-              Right (_, csvRows) -> return $ Right (mkPartMap csvRows)
-
+loadPartMap :: Loader PartMap
+loadPartMap = do
+    config <- ask
+    case (dataPath config) of
+        Nothing -> throwError "missing data path"
+        Just p  -> do
+            contents <- liftIO $ readFile (p ++ "/parts.csv")
+            case decodeByName contents of
+                Left err           -> throwError (tshow err)
+                Right (_, csvRows) -> return $ mkPartMap csvRows

@@ -1,8 +1,12 @@
+
 module Main where
 
 import BasicPrelude          hiding (lookup)
 import System.Exit                  (exitFailure, exitSuccess)
 import Text.PrettyPrint.Leijen.Text (pretty)
+
+import Control.Monad.Reader         (ask)
+import Control.Monad.Except         (throwError)
 
 import Data.Map                     (lookup)
 
@@ -14,10 +18,12 @@ import BomGen.Pretty.Bom ()
 import BomGen.Csv.Part
 import BomGen.Map.PartMap
 
+import BomGen.Loader
 
-app :: Config -> PartMap -> ProductDescription -> IO ()
-app config partMap prodDesc = do
-    let bom = mkFoo partMap prodDesc
+
+app :: Config -> AppData -> ProductDescription -> IO ()
+app config appData prodDesc = do
+    let bom = mkFoo (partMap appData) prodDesc
     case config of
         Config{forceErrors=Just _}  -> do
             -- if any errors exist in bom
@@ -29,30 +35,40 @@ app config partMap prodDesc = do
             putStrLn $ tshow (pretty bom)
             exitSuccess
 
+data AppData = AppData
+    { partMap :: PartMap
+    , operationMap :: PartMap
+    , materialMap :: PartMap
+    }
+
+
+loadMaps :: Loader AppData
+loadMaps = do
+    config <- ask
+    p <- liftIO $ runLoader loadPartMap config
+    o <- liftIO $ runLoader loadPartMap config
+    m <- liftIO $ runLoader loadPartMap config
+    case (partitionEithers [p,o,m]) of
+        ([], (p:o:m:[])) -> return $ AppData {partMap=p, operationMap=o, materialMap=m}
+        _                -> throwError "BANG!"
 
 
 main :: IO ()
 main = do
     config <- loadConfig
-
-    partMap1 <- loadPartMap "data/parts.csv"
-    partMap2 <- loadPartMap "data/parts.csv"
-    partMap3 <- loadPartMap "data/parts.csv"
-
-    case partitionEithers [partMap1, partMap2, partMap3] of
-        ([], (m1:_m2:_m3:_)) -> do
-            app config m1 fooDesc
-            exitSuccess
-        (errors, _)    -> do
-            putStrLn "BANG!"
-            mapM_ print errors
+    result <- runLoader loadMaps config
+    case result of
+        Left  err -> do
+            putStrLn $ "failure: " ++ err
             exitFailure
+        Right appData -> do
+            app config appData fooDesc
+            exitSuccess
   where
     fooDesc = ProductDescription
         { barOption = Green
         , bazOption = Just Red
         }
-
 
 
 mkFoo :: PartMap -> ProductDescription -> Bom

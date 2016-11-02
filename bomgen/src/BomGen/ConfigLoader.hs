@@ -40,7 +40,7 @@ lookupRenderFormat = do
 loadConfig :: Setup Config
 loadConfig = do
     format       <- liftIO $ lookupEnv "BOMGEN_FORMAT"
-    forceErrors  <- liftIO $ lookupEnv "BOMGEN_FORCERRORS"
+    werror       <- liftIO $ lookupEnv "BOMGEN_WERROR"
     dataPath'    <- liftIO $ lookupEnv "BOMGEN_DATAPATH"
     renderFormat <- lookupRenderFormat
     case dataPath' of

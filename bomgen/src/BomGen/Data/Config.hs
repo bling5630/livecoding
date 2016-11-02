@@ -4,7 +4,7 @@ import BasicPrelude
 
 data Config = Config
     { format       :: Maybe String
-    , forceErrors  :: Maybe String
+    , werror       :: Maybe String
     , dataPath     :: FilePath
     , renderFormat :: RenderFormat
     } deriving (Show)

@@ -49,3 +49,7 @@ app config appData prodDesc = do
             exitSuccess
   where
     bom = mkFoo config appData prodDesc
+
+
+
+

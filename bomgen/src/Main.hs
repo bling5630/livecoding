@@ -2,13 +2,15 @@ module Main where
 
 import BasicPrelude hiding (lookup)
 import System.Exit (exitFailure, exitSuccess)
-import Text.PrettyPrint.Leijen.Text (pretty)
 
 import BomGen.Config
 import BomGen.Data.ProductDescription
-import BomGen.Pretty.Bom ()
-import BomGen.Map.PartMap
 import BomGen.Foo
+import BomGen.Map.PartMap
+import BomGen.Pretty.Bom ()
+import BomGen.Render.Export
+import BomGen.Render.Summary
+import BomGen.Render.Tree
 
 import BomGen.Loader
 
@@ -18,34 +20,20 @@ data AppData = AppData
     , materialMap  :: PartMap
     }
 
-renderSummary :: Config -> AppData -> ProductDescription -> IO ()
-renderSummary _ _ _ =
-    putStrLn $ "rendering the summary"
-
-renderTree :: Config -> AppData -> ProductDescription -> IO ()
-renderTree _config appData prodDesc =
-    putStrLn $ tshow (pretty bom)
-  where
-    bom = mkFoo (partMap appData) prodDesc
-
-
-renderExport :: Config -> AppData -> ProductDescription -> IO ()
-renderExport _ _ _ =
-    putStrLn $ "rendering the export"
-
-
 app :: Config -> AppData -> ProductDescription -> IO ()
 app config appData prodDesc = do
     case config of
         Config{renderFormat=RenderSummary} -> do
-            renderSummary config appData prodDesc
+            renderSummary bom
             exitSuccess
         Config{renderFormat=RenderTree}    -> do
-            renderTree config appData prodDesc
+            renderTree bom
             exitSuccess
         Config{renderFormat=RenderExport}  -> do
-            renderExport config appData prodDesc
+            renderExport bom
             exitSuccess
+  where
+    bom = mkFoo (partMap appData) prodDesc
 
 
 loadData :: Loader AppData

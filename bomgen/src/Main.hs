@@ -8,38 +8,12 @@ import BomGen.Data.AppData
 import BomGen.Data.Config
 import BomGen.Data.ProductDescription
 import BomGen.Foo
-import BomGen.Map.PartMap
 import BomGen.Pretty.Bom ()
 import BomGen.Render.Export
 import BomGen.Render.Summary
 import BomGen.Render.Tree
 
 import BomGen.Loader
-
-
-app :: Config -> AppData -> ProductDescription -> IO ()
-app config appData prodDesc = do
-    case config of
-        Config{renderFormat=RenderSummary} -> do
-            renderSummary bom
-            exitSuccess
-        Config{renderFormat=RenderTree}    -> do
-            renderTree bom
-            exitSuccess
-        Config{renderFormat=RenderExport}  -> do
-            renderExport bom
-            exitSuccess
-  where
-    bom = mkFoo config appData prodDesc
-
-
-loadData :: Loader AppData
-loadData = do
-    partMap      <- loadPartMap
-    operationMap <- loadPartMap
-    materialMap  <- loadPartMap
-    return AppData{..}
-
 
 main :: IO ()
 main = do
@@ -60,3 +34,18 @@ main = do
         { barOption = Green
         , bazOption = Just Red
         }
+
+app :: Config -> AppData -> ProductDescription -> IO ()
+app config appData prodDesc = do
+    case config of
+        Config{renderFormat=RenderSummary} -> do
+            renderSummary bom
+            exitSuccess
+        Config{renderFormat=RenderTree}    -> do
+            renderTree bom
+            exitSuccess
+        Config{renderFormat=RenderExport}  -> do
+            renderExport bom
+            exitSuccess
+  where
+    bom = mkFoo config appData prodDesc

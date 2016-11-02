@@ -27,6 +27,9 @@ executable             bomgen
   other-modules:       BomGen.Data.Bom
                        BomGen.ConfigLoader
                        BomGen.Csv.Part
+                       BomGen.Csv.SytelineItem
+                       BomGen.Csv.SytelineOperation
+                       BomGen.Csv.SytelineMaterial
                        BomGen.Data.Part
                        BomGen.Data.AppData
                        BomGen.Data.Config

@@ -28,6 +28,8 @@ executable             bomgen
                        BomGen.Config
                        BomGen.Csv.Part
                        BomGen.Data.Part
+                       BomGen.Data.AppData
+                       BomGen.Data.Config
                        BomGen.Data.ProductDescription
                        BomGen.Foo
                        BomGen.Loader

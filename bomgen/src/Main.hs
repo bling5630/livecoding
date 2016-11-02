@@ -4,6 +4,8 @@ import BasicPrelude hiding (lookup)
 import System.Exit (exitFailure, exitSuccess)
 
 import BomGen.Config
+import BomGen.Data.AppData
+import BomGen.Data.Config
 import BomGen.Data.ProductDescription
 import BomGen.Foo
 import BomGen.Map.PartMap
@@ -14,11 +16,6 @@ import BomGen.Render.Tree
 
 import BomGen.Loader
 
-data AppData = AppData
-    { partMap      :: PartMap
-    , operationMap :: PartMap
-    , materialMap  :: PartMap
-    }
 
 app :: Config -> AppData -> ProductDescription -> IO ()
 app config appData prodDesc = do
@@ -33,7 +30,7 @@ app config appData prodDesc = do
             renderExport bom
             exitSuccess
   where
-    bom = mkFoo (partMap appData) prodDesc
+    bom = mkFoo config appData prodDesc
 
 
 loadData :: Loader AppData

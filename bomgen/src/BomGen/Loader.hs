@@ -6,7 +6,7 @@ import BasicPrelude
 import Control.Monad.Except
 import Control.Monad.Reader
 
-import BomGen.Config
+import BomGen.Data.Config
 
 type LoaderErr = Text
 

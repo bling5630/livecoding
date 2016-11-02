@@ -10,7 +10,7 @@ import qualified Data.Map.Lazy as Map
 
 import BomGen.Data.Part
 import BomGen.Csv.Part
-import BomGen.Config
+import BomGen.Data.Config
 import BomGen.Loader
 
 

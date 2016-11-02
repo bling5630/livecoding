@@ -5,6 +5,8 @@ import BasicPrelude hiding          ((<>), readFile)
 import Data.Text                    (toUpper)
 import Control.Monad.Except
 
+import BomGen.Data.Config
+
 type SetupErr = Text
 
 newtype Setup a =
@@ -17,22 +19,9 @@ newtype Setup a =
             , MonadIO
             )
 
+
 runConfigure :: Setup a -> IO (Either SetupErr a)
 runConfigure = runExceptT . unSetup
-
-
-data Config = Config
-    { format       :: Maybe String
-    , forceErrors  :: Maybe String
-    , dataPath     :: FilePath
-    , renderFormat :: RenderFormat
-    } deriving (Show)
-
-data RenderFormat
-    = RenderSummary
-    | RenderTree
-    | RenderExport
-    deriving (Show)
 
 
 lookupRenderFormat :: Setup RenderFormat

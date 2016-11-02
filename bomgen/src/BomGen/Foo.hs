@@ -5,14 +5,15 @@ import Data.Map (lookup)
 
 import BomGen.Data.Bom
 import BomGen.Data.Part
+import BomGen.Data.AppData
+import BomGen.Data.Config
 import BomGen.Data.ProductDescription
 import BomGen.Pretty.Bom ()
-import BomGen.Map.PartMap
 
 
-mkFoo :: PartMap -> ProductDescription -> Bom
-mkFoo pm desc =
-    case (lookup "1000" pm) of
+mkFoo :: Config -> AppData -> ProductDescription -> Bom
+mkFoo _config appData desc =
+    case (lookup "1000" (partMap appData)) of
         Nothing -> SkippedItem ""
         Just p  -> Item { itemPn="1000",itemUoM=Each, itemDesc=pfDesc p, itemOperations = fooOps}
   where

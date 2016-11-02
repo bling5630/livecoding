@@ -21,5 +21,5 @@ newtype Loader a =
             , MonadIO
             )
 
-runLoader :: Loader a -> Config -> IO (Either LoaderErr a)
-runLoader loader env = runExceptT (runReaderT (unLoader loader) env)
+runDataLoader :: Loader a -> Config -> IO (Either LoaderErr a)
+runDataLoader loader env = runExceptT (runReaderT (unLoader loader) env)

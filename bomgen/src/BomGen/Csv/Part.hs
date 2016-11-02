@@ -1,12 +1,8 @@
 module BomGen.Csv.Part where
 
 import BasicPrelude hiding          ((<>), readFile)
-import Data.Csv                     (FromNamedRecord, parseNamedRecord, decodeByName, (.:), FromField, parseField)
-import Data.ByteString.Lazy         (readFile)
-import qualified Data.Map.Lazy as Map
-import Data.Vector                  (Vector, toList)
+import Data.Csv                     (FromNamedRecord, parseNamedRecord, (.:), FromField, parseField)
 
-import BomGen.Data.Bom
 import BomGen.Data.Part
 
 data CsvPart = CsvPart

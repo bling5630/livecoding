@@ -1,106 +1,77 @@
-
 module Main where
 
-import BasicPrelude          hiding (lookup)
-import System.Exit                  (exitFailure, exitSuccess)
+import BasicPrelude hiding (lookup)
+import System.Exit (exitFailure, exitSuccess)
 import Text.PrettyPrint.Leijen.Text (pretty)
 
-import Control.Monad.Reader         (ask)
-import Control.Monad.Except         (throwError)
-
-import Data.Map                     (lookup)
-
 import BomGen.Config
-import BomGen.Data.Bom
-import BomGen.Data.Part
 import BomGen.Data.ProductDescription
 import BomGen.Pretty.Bom ()
-import BomGen.Csv.Part
 import BomGen.Map.PartMap
+import BomGen.Foo
 
 import BomGen.Loader
+
+data AppData = AppData
+    { partMap      :: PartMap
+    , operationMap :: PartMap
+    , materialMap  :: PartMap
+    }
+
+renderSummary :: Config -> AppData -> ProductDescription -> IO ()
+renderSummary _ _ _ =
+    putStrLn $ "rendering the summary"
+
+renderTree :: Config -> AppData -> ProductDescription -> IO ()
+renderTree _config appData prodDesc =
+    putStrLn $ tshow (pretty bom)
+  where
+    bom = mkFoo (partMap appData) prodDesc
+
+
+renderExport :: Config -> AppData -> ProductDescription -> IO ()
+renderExport _ _ _ =
+    putStrLn $ "rendering the export"
 
 
 app :: Config -> AppData -> ProductDescription -> IO ()
 app config appData prodDesc = do
-    let bom = mkFoo (partMap appData) prodDesc
     case config of
-        Config{forceErrors=Just _}  -> do
-            -- if any errors exist in bom
-            -- only print the errors and
-            -- exit
-            putStrLn "errors"
-            exitFailure
-        Config{forceErrors=Nothing} -> do
-            putStrLn $ tshow (pretty bom)
+        Config{renderFormat=RenderSummary} -> do
+            renderSummary config appData prodDesc
+            exitSuccess
+        Config{renderFormat=RenderTree}    -> do
+            renderTree config appData prodDesc
+            exitSuccess
+        Config{renderFormat=RenderExport}  -> do
+            renderExport config appData prodDesc
             exitSuccess
 
-data AppData = AppData
-    { partMap :: PartMap
-    , operationMap :: PartMap
-    , materialMap :: PartMap
-    }
 
-
-loadMaps :: Loader AppData
-loadMaps = do
-    config <- ask
-    p <- liftIO $ runLoader loadPartMap config
-    o <- liftIO $ runLoader loadPartMap config
-    m <- liftIO $ runLoader loadPartMap config
-    case (partitionEithers [p,o,m]) of
-        ([], (p:o:m:[])) -> return $ AppData {partMap=p, operationMap=o, materialMap=m}
-        _                -> throwError "BANG!"
+loadData :: Loader AppData
+loadData = do
+    partMap      <- loadPartMap
+    operationMap <- loadPartMap
+    materialMap  <- loadPartMap
+    return AppData{..}
 
 
 main :: IO ()
 main = do
-    config <- loadConfig
-    result <- runLoader loadMaps config
-    case result of
-        Left  err -> do
+    config <- runConfigure configure
+    case config of
+        Left err -> do
             putStrLn $ "failure: " ++ err
             exitFailure
-        Right appData -> do
-            app config appData fooDesc
-            exitSuccess
+        Right cfg -> do
+           appData <- runDataLoader loadData cfg
+           case appData of
+                Left err   -> do
+                    putStrLn $ "failure: " ++ err
+                    exitFailure
+                Right dat -> app cfg dat fooDesc
   where
     fooDesc = ProductDescription
         { barOption = Green
         , bazOption = Just Red
         }
-
-
-mkFoo :: PartMap -> ProductDescription -> Bom
-mkFoo pm desc =
-    case (lookup "1000" pm) of
-        Nothing -> SkippedItem ""
-        Just p  -> Item { itemPn="1000",itemUoM=Each, itemDesc=pfDesc p, itemOperations = fooOps}
-  where
-    barItem = mkBar (barOption desc)
-    bazItem = mkBaz (bazOption desc)
-    quxItem = Item { itemPn="4000",itemUoM=Each, itemDesc="qux item", itemOperations=[]}
-    fooOps = [ Operation { opNum=10, materials = [barItem] }
-             , Operation { opNum=20, materials = [barItem] ++ [bazItem] }
-             , Operation { opNum=30, materials = [barItem, quxItem]}
-             ]
-
-
-mkBaz :: Maybe Color -> Bom
-mkBaz color =
-    case color of
-        Just Red   -> Item { itemPn="3001",itemUoM=Each, itemDesc="red   baz", itemOperations=[]}
-        Just Green -> Item { itemPn="3002",itemUoM=Each, itemDesc="green baz", itemOperations=[]}
-        Just Blue  -> Item { itemPn="3003",itemUoM=Each, itemDesc="Blue  baz", itemOperations=[]}
-        _          -> NullItem
-
-
-mkBar :: Color -> Bom
-mkBar color =
-    case color of
-        Red   -> Item { itemPn="2001", itemUoM=Each, itemDesc="red bar",   itemOperations=barOps}
-        Green -> Item { itemPn="2002", itemUoM=Each, itemDesc="green bar", itemOperations=barOps}
-        Blue  -> Item { itemPn="2002", itemUoM=Each, itemDesc="blue bar",  itemOperations=barOps}
-  where
-    quxItem = Item { itemPn="4000", itemUoM=Each, itemDesc= "qux item", itemOperations=[]}
-    barOps  = [ Operation { opNum=10, materials = [ quxItem ] } ]

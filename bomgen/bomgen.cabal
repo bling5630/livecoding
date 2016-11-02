@@ -21,6 +21,7 @@ executable             bomgen
                        , BangPatterns
                        , NamedFieldPuns
                        , RecordWildCards
+                       , GeneralizedNewtypeDeriving
   hs-source-dirs:      src
   main-is:             Main.hs
   other-modules:       BomGen.Data.Bom
@@ -31,6 +32,7 @@ executable             bomgen
                        BomGen.Csv.Part
                        BomGen.Pretty.Bom
                        BomGen.Config
+                       BomGen.Foo
   ghc-options:         -O2
                        -threaded
                        -with-rtsopts=-N

@@ -3,7 +3,7 @@ module Main where
 import BasicPrelude hiding (lookup)
 import System.Exit (exitFailure, exitSuccess)
 
-import BomGen.Config
+import BomGen.ConfigLoader
 import BomGen.Data.AppData
 import BomGen.Data.Config
 import BomGen.Data.ProductDescription
@@ -13,11 +13,11 @@ import BomGen.Render.Export
 import BomGen.Render.Summary
 import BomGen.Render.Tree
 
-import BomGen.Loader
+import BomGen.DataLoader
 
 main :: IO ()
 main = do
-    config <- runConfigure configure
+    config <- runConfigLoader loadConfig
     case config of
         Left err -> do
             putStrLn $ "failure: " ++ err

@@ -1,4 +1,4 @@
-module BomGen.Loader where
+module BomGen.DataLoader where
 
 import BasicPrelude hiding (readFile)
 

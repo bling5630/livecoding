@@ -25,14 +25,14 @@ executable             bomgen
   hs-source-dirs:      src
   main-is:             Main.hs
   other-modules:       BomGen.Data.Bom
-                       BomGen.Config
+                       BomGen.ConfigLoader
                        BomGen.Csv.Part
                        BomGen.Data.Part
                        BomGen.Data.AppData
                        BomGen.Data.Config
                        BomGen.Data.ProductDescription
                        BomGen.Foo
-                       BomGen.Loader
+                       BomGen.DataLoader
                        BomGen.Map.PartMap
                        BomGen.Pretty.Bom
                        BomGen.Render.Export

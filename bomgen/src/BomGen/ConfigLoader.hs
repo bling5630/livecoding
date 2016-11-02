@@ -1,4 +1,4 @@
-module BomGen.Config where
+module BomGen.ConfigLoader where
 
 import System.Environment           (lookupEnv)
 import BasicPrelude hiding          ((<>), readFile)
@@ -20,8 +20,8 @@ newtype Setup a =
             )
 
 
-runConfigure :: Setup a -> IO (Either SetupErr a)
-runConfigure = runExceptT . unSetup
+runConfigLoader :: Setup a -> IO (Either SetupErr a)
+runConfigLoader = runExceptT . unSetup
 
 
 lookupRenderFormat :: Setup RenderFormat
@@ -37,8 +37,8 @@ lookupRenderFormat = do
             _         -> throwError "unknown value for BOMGEN_FORMAT"
 
 
-configure :: Setup Config
-configure = do
+loadConfig :: Setup Config
+loadConfig = do
     format       <- liftIO $ lookupEnv "BOMGEN_FORMAT"
     forceErrors  <- liftIO $ lookupEnv "BOMGEN_FORCERRORS"
     dataPath'    <- liftIO $ lookupEnv "BOMGEN_DATAPATH"
@@ -46,6 +46,3 @@ configure = do
     case dataPath' of
         Nothing       -> throwError "missing BOMGEN_DATAPATH"
         Just dataPath -> return Config {..}
-
-
-

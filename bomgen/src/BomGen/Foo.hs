@@ -3,44 +3,44 @@ module BomGen.Foo where
 import BasicPrelude hiding (lookup)
 import Data.Map (lookup)
 
-import BomGen.Data.Bom
-import BomGen.Data.Part
+import BomGen.Data.Item
+import BomGen.Data.ItemHeader
 import BomGen.Data.AppData
 import BomGen.Data.Config
 import BomGen.Data.ProductDescription
-import BomGen.Pretty.Bom ()
+import BomGen.Pretty.Item ()
 
 
 mkFoo :: Config -> AppData -> ProductDescription -> Bom
 mkFoo _config appData desc =
     case (lookup "1000" (partMap appData)) of
         Nothing -> SkippedItem ""
-        Just p  -> Item { itemPn="1000",itemUoM=Each, itemDesc=pfDesc p, itemOperations = fooOps}
+        Just p  -> Item { itemHeader=ItemHeader{itemPn="1000",itemFields=ItemFields{ifUoM=Each, ifDesc=ifDesc p}}, operations = fooOps }
   where
     barItem = mkBar (barOption desc)
     bazItem = mkBaz (bazOption desc)
-    quxItem = Item { itemPn="4000",itemUoM=Each, itemDesc="qux item", itemOperations=[]}
-    fooOps = [ Operation { opNum=10, materials = [barItem] }
-             , Operation { opNum=20, materials = [barItem] ++ [bazItem] }
-             , Operation { opNum=30, materials = [barItem, quxItem]}
+    quxItem = Item { itemHeader=ItemHeader{itemPn="4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"}}, operations = []}
+    fooOps = [ Operation { operationHeader=OperationHeader{opNum=10}, items = [barItem] }
+             , Operation { operationHeader=OperationHeader{opNum=20}, items = [barItem] ++ [bazItem] }
+             , Operation { operationHeader=OperationHeader{opNum=30}, items = [barItem, quxItem]}
              ]
 
 
 mkBaz :: Maybe Color -> Bom
 mkBaz color =
     case color of
-        Just Red   -> Item { itemPn="3001",itemUoM=Each, itemDesc="red   baz", itemOperations=[]}
-        Just Green -> Item { itemPn="3002",itemUoM=Each, itemDesc="green baz", itemOperations=[]}
-        Just Blue  -> Item { itemPn="3003",itemUoM=Each, itemDesc="Blue  baz", itemOperations=[]}
-        _          -> NullItem
+        Just Red   -> Item { itemHeader=ItemHeader{itemPn="3001",itemFields=ItemFields{ifUoM=Each, ifDesc="red baz"  }}, operations = []}
+        Just Green -> Item { itemHeader=ItemHeader{itemPn="3002",itemFields=ItemFields{ifUoM=Each, ifDesc="green baz"}}, operations = []}
+        Just Blue  -> Item { itemHeader=ItemHeader{itemPn="3003",itemFields=ItemFields{ifUoM=Each, ifDesc="blue baz" }}, operations = []}
+        _          -> SkippedItem "No color specified"
 
 
 mkBar :: Color -> Bom
 mkBar color =
     case color of
-        Red   -> Item { itemPn="2001", itemUoM=Each, itemDesc="red bar",   itemOperations=barOps}
-        Green -> Item { itemPn="2002", itemUoM=Each, itemDesc="green bar", itemOperations=barOps}
-        Blue  -> Item { itemPn="2002", itemUoM=Each, itemDesc="blue bar",  itemOperations=barOps}
+        Red   -> Item { itemHeader=ItemHeader{itemPn="2001",itemFields=ItemFields{ifUoM=Each, ifDesc="red bar"   }}, operations = barOps}
+        Green -> Item { itemHeader=ItemHeader{itemPn="2002",itemFields=ItemFields{ifUoM=Each, ifDesc="green bar" }}, operations = barOps}
+        Blue  -> Item { itemHeader=ItemHeader{itemPn="2003",itemFields=ItemFields{ifUoM=Each, ifDesc="blue bar"  }}, operations = barOps}
   where
-    quxItem = Item { itemPn="4000", itemUoM=Each, itemDesc= "qux item", itemOperations=[]}
-    barOps  = [ Operation { opNum=10, materials = [ quxItem ] } ]
+    quxItem = Item { itemHeader=ItemHeader{itemPn="4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"  }}, operations = []}
+    barOps  = [ Operation { operationHeader=OperationHeader{opNum=10}, items = [ quxItem ] } ]

@@ -9,7 +9,7 @@ import Data.ByteString.Lazy           (readFile)
 
 import BomGen.Data.Config
 import BomGen.Data.AppData
-import BomGen.Map.PartMap
+import BomGen.Map.Item
 
 type DataLoaderErr = Text
 

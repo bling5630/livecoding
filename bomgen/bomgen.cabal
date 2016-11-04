@@ -24,20 +24,20 @@ executable             bomgen
                        , GeneralizedNewtypeDeriving
   hs-source-dirs:      src
   main-is:             Main.hs
-  other-modules:       BomGen.Data.Bom
+  other-modules:       BomGen.Data.Item
                        BomGen.ConfigLoader
-                       BomGen.Csv.Part
+                       BomGen.Csv.Item
                        BomGen.Csv.SytelineItem
                        BomGen.Csv.SytelineOperation
                        BomGen.Csv.SytelineMaterial
-                       BomGen.Data.Part
+                       BomGen.Data.ItemHeader
                        BomGen.Data.AppData
                        BomGen.Data.Config
                        BomGen.Data.ProductDescription
                        BomGen.Foo
                        BomGen.DataLoader
-                       BomGen.Map.PartMap
-                       BomGen.Pretty.Bom
+                       BomGen.Map.Item
+                       BomGen.Pretty.Item
                        BomGen.Render.Export
                        BomGen.Render.Summary
                        BomGen.Render.Tree

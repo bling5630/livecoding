@@ -1,12 +1,12 @@
 module BomGen.Csv.SytelineItem where
 
-import BasicPrelude hiding (fromList)
+import BasicPrelude
 
 import Data.Csv (ToNamedRecord(..), (.=), namedRecord)
 import Data.Vector (fromList)
 
 data SytelineItem = SytelineItem
-    { sliCol000 :: !Text -- "Item"
+    { sliItem   :: !Text -- "Item"
     , sliCol001 :: !Text -- "U/M"
     , sliCol002 :: !Text -- "Description"
     , sliCol003 :: !Text -- "Quantity On Hand"
@@ -153,7 +153,7 @@ data SytelineItem = SytelineItem
 
 defSytelineItem :: SytelineItem
 defSytelineItem = SytelineItem
-    { sliCol000 = ""
+    { sliItem = ""
     , sliCol001 = ""
     , sliCol002 = ""
     , sliCol003 = ""
@@ -300,7 +300,7 @@ defSytelineItem = SytelineItem
 
 instance ToNamedRecord SytelineItem where
     toNamedRecord SytelineItem {..} = namedRecord
-        [ "Item"                                       .= sliCol000
+        [ "Item"                                       .= sliItem
         , "U/M"                                        .= sliCol001
         , "Description"                                .= sliCol002
         , "Quantity On Hand"                           .= sliCol003

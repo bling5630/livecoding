@@ -1,29 +1,32 @@
 module BomGen.Render.Export where
 
 import BasicPrelude
---import Data.Csv          (toNamedRecord)
---import Text.PrettyPrint.Leijen.Text (pretty)
+import Data.List (nub)
 
 import BomGen.Data.Item
+import BomGen.Data.ItemHeader
 import BomGen.Pretty.Item ()
 
---import BomGen.Csv.SytelineItem
+import BomGen.Csv.SytelineItem
+
+--import Data.Csv          (toNamedRecord, encodeByName)
+--import Text.PrettyPrint.Leijen.Text (pretty)
+
 
 renderExport :: Bom -> IO ()
-renderExport _bom = do
-    --renderItems bom
+renderExport bom = do
     --encodeByName sytelineItemHeader $ toItemList bom
+    --mapM_ print $ fmap mkSytelineItem $ nub $ toItemList bom
+    mapM_ print $ nub $ toItemList bom
     putStrLn ""
   where
 
 
--- Bom -> [SytelineItems]
+toItemList :: Item -> [ItemHeader]
+toItemList (SkippedItem _d) = []
+toItemList EmptyItem        = []
+toItemList Item{..}         = itemHeader : concat (fmap toItemList (concat (fmap items operations)))
 
 
---renderItems :: Item -> IO ()
---renderItems (SkippedItem desc) = putStrLn $ "skipped: " ++ desc
---renderItems EmptyItem          = putStrLn "null"
---renderItems item               = do
---    print $ toNamedRecord $ defSytelineItem { sliCol000 = (itemPn item) }
---    mapM_ go (itemOperations item)
--- where go op = mapM_ renderItems (materials op)
+mkSytelineItem :: ItemHeader -> SytelineItem
+mkSytelineItem ItemHeader{..} = defSytelineItem {sliItem=itemPn}

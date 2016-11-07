@@ -1,12 +1,11 @@
-module BomGen.Pretty.Item where
+module BomGen.Pretty.Bom where
 
 import BasicPrelude hiding          ((<>), empty)
 
 import Text.PrettyPrint.Leijen.Text (Pretty(..), comma, (<>), (<+>), (<$$>), indent, vsep, empty)
 import Data.Text.Lazy               (fromStrict)
 
-import BomGen.Data.Item
-import BomGen.Data.ItemHeader
+import BomGen.Data.Bom
 
 instance Pretty Item where
     pretty (SkippedItem desc) = "Skipped Item:" <+> pretty desc

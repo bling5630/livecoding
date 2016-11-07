@@ -1,8 +1,6 @@
-module BomGen.Data.Item where
+module BomGen.Data.Bom where
 
 import BasicPrelude
-
-import BomGen.Data.ItemHeader
 
 type Bom = Item
 
@@ -21,3 +19,22 @@ data Operation = Operation
     , items :: [Item]
     } deriving (Show)
 
+
+data ItemHeader = ItemHeader
+    { itemPn     :: ItemNumber
+    , itemFields :: ItemFields
+    } deriving (Show, Eq)
+
+type ItemNumber = Text
+
+data ItemFields = ItemFields
+    { ifUoM   :: UnitOfMeasure
+    , ifDesc  :: Description
+    } deriving (Show, Eq)
+
+data UnitOfMeasure
+    = Each
+    | Pair
+    deriving (Show, Eq)
+
+type Description = Text

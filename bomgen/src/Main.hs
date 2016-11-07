@@ -8,7 +8,7 @@ import BomGen.Data.AppData
 import BomGen.Data.Config
 import BomGen.Data.ProductDescription
 import BomGen.Foo
-import BomGen.Pretty.Item ()
+import BomGen.Pretty.Bom ()
 import BomGen.Render.Export
 import BomGen.Render.Summary
 import BomGen.Render.Tree

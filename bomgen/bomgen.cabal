@@ -15,29 +15,29 @@ source-repository head
 
 executable             bomgen
   default-language:    Haskell2010
-  default-extensions:  NoImplicitPrelude
-                       , OverloadedStrings
-                       , TupleSections
-                       , BangPatterns
-                       , NamedFieldPuns
-                       , RecordWildCards
+  default-extensions:  BangPatterns
                        , GeneralizedNewtypeDeriving
+                       , NamedFieldPuns
+                       , NoImplicitPrelude
+                       , OverloadedStrings
+                       , RecordWildCards
+                       , TupleSections
   hs-source-dirs:      src
   main-is:             Main.hs
-  other-modules:       BomGen.Data.Item
+  other-modules:       BomGen.Data.Bom
                        BomGen.ConfigLoader
-                       BomGen.Csv.Item
+                       BomGen.Csv.Bom
                        BomGen.Csv.SytelineItem
                        BomGen.Csv.SytelineOperation
                        BomGen.Csv.SytelineMaterial
-                       BomGen.Data.ItemHeader
+                       BomGen.Data.SyteLine
                        BomGen.Data.AppData
                        BomGen.Data.Config
                        BomGen.Data.ProductDescription
                        BomGen.Foo
                        BomGen.DataLoader
-                       BomGen.Map.Item
-                       BomGen.Pretty.Item
+                       BomGen.Map.Bom
+                       BomGen.Pretty.Bom
                        BomGen.Render.Export
                        BomGen.Render.Summary
                        BomGen.Render.Tree

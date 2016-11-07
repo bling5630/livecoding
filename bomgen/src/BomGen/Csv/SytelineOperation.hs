@@ -5,48 +5,8 @@ import BasicPrelude
 
 import Data.Csv (ToNamedRecord(..), (.=), namedRecord)
 
-data SytelineOperation = SytelineOperation
-    { sloCol000 :: !Text -- "Item"
-    , sloCol001 :: !Text -- "Item Description"
-    , sloCol002 :: !Text -- "Operation"
-    , sloCol003 :: !Text -- "WC"
-    , sloCol004 :: !Text -- "WC Description"
-    , sloCol005 :: !Text -- "Use Fixed Schedule"
-    , sloCol006 :: !Text -- "Fixed Sched Hours"
-    , sloCol007 :: !Text -- "Run-Hours Basis (Machine)"
-    , sloCol008 :: !Text -- "Mach Hrs per Piece,Run-Hours Basis (Labor)"
-    , sloCol009 :: !Text -- "Labor Hr per Piece"
-    , sloCol010 :: !Text -- "Sched Driver"
-    , sloCol011 :: !Text -- "Run Duration"
-    , sloCol012 :: !Text -- "Batch Definition"
-    , sloCol013 :: !Text -- "Yield"
-    , sloCol014 :: !Text -- "Move Hours"
-    , sloCol015 :: !Text -- "Queue Time"
-    , sloCol016 :: !Text -- "Setup Hours"
-    , sloCol017 :: !Text -- "Finish"
-    , sloCol018 :: !Text -- "Use Offset Hours"
-    , sloCol019 :: !Text -- "Offset Hours"
-    , sloCol020 :: !Text -- "Effective Date"
-    , sloCol021 :: !Text -- "Obsolete Date"
-    , sloCol022 :: !Text -- "Control Point"
-    , sloCol023 :: !Text -- "Backflush"
-    , sloCol024 :: !Text -- "Setup Resource Group"
-    , sloCol025 :: !Text -- "Setup Rule"
-    , sloCol026 :: !Text -- "Setup Basis"
-    , sloCol027 :: !Text -- "Setup Time Rule"
-    , sloCol028 :: !Text -- "Setup Matrix"
-    , sloCol029 :: !Text -- "Scheduler Rule"
-    , sloCol030 :: !Text -- "Split Size"
-    , sloCol031 :: !Text -- "Custom Planner Rule"
-    , sloCol032 :: !Text -- "Break Rule"
-    , sloCol033 :: !Text -- "Efficiency"
-    , sloCol034 :: !Text -- "Setup Rate"
-    , sloCol035 :: !Text -- "Run Rate (Labor)"
-    , sloCol036 :: !Text -- "Var Mach Ovhd Rate"
-    , sloCol037 :: !Text -- "Fix Machine Ovhd Rate"
-    , sloCol038 :: !Text -- "Var Ovhd Rate"
-    , sloCol039 :: !Text -- "Fixed Ovhd Rate"
-    } deriving (Eq, Show)
+import BomGen.Data.SyteLine
+
 
 defSytelineOperation :: SytelineOperation
 defSytelineOperation = SytelineOperation

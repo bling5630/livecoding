@@ -1,24 +1,24 @@
 module BomGen.Render.Export where
 
-import BasicPrelude
+import BasicPrelude --hiding (decodeUtf8)
 import Data.List (nub)
 
-import BomGen.Data.Item
-import BomGen.Data.ItemHeader
-import BomGen.Pretty.Item ()
+import BomGen.Data.Bom
+import BomGen.Data.SyteLine
+import BomGen.Pretty.Bom ()
 
 import BomGen.Csv.SytelineItem
 
---import Data.Csv          (toNamedRecord, encodeByName)
+import Data.ByteString.Lazy (toStrict)
+
+import Data.Csv          (encodeByName)
 --import Text.PrettyPrint.Leijen.Text (pretty)
 
 
 renderExport :: Bom -> IO ()
 renderExport bom = do
-    --encodeByName sytelineItemHeader $ toItemList bom
-    --mapM_ print $ fmap mkSytelineItem $ nub $ toItemList bom
-    mapM_ print $ nub $ toItemList bom
-    putStrLn ""
+    --mapM_ print $ nub $ toItemList bom
+    putStrLn $ decodeUtf8.toStrict $ encodeByName sytelineItemHeader (fmap mkSytelineItem (nub (toItemList bom)))
   where
 
 
@@ -29,4 +29,9 @@ toItemList Item{..}         = itemHeader : concat (fmap toItemList (concat (fmap
 
 
 mkSytelineItem :: ItemHeader -> SytelineItem
-mkSytelineItem ItemHeader{..} = defSytelineItem {sliItem=itemPn}
+mkSytelineItem ItemHeader{..} = defSytelineItem
+    { sliItem = itemPn
+    , sliUoM  = (ifUoM  itemFields)
+    , sliDesc = (ifDesc itemFields)
+    }
+

@@ -3,12 +3,11 @@ module BomGen.Foo where
 import BasicPrelude hiding (lookup)
 import Data.Map (lookup)
 
-import BomGen.Data.Item
-import BomGen.Data.ItemHeader
+import BomGen.Data.Bom
 import BomGen.Data.AppData
 import BomGen.Data.Config
 import BomGen.Data.ProductDescription
-import BomGen.Pretty.Item ()
+import BomGen.Pretty.Bom ()
 
 
 mkFoo :: Config -> AppData -> ProductDescription -> Bom

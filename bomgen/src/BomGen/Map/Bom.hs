@@ -1,11 +1,11 @@
-module BomGen.Map.Item where
+module BomGen.Map.Bom where
 
 import BasicPrelude hiding            ((<>), readFile)
 import Data.Vector                    (Vector, toList)
 import qualified Data.Map.Lazy as Map
 
-import BomGen.Data.ItemHeader
-import BomGen.Csv.Item
+import BomGen.Data.Bom
+import BomGen.Csv.Bom
 
 mkPartMapRow :: CsvItem -> (ItemNumber, ItemFields)
 mkPartMapRow r =

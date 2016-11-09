@@ -12,14 +12,6 @@ data Item
         , operations :: [Operation]
         } deriving (Show)
 
-data OperationHeader = OperationHeader { opNum :: Integer } deriving (Show)
-
-data Operation = Operation
-    { operationHeader :: OperationHeader
-    , items :: [Item]
-    } deriving (Show)
-
-
 data ItemHeader = ItemHeader
     { itemPn     :: ItemNumber
     , itemFields :: ItemFields
@@ -38,3 +30,14 @@ data UnitOfMeasure
     deriving (Show, Eq)
 
 type Description = Text
+
+data Operation = Operation
+    { operationHeader :: OperationHeader
+    , items :: [Item]
+    } deriving (Show)
+
+data OperationHeader = OperationHeader
+    { opNum  :: Int
+    } deriving (Show)
+
+

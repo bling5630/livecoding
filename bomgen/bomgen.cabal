@@ -38,6 +38,7 @@ executable             bomgen
                        BomGen.DataLoader
                        BomGen.Map.Bom
                        BomGen.Pretty.Bom
+                       BomGen.Pretty.Syteline
                        BomGen.Render.Export
                        BomGen.Render.Summary
                        BomGen.Render.Tree

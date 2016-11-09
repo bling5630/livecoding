@@ -2,52 +2,12 @@ module BomGen.Csv.SytelineMaterial where
 
 import BasicPrelude
 
-import Data.Csv (ToNamedRecord(..), (.=), namedRecord)
+import Data.Csv (ToNamedRecord(..), (.=), namedRecord, Header)
+import Data.Vector (fromList)
 
 import BomGen.Data.SyteLine
+import BomGen.Csv.Bom
 
-defSytelineMaterial :: SytelineMaterial
-defSytelineMaterial = SytelineMaterial
-    { slmCol000 = ""
-    , slmCol001 = ""
-    , slmCol002 = ""
-    , slmCol003 = ""
-    , slmCol004 = ""
-    , slmCol005 = ""
-    , slmCol006 = ""
-    , slmCol007 = ""
-    , slmCol008 = ""
-    , slmCol009 = ""
-    , slmCol010 = ""
-    , slmCol011 = ""
-    , slmCol012 = ""
-    , slmCol013 = ""
-    , slmCol014 = ""
-    , slmCol015 = ""
-    , slmCol016 = ""
-    , slmCol017 = ""
-    , slmCol018 = ""
-    , slmCol019 = ""
-    , slmCol020 = ""
-    , slmCol021 = ""
-    , slmCol022 = ""
-    , slmCol023 = ""
-    , slmCol024 = ""
-    , slmCol025 = ""
-    , slmCol026 = ""
-    , slmCol027 = ""
-    , slmCol028 = ""
-    , slmCol029 = ""
-    , slmCol030 = ""
-    , slmCol031 = ""
-    , slmCol032 = ""
-    , slmCol033 = ""
-    , slmCol034 = ""
-    , slmCol035 = ""
-    , slmCol036 = ""
-    , slmCol037 = ""
-    , slmCol038 = ""
-    }
 
 instance ToNamedRecord SytelineMaterial where
     toNamedRecord SytelineMaterial {..} = namedRecord
@@ -90,4 +50,48 @@ instance ToNamedRecord SytelineMaterial where
         , "Fixed Material"                .= slmCol036
         , "Variable Material"             .= slmCol037
         , "WC Description"                .= slmCol038
+        ]
+
+
+sytelineMaterialHeader :: Header
+sytelineMaterialHeader = fromList
+        [ "Item"
+        , "Item Description"
+        , "Operation"
+        , "WC"
+        , "Material"
+        , "Material Description"
+        , "Quantity"
+        , "U/M"
+        , "Scrap Factor"
+        , "Backflush"
+        , "Backflush Location"
+        , "Per"
+        , "Alt Group"
+        , "Alt Group Rank"
+        , "Cost"
+        , "Ref"
+        , "Material Cost"
+        , "Labor Cost"
+        , "Outside Cost"
+        , "Fixed Overhead Cost"
+        , "Variable Overhead Cost"
+        , "Effect Date"
+        , "Obsolete Date"
+        , "Type"
+        , "Seq"
+        , "Manufacturer"
+        , "Manufacturer Name"
+        , "Manufacturer Item"
+        , "Manufacturer Item Description"
+        , "BOM Seq"
+        , "Feature"
+        , "Option Code"
+        , "Probable"
+        , "Incremental Price"
+        , "Estimated Break Date"
+        , "Date of Last Report"
+        , "Fixed Material"
+        , "Variable Material"
+        , "WC Description"
         ]

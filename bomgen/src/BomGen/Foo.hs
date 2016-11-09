@@ -14,11 +14,11 @@ mkFoo :: Config -> AppData -> ProductDescription -> Bom
 mkFoo _config appData desc =
     case (lookup "1000" (partMap appData)) of
         Nothing -> SkippedItem ""
-        Just p  -> Item { itemHeader=ItemHeader{itemPn="1000",itemFields=ItemFields{ifUoM=Each, ifDesc=ifDesc p}}, operations = fooOps }
+        Just p  -> Item { itemHeader=ItemHeader{itemPn= "1000",itemFields=ItemFields{ifUoM=Each, ifDesc=ifDesc p}}, operations = fooOps }
   where
     barItem = mkBar (barOption desc)
     bazItem = mkBaz (bazOption desc)
-    quxItem = Item { itemHeader=ItemHeader{itemPn="4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"}}, operations = []}
+    quxItem = Item { itemHeader=ItemHeader{itemPn= "4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"}}, operations = []}
     fooOps = [ Operation { operationHeader=OperationHeader{opNum=10}, items = [barItem] }
              , Operation { operationHeader=OperationHeader{opNum=20}, items = [barItem] ++ [bazItem] }
              , Operation { operationHeader=OperationHeader{opNum=30}, items = [barItem, quxItem]}
@@ -28,18 +28,30 @@ mkFoo _config appData desc =
 mkBaz :: Maybe Color -> Bom
 mkBaz color =
     case color of
-        Just Red   -> Item { itemHeader=ItemHeader{itemPn="3001",itemFields=ItemFields{ifUoM=Each, ifDesc="red baz"  }}, operations = []}
-        Just Green -> Item { itemHeader=ItemHeader{itemPn="3002",itemFields=ItemFields{ifUoM=Each, ifDesc="green baz"}}, operations = []}
-        Just Blue  -> Item { itemHeader=ItemHeader{itemPn="3003",itemFields=ItemFields{ifUoM=Each, ifDesc="blue baz" }}, operations = []}
+        Just Red   -> Item { itemHeader=ItemHeader{itemPn= "3001",itemFields=ItemFields{ifUoM=Each, ifDesc="red baz"  }}, operations = []}
+        Just Green -> Item { itemHeader=ItemHeader{itemPn= "3002",itemFields=ItemFields{ifUoM=Each, ifDesc="green baz"}}, operations = []}
+        Just Blue  -> Item { itemHeader=ItemHeader{itemPn= "3003",itemFields=ItemFields{ifUoM=Each, ifDesc="blue baz" }}, operations = []}
         _          -> SkippedItem "No color specified"
 
 
 mkBar :: Color -> Bom
 mkBar color =
     case color of
-        Red   -> Item { itemHeader=ItemHeader{itemPn="2001",itemFields=ItemFields{ifUoM=Each, ifDesc="red bar"   }}, operations = barOps}
-        Green -> Item { itemHeader=ItemHeader{itemPn="2002",itemFields=ItemFields{ifUoM=Each, ifDesc="green bar" }}, operations = barOps}
-        Blue  -> Item { itemHeader=ItemHeader{itemPn="2003",itemFields=ItemFields{ifUoM=Each, ifDesc="blue bar"  }}, operations = barOps}
+        Red   -> Item { itemHeader=ItemHeader{itemPn= "2001",itemFields=ItemFields{ifUoM=Each, ifDesc="red bar"   }}, operations = barOps}
+        Green -> Item { itemHeader=ItemHeader{itemPn= "2002",itemFields=ItemFields{ifUoM=Each, ifDesc="green bar" }}, operations = barOps}
+        Blue  -> Item { itemHeader=ItemHeader{itemPn= "2003",itemFields=ItemFields{ifUoM=Each, ifDesc="blue bar"  }}, operations = barOps}
   where
-    quxItem = Item { itemHeader=ItemHeader{itemPn="4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"  }}, operations = []}
+    quxItem = Item { itemHeader=ItemHeader{itemPn= "4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"  }}, operations = []}
     barOps  = [ Operation { operationHeader=OperationHeader{opNum=10}, items = [ quxItem ] } ]
+
+
+
+-- [Material= item=1000, itemDesc=a simple foo, op=10, material=2002, materialDesc=green bar
+-- ,Material= item=1000, itemDesc=a simple foo, op=20, material=2002, materialDesc=green bar
+-- ,Material= item=1000, itemDesc=a simple foo, op=20, material=3001, materialDesc=red baz
+-- ,Material= item=1000, itemDesc=a simple foo, op=30, material=2002, materialDesc=green bar
+-- ,Material= item=1000, itemDesc=a simple foo, op=30, material=4000, materialDesc=qux item
+-- ,Material= item=2002, itemDesc=green bar   , op=10, material=4000, materialDesc=qux item
+-- ,Material= item=2002, itemDesc=green bar   , op=10, material=4000, materialDesc=qux item
+-- ,Material= item=2002, itemDesc=green bar   , op=10, material=4000, materialDesc=qux item]
+

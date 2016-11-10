@@ -1,47 +1,44 @@
 module BomGen.Render.Export where
 
-import BasicPrelude --hiding (decodeUtf8)
-import Text.PrettyPrint.Leijen.Text (pretty, putDoc, line)
---import Data.List (nub)
+import BasicPrelude
+import Data.ByteString.Lazy (toStrict)
+import Data.Csv (encodeByName)
+import Text.PrettyPrint.Leijen.Text (pretty, putDoc, line, Doc)
 
 import BomGen.Data.Bom
 import BomGen.Data.SyteLine
-import BomGen.Pretty.Bom ()
-import BomGen.Pretty.Syteline
-
 import BomGen.Csv.SytelineItem
-import BomGen.Csv.SytelineOperation
 import BomGen.Csv.SytelineMaterial
+import BomGen.Csv.SytelineOperation
+import BomGen.Pretty.Bom ()
+import BomGen.Pretty.Syteline ()
 
-import Data.ByteString.Lazy (toStrict)
 
-import Data.Csv          (encodeByName)
-import Text.PrettyPrint.Leijen.Text (pretty)
-
+putDocLn :: Doc -> IO ()
 putDocLn doc = putDoc (doc <> line)
 
 
 renderExport :: Bom -> IO ()
 renderExport bom = do
     putStrLn "Items"
-    putDocLn $ (pretty (nub (sortItems (toSytelineItemList bom))) <> line)
+    putDocLn $ pretty (nub (sortItems (toSytelineItemList bom))) <> line
     putStrLn $ decodeUtf8.toStrict $ encodeByName sytelineItemHeader (nub (toSytelineItemList bom))
     putStrLn "Operations"
-    putDocLn $ (pretty (nub (sortOperations (toSytelineOperationList bom))) <> line)
+    putDocLn $ pretty (nub (sortOperations (toSytelineOperationList bom))) <> line
     putStrLn $ decodeUtf8.toStrict $ encodeByName sytelineOperationHeader (nub (sortOperations (toSytelineOperationList bom)))
     putStrLn "Materials"
-    putDocLn $ (pretty (nub (sortMaterials (toSytelineMaterialList bom))) <> line)
+    putDocLn $ pretty (nub (sortMaterials (toSytelineMaterialList bom))) <> line
     putStrLn $ decodeUtf8.toStrict $ encodeByName sytelineMaterialHeader (nub (toSytelineMaterialList bom))
   where
     sortItems = sortBy cmpItem
     cmpItem a b = compare (sliItem a) (sliItem b)
     sortOperations = sortBy cmpOperation
-    cmpOperation a b = if (sloItem a) == (sloItem b)
+    cmpOperation a b = if sloItem a == sloItem b
         then compare (sloOpNum a) (sloOpNum b)
         else compare (sloItem a) (sloItem b)
     sortMaterials  = sortBy cmpMaterial
-    cmpMaterial a b = if (slmCol000 a) == (slmCol000 b)
-        then if (slmCol002 a) == (slmCol002 b)
+    cmpMaterial a b = if slmCol000 a == slmCol000 b
+        then if slmCol002 a == slmCol002 b
             then compare (slmCol004 a) (slmCol004 b)
             else compare (slmCol002 a) (slmCol002 b)
         else compare (slmCol000 a) (slmCol000 b)
@@ -51,7 +48,7 @@ toSytelineItemList :: Item -> [SytelineItem]
 toSytelineItemList (SkippedItem _d) = []
 toSytelineItemList EmptyItem        = []
 toSytelineItemList Item{..}         =
-    (mkSytelineItem itemHeader) : concat (fmap toSytelineItemList (concat (fmap items operations)))
+    mkSytelineItem itemHeader : concat (fmap toSytelineItemList (concat (fmap items operations)))
 
 toSytelineOperationList :: Item -> [SytelineOperation]
 toSytelineOperationList (SkippedItem _d) = []

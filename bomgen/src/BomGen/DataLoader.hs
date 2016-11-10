@@ -39,7 +39,7 @@ loadData = do
 loadPartMap :: DataLoader PartMap
 loadPartMap = do
     config <- ask
-    contents <- liftIO $ readFile ((dataPath config) ++ "/parts.csv")
+    contents <- liftIO $ readFile (dataPath config ++ "/parts.csv")
     case decodeByName contents of
         Left err           -> throwError (tshow err)
         Right (_, csvRows) -> return $ mkPartMap csvRows

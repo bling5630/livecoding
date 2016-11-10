@@ -36,7 +36,7 @@ main = do
         }
 
 app :: Config -> AppData -> ProductDescription -> IO ()
-app config appData prodDesc = do
+app config appData prodDesc =
     case config of
         Config{renderFormat=RenderSummary} -> do
             renderSummary bom

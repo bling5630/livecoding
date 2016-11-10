@@ -27,13 +27,13 @@ runConfigLoader = runExceptT . unSetup
 lookupRenderFormat :: Setup RenderFormat
 lookupRenderFormat = do
     format <- liftIO $ lookupEnv "BOMGEN_FORMAT"
-    case (fmap (toUpper . fromString) format) of
-        Nothing  -> return $ RenderSummary
+    case fmap (toUpper . fromString) format of
+        Nothing  -> return RenderSummary
         Just fmt -> case fmt of
-            "SUMMARY" -> return $ RenderSummary
-            "EXPORT"  -> return $ RenderExport
-            "TREE"    -> return $ RenderTree
-            ""        -> return $ RenderTree
+            "SUMMARY" -> return RenderSummary
+            "EXPORT"  -> return RenderExport
+            "TREE"    -> return RenderTree
+            ""        -> return RenderTree
             _         -> throwError "unknown value for BOMGEN_FORMAT"
 
 

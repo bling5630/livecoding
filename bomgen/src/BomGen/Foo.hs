@@ -12,7 +12,7 @@ import BomGen.Pretty.Bom ()
 
 mkFoo :: Config -> AppData -> ProductDescription -> Bom
 mkFoo _config appData desc =
-    case (lookup "1000" (partMap appData)) of
+    case lookup "1000" (partMap appData) of
         Nothing -> SkippedItem ""
         Just p  -> Item { itemHeader=ItemHeader{itemPn= "1000",itemFields=ItemFields{ifUoM=Each, ifDesc=ifDesc p}}, operations = fooOps }
   where
@@ -20,7 +20,7 @@ mkFoo _config appData desc =
     bazItem = mkBaz (bazOption desc)
     quxItem = Item { itemHeader=ItemHeader{itemPn= "4000",itemFields=ItemFields{ifUoM=Each, ifDesc="qux item"}}, operations = []}
     fooOps = [ Operation { operationHeader=OperationHeader{opNum=10}, items = [barItem] }
-             , Operation { operationHeader=OperationHeader{opNum=20}, items = [barItem] ++ [bazItem] }
+             , Operation { operationHeader=OperationHeader{opNum=20}, items = barItem : [bazItem] }
              , Operation { operationHeader=OperationHeader{opNum=30}, items = [barItem, quxItem]}
              ]
 

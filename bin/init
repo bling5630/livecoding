@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# display usage and exit
+function usage {
+  templates=( $(find $HOME/.init-templates -maxdepth 1 -type f -printf '%P\n') )
+  choices=$(printf "|%s" "${templates[@]}")
+  choices=${choices:1}
+  echo "usage: init [$choices] NAME"
+  echo ""
+  echo "  NAME - a lower case hyphenated package name"
+  echo ""
+  exit 1
+}
+
+#
+# exit with a usage message unless at least 2 arguments
+# were supplied.  The first is the name of the template
+# to runa and the second is the name of directory
+# to create
+#
+if [ "$#" -lt 2 ]; then
+  usage # exit if the requried arguments were not supplied
+fi
+
+#
+# exit with a usage message if the supplied template name
+# doesn't exist
+#
+if [ ! -f "$HOME/.init-templates/$1" ]; then
+  echo "flagfasdf"
+  usage # exit if the named template does not exist
+fi
+
+#
+# run the named script and pass the arguments
+#
+$HOME/.init-templates/"$1" app "${@:2}"

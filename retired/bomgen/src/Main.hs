@@ -3,12 +3,12 @@ module Main where
 import BasicPrelude hiding (lookup)
 import System.Exit (exitFailure, exitSuccess)
 
-import BomGen.ConfigLoader
 import BomGen.Data.AppData
 import BomGen.Data.Config
 import BomGen.Data.ProductDescription
-import BomGen.Foo
 import BomGen.Pretty.Bom ()
+import BomGen.ConfigLoader
+import BomGen.Foo
 import BomGen.Render.Export
 import BomGen.Render.Summary
 import BomGen.Render.Tree
